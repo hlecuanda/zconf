@@ -1,0 +1,39 @@
+#!/usr/bin/env zsh
+#  _     _        _ _      _    __             _
+# | |___| |_ ___ (_) | ___| |_ / _| ___  _ __ | |_ ___
+# | / __| __/ _ \| | |/ _ \ __| |_ / _ \| '_ \| __/ __|
+# | \__ \ || (_) | | |  __/ |_|  _| (_) | | | | |_\__ \
+# |_|___/\__\___/|_|_|\___|\__|_|  \___/|_| |_|\__|___/
+#
+# h@h-lo.me 20180213 213650 -0800 PST 1518586610 d(-_- )b...
+# Prints a demo of all possible "toilet" modes, filters, exports
+# and fonts.
+
+typeset -A modes
+setopt autonamedirs
+setopt cdablevars
+modes=(default s force_smushing S kerning k full_width W overlap o)
+local f=/usr/share/figlet/
+
+    # for mode in ${(k)modes}
+    #   cmd="${mode}: toilet -$modes[$mode] "$mode""
+    #   eval $cmd
+    # echo "======================================================================"
+
+    # for filter in $(toilet --filter list | cut -f1 -d: | tr -d \" )
+    #   echo filter:
+    #   toilet --${filter} $filter
+    # echo "======================================================================"
+
+    # for export in $(toilet --export list | cut -f1 -d: | tr -d \" )
+    #   echo flrmat:
+    #   toilet --${format} $format
+    # echo "======================================================================"
+
+    # for font in $(ls ~f | grep -v flc)
+    #   echo -n $font &&  toilet -f ${font} "$abc123&*%"
+
+    for font in $(ls ~f | grep -v flc)
+      printf "%s\n\n\n" ${font:r} && \
+      toilet -f ${font} "\$abcABC123&*%"
+#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :

@@ -1,0 +1,4 @@
+ termux-clipboard-set $*
+
+
+#  vim: set ft=zsh sw=4 tw=0 fdm=marker foldlevel=0 et :

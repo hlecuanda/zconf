@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+
+if ((${#argv} == 0 )); then
+  gvim --servername $(date -Iseconds)
+  logger -s -p syslog.info started a VIMserver
+  logger -s -p local0.info started a VIMserver
+else
+  if (($(gvim --serverlist | wc -l) != 0 )); then
+    local firstserver=$(gvim --serverlist | head -1)
+    gvim --servername $firstserver --remote "${@}"
+    logger -s -p syslog.info existing VIM $firstserver editing "${@}"
+    logger -s -p local0.info existing VIM $firstserver editing "${@}"
+  else 
+    gvim --servername $(date %Y%m%d%H%M%S)
+    logger -s -p syslog.warn respawining VIM server and editing "${@}"
+    logger -s -p local0.warn respawining VIM server and editing "${@}"
+  fi
+fi
+
+#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :

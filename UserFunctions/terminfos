@@ -1,0 +1,76 @@
+# /usr/local/env zsh
+#  _                      _        __
+# | |_ ___ _ __ _ __ ___ (_)_ __  / _| ___  ___
+# | __/ _ \ '__| '_ ` _ \| | '_ \| |_ / _ \/ __|
+# | ||  __/ |  | | | | | | | | | |  _| (_) \__ \
+# \__\___|_|  |_| |_| |_|_|_| |_|_|  \___/|___/
+#
+# h@h-lo.me 20180212 001027 -0800 PST 1518423027 d(-_- )b...
+## {{{
+# Print your terminfos array in a way humans can understand it
+# %B (%b) Start (stop) boldface mode.
+# %E      Clear to end of line.
+# %U (%u) Start (stop) underline mode.
+# %S (%s) Start (stop) standout mode.
+# %F (%f) Start (stop) using a different foreground colour, colours  
+# %K (%k) Start (stop) using a different bacKground colour.
+# black, red, green, yellow, blue, magenta, cyan and white,
+# }}}
+# solarized # {{{
+  typeset -i base03=235
+  typeset -i base02=235
+  typeset -i base01=240
+  typeset -i base00=241
+  typeset -i base0=244
+  typeset -i base1=245
+  typeset -i base2=254
+  typeset -i base3=230
+  typeset -i yellow=136
+  typeset -i orange=166
+  typeset -i red=160
+  typeset -i magenta=125
+  typeset -i violet=61
+  typeset -i blue=33
+  typeset -i cyan=37
+  typeset -i green=64
+# }}}
+
+function paint () {# {{{
+  # args var fg bg fx
+    echo $FG[$2] ${1} $FG[none]
+}
+# }}}
+
+function describe () {  # {{{
+  # returns the capability description from the datafile
+  # or unknown if not found
+  local datafile="/home/hector/src/Dotfiles/dotfiles/lib/terminfo-descr.txt"
+  cap=${1}
+  cat $datafile       |
+  grep -v -Ee '^:'    | #discards header
+  cut -c31-41,52-     | # discard col 1 and 3
+  sed 's/\s\s\+/:/'   |
+  grep -Ee "^${cap}:" |
+  cut -f2 -d:   
+}
+# }}}
+
+for cap in ${(k)terminfo} ; do
+  ddd=$( printf "%-55.55s" "$(describe $cap)")
+  val=$( printf "%10.10s"  "${(V)terminfo[$cap]}")
+  cap=$( printf "%7.7s " "$cap")
+  a=$(print -P "%F{$orange}$cap%F{$green} %F{$blue}")
+  b=$(print "${(q)val}")
+  c=$(print -P "%18(l.%F{1}>%f.)%f%b %B%F{$cyan}$ddd ")
+  print $a$b$c
+# $(echo ${(V)terminfo[$cap]} ),cl
+done 
+
+
+
+
+
+
+
+
+#  vim: set ft=zsh sw=2 tw=0 fdm=marker foldlevel=0 et :

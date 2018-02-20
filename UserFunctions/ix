@@ -1,0 +1,42 @@
+#!/usr/bin/env zsh
+#  _        _       
+# (_)_  __ (_) ___  
+# | \ \/ / | |/ _ \ 
+# | |>  < _| | (_) |
+# |_/_/\_(_)_|\___/ 
+# h@h-lo.me 20180219 224817 -0800 PST 1519109297 d(-_- )b... 
+# Zsh implementation of the ix.io pastebin client
+#
+local opts
+local OPTIND
+local usage <<-EOF
+usage:
+    ix hello.txt              # paste file (name/ext will be set).
+    echo Hello world. | ix    # read from STDIN (won't set name/ext).
+    ix -n 1 self_destruct.txt # paste will be deleted after one read.
+    ix -i ID hello.txt        # replace ID, if you have permission.
+    ix -d ID
+EOF
+[ -f "$HOME/.netrc" ] && opts='-n'
+while getopts ":hd:i:n:" x; do
+  case $x in
+    h) echo "ix [-d ID] [-i ID] [-n N] [opts]"; return;;
+    d) $echo curl $opts -X DELETE ix.io/$OPTARG; return;;
+    i) opts="$opts -X PUT"; local id="$OPTARG";;
+    n) opts="$opts -F read:1=$OPTARG";;
+    *) echo $usage ;;
+  esac
+done
+shift $(($OPTIND - 1))
+[ -t 0 ] && {
+  local filename="$1"
+  shift
+  [ "$filename" ] && {
+    curl $opts -F f:1=@"$filename" $* ix.io/$id
+    return
+  }
+  echo "^C to cancel, ^D to send."
+}
+curl $opts -F f:1='<-' $* ix.io/$id
+
+#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :

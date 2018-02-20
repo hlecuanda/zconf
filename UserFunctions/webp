@@ -1,0 +1,21 @@
+# #!/usr/bin/env zsh
+#               _           
+# __      _____| |__  _ __  
+# \ \ /\ / / _ \ '_ \| '_ \ 
+#  \ V  V /  __/ |_) | |_) |
+#   \_/\_/ \___|_.__/| .__/ 
+#                    |_|    
+#  h@h-lo.me 20180214 201604 -0800 PST 1518668164 d(-_- )b... 
+#  webp package disambiguation
+
+if (( ${+commands[dwebp]} )); then
+  typeset -a modulecmds
+  modulecmds=(dwebp webpmux cwebp vwebp gif2webp)
+
+  echo "Webp"
+  echo "-----"
+  for webpcmd in $modulecmds
+    whatis $webpcmd
+
+fi
+#  vim: set ft=conf sw=2 tw=0 fdm=manual et :

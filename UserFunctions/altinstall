@@ -1,0 +1,3 @@
+# fuction alt ()
+
+sudo update-alternatives --install /usr/local/bin/${1} ${1} ${2} 0

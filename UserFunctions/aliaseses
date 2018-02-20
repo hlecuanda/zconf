@@ -1,0 +1,10 @@
+
+        for i in ${(k)aliases} ; do
+            printf "%-13s -> %s \n" $i $aliases[$i]
+        done | sort |
+        pygmentize -l bash |
+        less -RS
+
+
+
+#  vim: set ft=zsh sw=4 tw=0 fdm=marker foldlevel=0 et :

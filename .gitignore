@@ -1,0 +1,9 @@
+*.log
+*.zwc
+*.zwc.*
+*~
+.zcomp*
+.zhistory
+.zprezto
+zsticky
+logs.d

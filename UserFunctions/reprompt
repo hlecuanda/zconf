@@ -1,0 +1,7 @@
+
+zstyle ':prezto:module:editor:info:completing' format '%B%F{7}...%f%b'
+zstyle ':prezto:module:editor:info:keymap:primary' format ' %B%F{grey}>>>%f%b'
+zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format '%B%F{3}^^^%f%b'
+zstyle ':prezto:module:editor:info:keymap:alternate' format ' %B%F{grey}<<<%f%b'
+
+#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :
