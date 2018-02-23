@@ -18,9 +18,11 @@
 
 # Set the Prezto modules to load (browse modules).
 # Enabled# {{{
-zstyle ':prezto:load' pmodule 'helper' 'environment' 'terminal' 'editor' 'history' 'command-not-found' 'directory'  \
-  'spectrum' 'utility' 'completion' 'archive' 'git' 'ssh' 'docker' 'gpg' 'rsync' 'tmux' 'history-substring-search'  \
-  'syntax-highlighting' 'prompt' 
+zstyle ':prezto:load' pmodule 'helper' 'UserPrefs' 'environment' \
+  'terminal' 'editor' 'history' 'command-not-found' 'directory' \
+  'spectrum' 'utility' 'completion' 'archive' 'git' 'ssh' 'docker' \
+  'gpg' 'rsync' 'tmux' 'syntax-highlighting' 'history-substring-search' \
+  'prompt' 
 # }}}
 # disabled# {{{
 # 'autosuggestions' 'dnf' 'emacs' 'gnu-utility' 'haskell' 'homebrew' 'macports' 'node' 'ocaml' 'osx' 'pacman' 'perl' \
@@ -35,29 +37,9 @@ zstyle ':prezto:load' pmodule 'helper' 'environment' 'terminal' 'editor' 'histor
     zstyle ':prezto:module:editor' dot-expansion 'yes'                                # Auto convert .... to ../..
     zstyle ':prezto:module:editor' key-bindings 'vi'                                  # Set the key mapping style to 'emacs' or 'vi'.
     zstyle ':prezto:module:editor' ps-context 'yes'                                   # Allow the zsh prompt context to be shown.
-    zstyle ':prezto:module:editor:info:completing' format '%B%F{7}...%f%b'
-    zstyle ':prezto:module:editor:info:keymap:alternate' format ' %B%F{33}❮%F{27}❮%F{4}❮%f%b'
-    zstyle ':prezto:module:editor:info:keymap:primary' format ' %B%F{4}❯%F{27}❯%F{33}❯%f%b'
-    zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format '%B%F{33}❮%F{27}❮%F{4}❮%f%b'
     zstyle ':prezto:module:git:info' verbose 'yes'
-    zstyle ':prezto:module:git:info:action' format '%F{7}:%f%%B%F{9}%s%f%%b'
-    zstyle ':prezto:module:git:info:added' format ' %%B%F{2}✚%f%%b'
-    zstyle ':prezto:module:git:info:ahead' format ' %%B%F{13}⬆%f%%b'
-    zstyle ':prezto:module:git:info:behind' format ' %%B%F{13}⬇%f%%b'
-    zstyle ':prezto:module:git:info:branch' format ' %%B%F{2}%b%f%%b'
-    zstyle ':prezto:module:git:info:commit' format ' %%B%F{3}%.7c%f%%b'
-    zstyle ':prezto:module:git:info:deleted' format ' %%B%F{1}✖%f%%b'
-    zstyle ':prezto:module:git:info:keys' format 'status' '%b %p %c:%s%A%B%S%a%d%m%r%U%u'
-    zstyle ':prezto:module:git:info:modified' format ' %%B%F{4}✱%f%%b'
-    zstyle ':prezto:module:git:info:position' format ' %%B%F{13}%p%f%%b'
-    zstyle ':prezto:module:git:info:renamed' format ' %%B%F{5}➜%f%%b'
-    zstyle ':prezto:module:git:info:stashed' format ' %%B%F{6}✭%f%%b'
-    zstyle ':prezto:module:git:info:unmerged' format ' %%B%F{3}═%f%%b'
-    zstyle ':prezto:module:git:info:untracked' format ' %%B%F{7}◼%f%%b'
     zstyle ':prezto:module:git:status:ignore' submodules 'all'              # Ignore submodules when they are 'dirty', 'untracked', 'all', or 'none'.
     zstyle ':prezto:module:history-substring-search' globbing-flags ''      # Set the search globbing flags.
-    zstyle ':prezto:module:history-substring-search:color' found 'red'      # Set the query found color.
-    zstyle ':prezto:module:history-substring-search:color' not-found 'blue' # Set the query not found color.
     zstyle ':prezto:module:prompt' pwd-length 'short'
     zstyle ':prezto:module:prompt' show-return-val 'yes'
     zstyle ':prezto:module:prompt' theme 'sorin'                            # Set the prompt theme to load.
@@ -69,8 +51,9 @@ zstyle ':prezto:load' pmodule 'helper' 'environment' 'terminal' 'editor' 'histor
     zstyle ':prezto:module:utility' safe-ops 'yes'
     zstyle ':prezto:module:utility:diff' color 'yes'
     zstyle ':prezto:module:utility:ls' color 'yes'
-    zstyle ':prezto:module:utility:make' color 'yes'
+    zstyle ':prezto:module:utility:make' color 'no'
     zstyle ':prezto:module:utility:wdif' color 'yes'
+    zstyle ':prezto:module:UserPrefs:syntax-highlighting' theme 'amber'
   # zstyle ':prezto:module:pacman' frontend 'yaourt'                 # Set the Pacman frontend.
   # zstyle ':prezto:module:python:virtualenv' auto-switch 'yes'             # Auto switch the Python virtualenv on directory change.
   # zstyle ':prezto:module:python:virtualenv' initialize 'yes'              # Automatically initialize virtualenvwrapper if pre-requisites are met.
@@ -87,52 +70,3 @@ zstyle ':prezto:load' pmodule 'helper' 'environment' 'terminal' 'editor' 'histor
   # zstyle ':prezto:module:tmux:iterm' integrate 'yes'                      # Integrate with iTerm2.
   # zstyle ':prezto:module:tmux:session' name 'YOUR DEFAULT SESSION NAME'   # Set the default session name:
 # }}}
-# Syntax Highlighting# {{{
-  # Enabled Highlighters {{{
-      zstyle ':prezto:module:syntax-highlighting' highlighters \
-          'main' \
-          'brackets' \
-          'pattern' \
-          'cursor' 
-  ## }}}
-  # current colors in use# {{{
-    zstyle ':prezto:module:syntax-highlighting' styles             \
-            "alias"                          "fg=12,underline"     \
-            "suffix-alias"                   "fg=57,bold"          \
-            "assign"                         "fg=yellow"           \
-            "builtin"                        "fg=cyan,bold"        \
-            "command"                        "fg=12,bold"          \
-            "commandseparator"               "fg=cyan"             \
-            "default"                        "fg=240"              \
-            "function"                       "fg=12"               \
-            "globbing"                       "fg=yellow,underline" \
-            "hashed-command"                 "fg=green,standout"   \
-            "precommand"                     "fg=green,bold"       \
-            "reserved-word"                  "fg=green,underline"  \
-            "cursor"                         "bg=240 fg=white"     \
-            "cursor-matchingbracket"         "bg=red"              \
-            "history-expansion"              "fg=green,bold"       \
-            "root"                           "bg=red,bold"         \
-            "unknown-token"                  "fg=red,underline"    \
-            "path"                           "fg=13"               \
-            "path_approx"                    "fg=13,bold"          \
-            "path_prefix"                    "fg=13,underline"     \
-            "back-double-quoted-argument"    "fg=red"              \
-            "back-quoted-argument"           "fg=red"              \
-            "dollar-double-quoted-argument"  "fg=208"              \
-            "double-hyphen-option"           "fg=white"            \
-            "double-quoted-argument"         "fg=cyan"             \
-            "single-hyphen-option"           "fg=white"            \
-            "single-quoted-argument"         "fg=cyan,underline"   \
-            "bracket-error"                  "bg=red,bold"         \
-            "bracket-level-1"                "fg=yellow"           \
-            "bracket-level-2"                "fg=green"            \
-            "bracket-level-3"                "fg=magenta"          \
-            "bracket-level-4"                "fg=cyan"             \
-            "redirection"                    "fg=yellow,bold"      \
-            "comment"                        "fg=240,underline"    \
-            "arg0"                           "fg=208"              \
-  # }}}
-    # # }}}
-#
-#

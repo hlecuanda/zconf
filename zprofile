@@ -71,13 +71,6 @@ path=(
   $path
 )
 
-# Set the list of directories that Zsh searches for functions.
-fpath=(
-    ~/src/zsh-completions/src
-    ${ZDOTDIR:-HOME}/UserFunctions
-    $fpath[@]
-)
-
 #
 # Less
 #

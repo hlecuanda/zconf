@@ -80,6 +80,46 @@
 #
 #                                                                         # }}}
 #
+# 6. Compsys styles overrides # {{{
+# make sudo complete correctly with root-only dirs on debian
+  zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
+          /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+
+  # zstyle -e ':completion:*' special-dirs '[[ $PREFIX = (../)#(|.|..) ]] && reply=(..)'
+  # #     zstyle ':completion::complete:*' use-cache 1
+  #
+
+# Compinstall automatic preferences, don't touch comments or indent # {{{
+# The following lines were added by compinstall
+
+zstyle ':completion:*' auto-description 'set:%d'
+zstyle ':completion:*' completer _list _oldlist _expand _complete _ignored _match _prefix
+zstyle ':completion:*' completions 1
+zstyle ':completion:*' file-sort name
+# zstyle ':completion:*' format 'Comp(%d)'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' ignore-parents parent pwd directory
+zstyle ':completion:*' insert-unambiguous true
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-prompt "%B%F{magenta}At %p (%l): Hit TAB for more, or the character to insert%f%b"
+zstyle ':completion:*' matcher-list 'r:|[._-]=** r:|=**' 'l:|=* r:|=*'
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' original true
+zstyle ':completion:*' select-prompt "%B%F{magenta}Scrolling: %l (%p)%f%b"
+zstyle ':completion:*' special-dirs true
+zstyle ':completion:*' squeeze-slashes true
+zstyle ':completion:*' substitute 1
+zstyle ':completion:*' use-compctl true
+zstyle ':completion:*' verbose true
+zstyle :compinstall filename '/home/hector/.zconf/.zshrc'
+
+# compinit gets called on prezto's completion module 
+# autoload -Uz compinit
+# compinit
+# End of lines added by compinstall
+# }}}
+# }}}
+#
 # 1. Source Prezto, local packages and UserFunctions  # {{{
   # Source Prezto.
   [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && \
@@ -101,7 +141,7 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
 
 # 2. Zsh options# {{{
   # 2.1 Changing dirs
-    setopt autocd autopushd nopushdsilent pushdminus pushdtohome
+    setopt autocd autopushd nopushdsilent pushdtohome
   # 2.2 completion
     setopt autonamedirs autoparamkeys autoremoveslash globcomplete hashlistall
     setopt listambiguous listpacked listtypes
@@ -415,43 +455,8 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     nudot=~src/Dotfiles/hlo-dotfiles
     altdot=~src/Dotfiles/dotfiles
   # }}}
+  PROMPT='${hostinfo:-""}%F{216}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
 # }}}
 
-# 6. Compsys styles overrides # {{{
-# make sudo complete correctly with root-only dirs on debian
-  zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
-          /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
-
-  # zstyle -e ':completion:*' special-dirs '[[ $PREFIX = (../)#(|.|..) ]] && reply=(..)'
-
-# Compinstall automatic preferences, don't touch comments or indent # {{{
-# The following lines were added by compinstall
-
-zstyle ':completion:*' auto-description 'set:%d'
-zstyle ':completion:*' completer _list _oldlist _expand _complete _ignored _match _prefix
-zstyle ':completion:*' completions 1
-zstyle ':completion:*' file-sort name
-# zstyle ':completion:*' format 'Comp(%d)'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' ignore-parents parent pwd directory
-zstyle ':completion:*' insert-unambiguous true
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-prompt %B%F{magenta}At %p (%l): Hit TAB for more, or the character to insert%f%b
-zstyle ':completion:*' matcher-list 'r:|[._-]=** r:|=**' 'l:|=* r:|=*'
-zstyle ':completion:*' menu select=long
-zstyle ':completion:*' original true
-zstyle ':completion:*' select-prompt %B%F{magenta}Scrolling: %l (%p)%f%b
-zstyle ':completion:*' special-dirs true
-zstyle ':completion:*' squeeze-slashes true
-zstyle ':completion:*' substitute 1
-zstyle ':completion:*' use-compctl true
-zstyle ':completion:*' verbose true
-zstyle :compinstall filename '/home/hector/.zconf/.zshrc'
-
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
-# }}}
-# }}}
 
 #  vim: set ft=zsh sw=2 tw=0 fdm=marker foldlevel=0 et :
