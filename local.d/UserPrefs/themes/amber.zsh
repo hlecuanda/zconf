@@ -31,6 +31,7 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
 
 case "$TERM" in
   *xterm*)
+  screen*)
       # xterm # {{{
       zstyle ':prezto:module:syntax-highlighting' styles         \
         "unknown-token"                  "fg=red,underline"      \
