@@ -30,8 +30,46 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
 ## }}}
 
 case "$TERM" in
-  *xterm*)
   screen*)
+      # screen # {{{
+      zstyle ':prezto:module:syntax-highlighting' styles         \
+        "unknown-token"                  "fg=red,underline"      \
+        "default"                        "fg=3"                  \
+        "precommand"                     "fg=166"                \
+        "builtin"                        "fg=214,underline"      \
+        "command"                        "fg=214,bold"           \
+        "hashed-command"                 "fg=214,standout"       \
+        "function"                       "fg=214,bold,underline" \
+        "alias"                          "fg=214"                \
+        "reserved-word"                  "fg=178"                \
+        "commandseparator"               "fg=11"                 \
+        "assign"                         "fg=15"                 \
+        "path_prefix"                    "fg=220,underline"      \
+        "path"                           "fg=220"                \
+        "globbing"                       "fg=202"                \
+        "suffix-alias"                   "fg=202,bold"           \
+        "cursor"                         "bg=240 fg=white"       \
+        "cursor-matchingbracket"         "bg=red fg=black"       \
+        "history-expansion"              "fg=208,bold"           \
+        "root"                           "bg=red,bold"           \
+        "back-double-quoted-argument"    "fg=red"                \
+        "back-quoted-argument"           "fg=red"                \
+        "dollar-double-quoted-argument"  "fg=208"                \
+        "double-hyphen-option"           "fg=white"              \
+        "double-quoted-argument"         "fg=11"                 \
+        "single-hyphen-option"           "fg=white"              \
+        "single-quoted-argument"         "fg=11,underline"       \
+        "bracket-error"                  "bg=red,bold"           \
+        "bracket-level-1"                "fg=yellow"             \
+        "bracket-level-2"                "fg=green"              \
+        "bracket-level-3"                "fg=magenta"            \
+        "bracket-level-4"                "fg=cyan"               \
+        "redirection"                    "fg=11,bold"            \
+        "comment"                        "fg=172,underline"      \
+        "arg0"                           "fg=208"                \
+      # }}}
+    ;;
+  *xterm*)
       # xterm # {{{
       zstyle ':prezto:module:syntax-highlighting' styles         \
         "unknown-token"                  "fg=red,underline"      \
