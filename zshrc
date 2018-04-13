@@ -107,7 +107,6 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     setopt listambiguous listpacked listtypes
   # 2.3 Globbing
     setopt braceccl casematch markdirs numericglobsort nonomatch
-    setopt warncreateglobal
   # 2.4 History
     setopt nohistignorespace histlexwords histreduceblanks histverify
     setopt incappendhistorytime
