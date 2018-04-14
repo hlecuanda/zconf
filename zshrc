@@ -254,6 +254,7 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     alias nmap-full='nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v'
     alias pgp='gpg'
     alias tmux='tmux -f ~/src/Dotfiles/dotfiles/tmux.d/tmux.conf'
+    alias googler='googler --url-handler lynx '
   # }}}
 # }}}
 
