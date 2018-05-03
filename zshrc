@@ -247,31 +247,6 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     alias -s txt=vim
     alias -s json=jsonfunc
   # }}}
-  # GRC colorizer# {{{
-    typeset oldgrc=$(alias -L grc)
-    unalias grc
-    typeset GRC=$(which grc);
-    if [ "$TERM" != dumb ] && [ -n $GRC ]
-    then
-      alias colourify="$GRC -es --colour=auto"
-      alias configure='colourify ./configure'
-      alias diff='colourify diff'
-      alias make='colourify make'
-      alias gcc='colourify gcc'
-      alias g++='colourify g++'
-      alias as='colourify as'
-      alias gas='colourify gas'
-      alias ld='colourify ld'
-      alias netstat='colourify netstat'
-      alias ping='colourify ping'
-      alias traceroute='colourify /usr/sbin/traceroute'
-      alias ps='colourify ps'
-      alias w='colourify w'
-    else
-      alias grc=$(echo oldgrc)
-      unset oldgrc
-    fi
-  # }}}
   # Personal additions # {{{
     # very vim behavior {{{
       alias :q="exit"
@@ -279,7 +254,7 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
       alias ZZ="exit"
     # }}}
     # harvest command line client# {{{
-      source $(ruby -e "print File.dirname(Gem.bin_path('hcl', 'hcl'))")/_hcl_completions
+      # source $(ruby -e "print File.dirname(Gem.bin_path('hcl', 'hcl'))")/_hcl_completions
       alias hcl='nocorrect hcl'
     # }}}
     alias colorize='pygmentize -s -l sh -f 258 -O style=solarizeddark | less -RS '
