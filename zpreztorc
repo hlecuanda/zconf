@@ -10,7 +10,7 @@
     zstyle ':prezto:*:*' case-sensitive 'yes'                         # Set case-sensitivity for completion, history lookup, etc.
     zstyle ':prezto:*:*' color 'yes'                                  # Color output (auto set to 'no' on dumb terminals).
     zstyle ':prezto:load' pmodule-dirs ${ZDOTDIR}/local.d             # Add directories to load prezto modules from
-    zstyle ':prezto:load' zmodule attr stat complist files zutil terminfo     # Set the Zsh modules to load (man zshmodules).
+    zstyle ':prezto:load' zmodule complist files zutil terminfo     # Set the Zsh modules to load (man zshmodules).
     zstyle ':prezto:load' zfunction zargs zmv zrecompile \
                           add-zsh-hook down-line-or-beginning-search \
                           up-line-or-beginning-search sticky-note     # Set the Zsh functions to load (man zshcontrib).

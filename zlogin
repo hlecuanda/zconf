@@ -30,11 +30,11 @@
   # Print a random, hopefully interesting, adage. {{{
   if (( $+commands[fortune] && $+commands[toilet] && $+commands[boxes] )); then
     unfunction fortune
-    fortune -a 
+    # fortune -a 
     # boxes -d utf8 
     # toilet -f term -F metal 
   else 
-    fortune -a
+    # fortune -a
   fi
   # }}}
   # {{{ debugging control
