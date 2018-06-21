@@ -10,7 +10,8 @@ if [[ -f "${HOME}/.debug" ]] ; then
    rm -f "${HOME}/.debug"
 fi
 
-if [[ -z ${ZDOTDIR}  ]] ; then
+if [[ -z ${ZDOTDIR}  ]] ; then 
+	typeset -x TZ=$(getprop.persist.timezone)
     typeset -x ZDOTDIR=$HOME/.zconf
 fi
 unsetopt global_rcs
