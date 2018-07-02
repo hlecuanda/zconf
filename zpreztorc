@@ -44,7 +44,7 @@ zstyle ':prezto:load' pmodule 'helper' 'spectrum' 'prompt' 'UserPrefs' \
     zstyle ':prezto:module:prompt:sorin' show_user 'yes'
     zstyle ':prezto:module:ssh:load' identities 'id_rsa'                # Set the SSH identities to load into the agent.
     zstyle ':prezto:module:terminal' auto-title 'no'                    # Auto set the tab and window titles.
-    zstyle ':prezto:module:tmux:auto-start' local 'yes'                 # Auto start a session when Zsh is launched in a local terminal.
+    zstyle ':prezto:module:tmux:auto-start' local 'no'                 # Auto start a session when Zsh is launched in a local terminal.
     zstyle ':prezto:module:utility' safe-ops 'yes'
     zstyle ':prezto:module:utility:diff' color 'yes'
     zstyle ':prezto:module:utility:ls' color 'yes'

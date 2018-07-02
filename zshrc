@@ -134,6 +134,10 @@ zstyle :compinstall filename '/home/hector/.zconf/.zshrc'
   [[ -s "${ZDOTDIR:-$HOME}/UserFunctions/" ]] && \
     for func in ${ZDOTDIR:-$HOME}/UserFunctions/**
       autoload -Uz ${func:t}
+  # source gcloud from prefix
+  [[ -s "${TERMUXPREFIX:-$HOME}" ]] && \
+    for sourcefile in ${TERMUXPREFIX:-$HOME}/google-cloud-sdk/**.zsh.inc
+      source "${sourcefile}"
 
 typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
 
