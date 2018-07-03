@@ -1,0 +1,12 @@
+Host passport
+HostName passport.mcpaints.com
+
+Host trantor
+HostName trantor.lecuanda.com
+
+Host github
+HostName githup.com
+User git
+
+Host *
+User hector
