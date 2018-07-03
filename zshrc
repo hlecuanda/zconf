@@ -252,6 +252,7 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     alias -s json=jsonfunc
   # }}}
   # Personal additions # {{{
+  alias sshd=sshd -f ~/.zconf/sshd.d/sshd_config
     # very vim behavior {{{
       alias :q="exit"
       alias qq="exit"

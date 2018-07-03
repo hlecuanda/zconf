@@ -1,5 +1,6 @@
 PrintMotd no
 PasswordAuthentication no
+KbdInteractiveAuthentication no
 PubkeyAcceptedKeyTypes +ssh-dss
 Subsystem sftp /data/data/com.termux/files/usr/libexec/sftp-server
 AllowUsers u0_a261
@@ -8,6 +9,4 @@ Compression yes
 GatewayPorts yes
 UseDNS no
 Port 2222
-PrintLasrLog yes 
-PrintMotd no
-Banner /data/dara/com.termux/files/home/.zconf/sshd.d/banner
+Banner /data/data/com.termux/files/home/.zconf/ssh.d/banner
