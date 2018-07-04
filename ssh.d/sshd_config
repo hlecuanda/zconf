@@ -1,12 +1,15 @@
-PrintMotd no
-PasswordAuthentication no
-KbdInteractiveAuthentication no
-PubkeyAcceptedKeyTypes +ssh-dss
-Subsystem sftp /data/data/com.termux/files/usr/libexec/sftp-server
-AllowUsers u0_a261
 AllowAgentForwarding yes
+AllowUsers u0_a261
+Banner /data/data/com.termux/files/home/.zconf/ssh.d/banner
 Compression yes
 GatewayPorts yes
-UseDNS no
+KbdInteractiveAuthentication no
+ListenAddress 0.0.0.0
+LogLevel INFO
+PasswordAuthentication no
+PermitRootLogin no
 Port 2222
-Banner /data/data/com.termux/files/home/.zconf/ssh.d/banner
+PrintMotd no
+#PubkeyAcceptedKeyTypes +ssh-dss
+Subsystem sftp /data/data/com.termux/files/usr/libexec/sftp-server
+UseDNS no

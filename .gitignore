@@ -6,4 +6,4 @@
 .zhistory
 .zprezto
 zsticky
-logs.d
+*.swp
