@@ -33,7 +33,7 @@ case "$TERM" in
   screen*)
       # screen # {{{
       zstyle ':prezto:module:syntax-highlighting' styles         \
-        "unknown-token"                  "fg=red,underline"      \
+        "unknown-token"                  "fg=white,underline"      \
         "default"                        "fg=3"                  \
         "precommand"                     "fg=166"                \
         "builtin"                        "fg=214,underline"      \
@@ -49,17 +49,17 @@ case "$TERM" in
         "globbing"                       "fg=202"                \
         "suffix-alias"                   "fg=202,bold"           \
         "cursor"                         "bg=240 fg=white"       \
-        "cursor-matchingbracket"         "bg=red fg=black"       \
+        "cursor-matchingbracket"         "bg=white fg=black"       \
         "history-expansion"              "fg=208,bold"           \
-        "root"                           "bg=red,bold"           \
-        "back-double-quoted-argument"    "fg=red"                \
-        "back-quoted-argument"           "fg=red"                \
+        "root"                           "bg=white,bold"           \
+        "back-double-quoted-argument"    "fg=white"                \
+        "back-quoted-argument"           "fg=white"                \
         "dollar-double-quoted-argument"  "fg=208"                \
         "double-hyphen-option"           "fg=white"              \
         "double-quoted-argument"         "fg=11"                 \
         "single-hyphen-option"           "fg=white"              \
         "single-quoted-argument"         "fg=11,underline"       \
-        "bracket-error"                  "bg=red,bold"           \
+        "bracket-error"                  "bg=white,bold"           \
         "bracket-level-1"                "fg=yellow"             \
         "bracket-level-2"                "fg=green"              \
         "bracket-level-3"                "fg=magenta"            \
@@ -72,7 +72,7 @@ case "$TERM" in
   *xterm*)
       # xterm # {{{
       zstyle ':prezto:module:syntax-highlighting' styles         \
-        "unknown-token"                  "fg=red,underline"      \
+        "unknown-token"                  "fg=white,underline"      \
         "default"                        "fg=3"                  \
         "precommand"                     "fg=166"                \
         "builtin"                        "fg=214,underline"      \
@@ -88,17 +88,17 @@ case "$TERM" in
         "globbing"                       "fg=202"                \
         "suffix-alias"                   "fg=202,bold"           \
         "cursor"                         "bg=240 fg=white"       \
-        "cursor-matchingbracket"         "bg=red fg=black"       \
+        "cursor-matchingbracket"         "bg=white fg=black"       \
         "history-expansion"              "fg=208,bold"           \
-        "root"                           "bg=red,bold"           \
-        "back-double-quoted-argument"    "fg=red"                \
-        "back-quoted-argument"           "fg=red"                \
+        "root"                           "bg=white,bold"           \
+        "back-double-quoted-argument"    "fg=white"                \
+        "back-quoted-argument"           "fg=white"                \
         "dollar-double-quoted-argument"  "fg=208"                \
         "double-hyphen-option"           "fg=white"              \
         "double-quoted-argument"         "fg=11"                 \
         "single-hyphen-option"           "fg=white"              \
         "single-quoted-argument"         "fg=11,underline"       \
-        "bracket-error"                  "bg=red,bold"           \
+        "bracket-error"                  "bg=white,bold"           \
         "bracket-level-1"                "fg=yellow"             \
         "bracket-level-2"                "fg=green"              \
         "bracket-level-3"                "fg=magenta"            \
@@ -111,7 +111,7 @@ case "$TERM" in
   urxvt)
       # urxvt # {{{
       zstyle ':prezto:module:syntax-highlighting' styles         \
-        "unknown-token"                  "fg=red,standout"      \
+        "unknown-token"                  "fg=white,standout"      \
         "default"                        "fg=3"                  \
         "precommand"                     "fg=166"                \
         "builtin"                        "fg=214,standout"      \
@@ -127,17 +127,17 @@ case "$TERM" in
         "globbing"                       "fg=202"                \
         "suffix-alias"                   "fg=202,bold"           \
         "cursor"                         "bg=240 fg=white"       \
-        "cursor-matchingbracket"         "bg=red fg=black"       \
+        "cursor-matchingbracket"         "bg=white fg=black"       \
         "history-expansion"              "fg=208,bold"           \
-        "root"                           "bg=red,bold"           \
-        "back-double-quoted-argument"    "fg=red"                \
-        "back-quoted-argument"           "fg=red"                \
+        "root"                           "bg=white,bold"           \
+        "back-double-quoted-argument"    "fg=white"                \
+        "back-quoted-argument"           "fg=white"                \
         "dollar-double-quoted-argument"  "fg=208"                \
         "double-hyphen-option"           "fg=white"              \
         "double-quoted-argument"         "fg=11"                 \
         "single-hyphen-option"           "fg=white"              \
         "single-quoted-argument"         "fg=11,standout"       \
-        "bracket-error"                  "bg=red,bold"           \
+        "bracket-error"                  "bg=white,bold"           \
         "bracket-level-1"                "fg=yellow"             \
         "bracket-level-2"                "fg=green"              \
         "bracket-level-3"                "fg=magenta"            \
@@ -151,7 +151,7 @@ case "$TERM" in
     echo "$TERM Didn't match anything"
       # xterm # {{{
       zstyle ':prezto:module:syntax-highlighting' styles         \
-        "unknown-token"                  "fg=red,underline"      \
+        "unknown-token"                  "fg=white,underline"    \
         "default"                        "fg=3"                  \
         "precommand"                     "fg=166"                \
         "builtin"                        "fg=214,underline"      \
@@ -167,17 +167,17 @@ case "$TERM" in
         "globbing"                       "fg=202"                \
         "suffix-alias"                   "fg=202,bold"           \
         "cursor"                         "bg=240 fg=white"       \
-        "cursor-matchingbracket"         "bg=red fg=black"       \
+        "cursor-matchingbracket"         "bg=white fg=black"       \
         "history-expansion"              "fg=208,bold"           \
-        "root"                           "bg=red,bold"           \
-        "back-double-quoted-argument"    "fg=red"                \
-        "back-quoted-argument"           "fg=red"                \
+        "root"                           "bg=white,bold"           \
+        "back-double-quoted-argument"    "fg=white"                \
+        "back-quoted-argument"           "fg=white"                \
         "dollar-double-quoted-argument"  "fg=208"                \
         "double-hyphen-option"           "fg=white"              \
         "double-quoted-argument"         "fg=11"                 \
         "single-hyphen-option"           "fg=white"              \
         "single-quoted-argument"         "fg=11,underline"       \
-        "bracket-error"                  "bg=red,bold"           \
+        "bracket-error"                  "bg=white,bold"           \
         "bracket-level-1"                "fg=yellow"             \
         "bracket-level-2"                "fg=green"              \
         "bracket-level-3"                "fg=magenta"            \
