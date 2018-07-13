@@ -1,36 +1,29 @@
 # vim: number : 
 
 DIRS=git tmux zsh ssh		
-CREPO=git@github.com:hlecuanda/zconf.git
-ZREPO=git@github.com:sorin-iunescu/prezto.git
+RUNCOMS=zlogin zlogout zpreztorc zprofile zshenv zshrc
+PREZTO=https://github.com/sorin-ionescu/prezto.git
+INSTL=pkg install-y -q 
+	
+ZDOTDIR=$(HOME)/zconftest
+	
+.PHONY: packages tmux zsh ssh update upgrade runcoms 	
 
-.PHONY: packages tmux zsh ssh update upgrade	
+include $(DIRS).d/Makefile
 
-.BEGIN: $(DIRS)
-	@echo including ${.TARGET}
-	@if [[ -f ${.TARGET}.d/Makefile ]] ; then \
-		include ${.TARGET}.d/Makefile
+install: upgrade packages 
 
 packages: upgrade	
-	
-install: upgrade git tmux zsh ssh 
+	@$(INSTL) zsh git tig vim tmux grep coreutils \
+		binutils curl diffutils figlet file \
+		grep man mosh openssh python termux-api \
+		termux-tools tree
+	@termux-setup-storage
 
 upgrade: 
 	@echo in upgrade	
 	@echo Updating packages
 	-pkg update -y -q
 	
-update: 
+update: upgrade
 	@echo in update
-	@(pkg list-installed | grep -v automatic > packages)
-		
-../.zshenv: 
-	@echo installing zsh runcoms
-	@cd .. && ln -s .zconf/zshenv .zshenv 
-
-zsh: ../.zsh.conf git upgrade 
-	@echo install zsh
-	@cd .. && git clone $(REPO) .zconf
-	@cd .zconf && git clone --recursive $(PREZTO)
-
-
