@@ -7,3 +7,11 @@
 .zprezto
 zsticky
 *.swp
+
+#installed runcoms
+.zlogin
+.zlogout
+.zpreztorc
+.zprofile
+.zshrc
+
