@@ -50,7 +50,7 @@ zstyle ':prezto:load' pmodule 'helper' 'spectrum' 'prompt' 'UserPrefs' \
     zstyle ':prezto:module:utility:ls' color 'yes'
     zstyle ':prezto:module:utility:make' color 'no'
     zstyle ':prezto:module:utility:wdif' color 'yes'
-    zstyle ':prezto:module:UserPrefs:syntax-highlighting' theme 'amber'
+#    zstyle ':prezto:module:UserPrefs:syntax-highlighting' theme 'amber'
   # zstyle ':prezto:module:pacman' frontend 'yaourt'                    # Set the Pacman frontend.
   # zstyle ':prezto:module:python:virtualenv' auto-switch 'yes'         # Auto switch the Python virtualenv on directory change.
   # zstyle ':prezto:module:python:virtualenv' initialize 'yes'          # Automatically initialize virtualenvwrapper if pre-requisites are met.
@@ -62,7 +62,7 @@ zstyle ':prezto:load' pmodule 'helper' 'spectrum' 'prompt' 'UserPrefs' \
   # zstyle ':prezto:module:terminal:tab-title' format '%m: %s'          # Set the tab title format.
   # zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'    # Set the window title format.
   # zstyle ':prezto:module:tmux:auto-start' local 'yes'                 # Auto start a session when Zsh is launched in a local terminal.
-  # zstyle ':prezto:module:tmux:auto-start' remote 'yes'                # Auto start a session when Zsh is launched in a SSH connection.
+  zstyle ':prezto:module:tmux:auto-start' remote 'yes'                # Auto start a session when Zsh is launched in a SSH connection.
   # zstyle ':prezto:module:tmux:iterm' integrate 'yes'                  # Integrate with iTerm2.
-  # zstyle ':prezto:module:tmux:session' name 'H-Lo'                    # Set the default session name:
+  zstyle ':prezto:module:tmux:session' name 'raspi'                    # Set the default session name:
 # }}}

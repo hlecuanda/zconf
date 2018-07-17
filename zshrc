@@ -169,8 +169,8 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
       alias ls='/bin/ls -FGh'
     fi
     #correct prezto's default notion of l and ls
-    unalias l
-    unalias ls
+    # unalias l
+    # unalias ls
     alias ls='ls -F --group-directories-first --color=auto'
     alias lC='ls --color=always'
     alias l='ls -l'
