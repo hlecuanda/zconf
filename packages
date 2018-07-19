@@ -1,4 +1,6 @@
 binutils
+bsdowl
+bmake
 command-not-found
 coreutils
 curl
