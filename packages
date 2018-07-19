@@ -1,0 +1,27 @@
+<<<<<<< HEAD
+=======
+binutils
+command-not-found
+coreutils
+curl
+diffutils
+figlet
+file
+git
+golang
+grep
+make
+man
+mosh
+openssh
+procps
+python
+termux-am
+termux-api
+termux-exec
+termux-tools
+tig
+tmux
+vim
+zsh
+>>>>>>> 539f738... universal package list
