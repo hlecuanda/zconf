@@ -10,9 +10,14 @@ if [[ -f "${HOME}/.debug" ]] ; then
    rm -f "${HOME}/.debug"
 fi
 
+if [[ -x $(which tig) ]] ; then
+   typeset -x TIGRC_USER=~/.zconf/git.d/tigrc
+fi
+
 if [[ -z ${ZDOTDIR}  ]] ; then 
    typeset -x ZDOTDIR=$HOME/.zconf
 fi
+
 if [[ -d /data/data/com.termux ]] ; then
    # were in termuxland
    typeset -x TZ=$(getprop persist.timezone)
