@@ -1,23 +1,26 @@
-binutils/stable,now 2.30-3 aarch64 [installed]
-command-not-found/stable,now 1.32 aarch64 [installed]
-coreutils/stable,now 8.30-1 aarch64 [installed]
-curl/stable,now 7.60.0-1 aarch64 [installed]
-diffutils/stable,now 3.6-1 aarch64 [installed]
-figlet/stable,now 2.2.5-1 aarch64 [installed]
-file/stable,now 5.33 aarch64 [installed]
-git/stable,now 2.18.0 aarch64 [installed]
-grep/stable,now 3.1 aarch64 [installed]
-make/stable,now 4.2.1 aarch64 [installed]
-man/stable,now 1.14.3-1 aarch64 [installed]
-mosh/stable,now 1.3.2-5 aarch64 [installed]
-openssh/stable,now 7.7p1-3 aarch64 [installed]
-procps/stable,now 3.3.15 aarch64 [installed]
-python/stable,now 3.6.5-4 aarch64 [installed]
-termux-am/stable,now 0.2 all [installed]
-termux-api/stable,now 0.32 aarch64 [installed]
-termux-exec/stable,now 0.3 aarch64 [installed]
-termux-tools/stable,now 0.55 all [installed]
-tig/stable,now 2.3.3 aarch64 [installed]
-tmux/stable,now 2.7 aarch64 [installed]
-vim/stable,now 8.1.0100 aarch64 [installed]
-zsh/stable,now 5.5.1-1 aarch64 [installed]
+binutils
+bsdowl
+bmake
+command-not-found
+coreutils
+curl
+diffutils
+figlet
+file
+git
+golang
+grep
+make
+man
+mosh
+openssh
+procps
+python
+termux-am
+termux-api
+termux-exec
+termux-tools
+tig
+tmux
+vim
+zsh
