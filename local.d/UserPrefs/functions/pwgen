@@ -16,7 +16,7 @@ fi
 
 #TODO: logic to choose clipboard carrier 
 
-command pwgen -sy 18 | xclip -i
+command pwgen -sy 18 | termux-clipboard-set 
 echo "Secure password generated"
 
 

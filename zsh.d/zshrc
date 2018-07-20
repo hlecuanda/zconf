@@ -134,6 +134,10 @@ zstyle :compinstall filename '/home/hector/.zconf/.zshrc'
   [[ -s "${ZDOTDIR:-$HOME}/UserFunctions/" ]] && \
     for func in ${ZDOTDIR:-$HOME}/UserFunctions/**
       autoload -Uz ${func:t}
+  # source gcloud from prefix
+  [[ -s "${TERMUXPREFIX:-$HOME}" ]] && \
+    for sourcefile in ${TERMUXPREFIX:-$HOME}/google-cloud-sdk/**.zsh.inc
+      source "${sourcefile}"
 
 typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
 
@@ -147,7 +151,6 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     setopt listambiguous listpacked listtypes
   # 2.3 Globbing
     setopt braceccl casematch markdirs numericglobsort nonomatch
-    setopt warncreateglobal
   # 2.4 History
     setopt nohistignorespace histlexwords histreduceblanks histverify
     setopt incappendhistorytime
@@ -248,39 +251,18 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     alias -s txt=vim
     alias -s json=jsonfunc
   # }}}
-  # GRC colorizer# {{{
-    typeset oldgrc=$(alias -L grc)
-    unalias grc
-    typeset GRC=$(which grc);
-    if [ "$TERM" != dumb ] && [ -n $GRC ]
-    then
-      alias colourify="$GRC -es --colour=auto"
-      alias configure='colourify ./configure'
-      alias diff='colourify diff'
-      alias make='colourify make'
-      alias gcc='colourify gcc'
-      alias g++='colourify g++'
-      alias as='colourify as'
-      alias gas='colourify gas'
-      alias ld='colourify ld'
-      alias netstat='colourify netstat'
-      alias ping='colourify ping'
-      alias traceroute='colourify /usr/sbin/traceroute'
-      alias ps='colourify ps'
-      alias w='colourify w'
-    else
-      alias grc=$(echo oldgrc)
-      unset oldgrc
-    fi
-  # }}}
   # Personal additions # {{{
+  alias mosh='mosh -p 61000'
+  alias sshd='sshd -f ~/.zconf/sshd.d/sshd_config -E ~/.zconf/logs.d/sshd.d'
+  
+
     # very vim behavior {{{
       alias :q="exit"
       alias qq="exit"
       alias ZZ="exit"
     # }}}
     # harvest command line client# {{{
-      source $(ruby -e "print File.dirname(Gem.bin_path('hcl', 'hcl'))")/_hcl_completions
+      # source $(ruby -e "print File.dirname(Gem.bin_path('hcl', 'hcl'))")/_hcl_completions
       alias hcl='nocorrect hcl'
     # }}}
     alias colorize='pygmentize -s -l sh -f 258 -O style=solarizeddark | less -RS '
@@ -293,7 +275,7 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     alias monofonts='fc-list :scalable=true:spacing=mono: family |sort|uniq'
     alias nmap-full='nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v'
     alias pgp='gpg'
-    alias tmux='tmux -f ~/src/Dotfiles/dotfiles/tmux.d/tmux.conf'
+    alias tmux='tmux -f ~/.zconf/tmux.d/tmux.conf'
   # }}}
 # }}}
 

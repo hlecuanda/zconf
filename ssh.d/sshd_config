@@ -1,0 +1,15 @@
+AllowAgentForwarding yes
+AllowUsers u0_a261
+Banner /data/data/com.termux/files/home/.zconf/ssh.d/banner
+Compression yes
+GatewayPorts yes
+KbdInteractiveAuthentication no
+ListenAddress 0.0.0.0
+LogLevel INFO
+PasswordAuthentication no
+PermitRootLogin no
+Port 2222
+PrintMotd no
+#PubkeyAcceptedKeyTypes +ssh-dss
+Subsystem sftp /data/data/com.termux/files/usr/libexec/sftp-server
+UseDNS no

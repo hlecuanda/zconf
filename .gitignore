@@ -6,4 +6,12 @@
 .zhistory
 .zprezto
 zsticky
-logs.d
+*.swp
+
+#installed runcoms
+.zlogin
+.zlogout
+.zpreztorc
+.zprofile
+.zshrc
+
