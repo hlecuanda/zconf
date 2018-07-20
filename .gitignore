@@ -9,9 +9,9 @@ zsticky
 *.swp
 
 #installed runcoms
-.zlogin
-.zlogout
-.zpreztorc
-.zprofile
-.zshrc
+#.zlogin
+#.zlogout
+#.zpreztorc
+#.zprofile
+#.zshrc
 
