@@ -5,7 +5,7 @@ image: busybox:latest
 
 before_script:
   - echo "Before script section"
-  - apt-get -y install bsdowl bmake
+  - apt-get install -y bsdowl bmake
   - echo "Or perhaps you might print out some debugging details"
    
 after_script:
