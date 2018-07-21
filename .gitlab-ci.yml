@@ -5,17 +5,22 @@ image: ubuntu:xenial
 
 before_script:
   - echo "Before script section"
-  - apt-get install -y bsdowl bmake
-  - echo "Or perhaps you might print out some debugging details"
+  - apt-get install -y git bmake
+  - git clone httls://github.com/michipili/bsdowl.git bsdowl
+  - cd bsdowl && git checkout release 
+
    
 after_script:
   - echo "After script section"
-  - echo "For example you might do some cleanup here"
+  - cd ~ 
    
 build1:
   stage: build
   script:
-    - echo "Do your build here"
+    - cd bsdowl
+    - configure --prefix=/usr/local
+    - makr -r all
+    - make -r install           
    
 test1:
   stage: test
