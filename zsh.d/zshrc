@@ -252,7 +252,9 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     alias -s json=jsonfunc
   # }}}
   # Personal additions # {{{
-  alias mosh='mosh -p 61000'
+  alias ssht='ssh -fNT'
+  alias mosh='mosh -ap 61000'
+  #todo conditiob on android
   alias sshd='sshd -f ~/.zconf/sshd.d/sshd_config -E ~/.zconf/logs.d/sshd.d'
   
 
