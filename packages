@@ -15,6 +15,7 @@ man
 mosh
 openssh
 procps
+pwgen 
 python
 termux-am
 termux-api
