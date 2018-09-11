@@ -4,5 +4,5 @@ git clone git@github.com:hlecuanda/zconf.git .zconf
 cd .zconf
 git checkout nokia3
 git clone --recursive git@github.com:sorin-ionescu/prezto.git .zprezto
-zconf
+chsh -s zsh
 
