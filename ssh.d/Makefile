@@ -11,7 +11,7 @@ serverconfig:
 	install sshd_conf -D ${ETC}/sshd_config
 
 personalconfig: $(HOME)/.ssh/id_rsa
-	install authorized_hosts -D ${HOM}/.ssh/autorized_hosts
+	install authorized_hosts -D ${HOM}/.ssh
 	install config -D ${HOM}/.ssh
 		
 conf: personalconfig serverconfig
