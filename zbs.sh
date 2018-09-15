@@ -6,5 +6,5 @@ cd .zconf
 git checkout nokia3
 git clone --recursive git@github.com:sorin-ionescu/prezto.git .zprezto
 chsh -s zsh
-make install
+make -r install
 
