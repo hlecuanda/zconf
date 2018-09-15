@@ -1,29 +1,23 @@
 # vim: number : 
 
-DIRS=git tmux zsh ssh		
-RUNCOMS=zlogin zlogout zpreztorc zprofile zshenv zshrc
-PREZTO=https://github.com/sorin-ionescu/prezto.git
-INSTL=pkg install-y -q 
+MFS!=find . -name Makefile -mindepth 2
+INSTL=pkg install -y -q 
+PACKAGES!=cat packages
 	
-ZDOTDIR=$(HOME)/zconftest
+ZDOTDIR=$(HOME)/.zconf
 	
-.PHONY: packages tmux zsh ssh update upgrade runcoms 	
+.PHONY: install packages upgrade 
 
-include $(DIRS).d/Makefile
+install: upgrade packages gcloud
 
-install: upgrade packages 
+include $(MFS)
 
 packages: upgrade	
-	@$(INSTL) zsh git tig vim tmux grep coreutils \
-		binutils curl diffutils figlet file \
-		grep man mosh openssh python termux-api \
-		termux-tools tree
-	@termux-setup-storage
+	-$(INSTL) $(PACKAGES)
+	termux-setup-storage
 
 upgrade: 
-	@echo in upgrade	
-	@echo Updating packages
 	-pkg update -y -q
-	
-update: upgrade
-	@echo in update
+
+gcloud::
+	-curl sdk.cloud.google.com | sh

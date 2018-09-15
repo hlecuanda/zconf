@@ -1,18 +1,24 @@
 	
-PFX=/data/data/com.twemux/files
+PFX=/data/data/com.termux/files
 ETC=${PFX}/usr/etc
 HOM=${PFX}/home		
 
-.PHONY: install
+.PHONY: install serverconfig personalconfig conf ssh keys
 
-${ETC}/sshd_config: installserver personalcfg
+install: ssh conf
+
+serverconfig: install
 	install sshd_conf -D ${ETC}/sshd_config
 
-${HOM}/.ssh/.done:
-	@install authorized_hosts -D ${HOM}/.ssh/autorized_hosts
-	install config -D ${HOM}/.ssh/config
-	install id_rs* -D $(HOM}/
+personalconfig: keys
+	install authorized_hosts -D ${HOM}/.ssh/autorized_hosts
+	install config -D ${HOM}/.ssh
 		
-install: 
-	-apt install -y -q	openssh mosh sshpass
+conf: personalconfig serverconfig
+		
+ssh: 
+	-pkg install -y -q	openssh mosh sshpass
+
+keys: install
+	ssh-keygen 
 			

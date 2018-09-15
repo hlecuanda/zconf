@@ -1,9 +1,6 @@
+.PHONY: install
 
-../.tmux.conf: 
-	@echo preparing tmux
-	@cd .. && tar xf tmux.tbz && ln -s \
-		.termux.d/termux.conf .termux.conf
+$(HOME)/.tmux.conf: tmux.d/tmux.conf 
+	install tmux.d/tmux.conf $@
 
-tmux: ../.tmux.conf upgrade 
-	@echo install tmux
-	@pkg install tmux mosh
+install: $(HOME)/.tmux.conf

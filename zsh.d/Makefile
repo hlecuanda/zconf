@@ -1,21 +1,15 @@
 
-.PHONY: zsh zprezto zshenv runcoms
+.PHONY: install  zshenv runcoms
+.SHELL: zsh
 
-zsh: runcoms zshenv zprezto
+RUNCOMS!=ls zsh.d/z*
 
-zprezto: $(ZDOTDIR)/.zprezto
+install:  runcoms zshenv 
 
-zshenv: $(HOME)/.zshenv
+zshenv:: zsh.d/zshenv 
+	install $? $(HOME)/.$@
 	
-runcoms: $(ZDOTDIR)/.$(RUNCOMS)
+runcoms:: $(RUNCOMS)
+	for rc in $$(RUNCOMS) \
+		install $$rc $(ZDOTDIR)/.$@
 
-$(ZDOTDIR)/.$(RUNCOMS):
-	@echo installing $(.TARGET)
-	@install $(.IMPSRC) $(ZDOTDIR)/.$(IMPSRC)
-
-$(HOME)/.zshenv:
-	@echo installing $(.TARGET)
-	@install .zshenv $(.TARGET)
-
-$(ZDOTDIR)/.zprezto:
-	@git clone -q --recursive $(PREZTO) $(ZDOTDIR)/.zprezto
