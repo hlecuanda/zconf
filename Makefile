@@ -1,6 +1,6 @@
 # vim: number : 
 
-MFS!=find . -name Makefile -mindepth 2
+MFS!=find . -name Makefile -mindepth 2 -maxdepth 2
 INSTL=pkg install -y -q 
 PACKAGES!=cat packages
 	
