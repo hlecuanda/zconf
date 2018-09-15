@@ -21,3 +21,10 @@ upgrade:
 
 gcloud::
 	-curl sdk.cloud.google.com | sh
+
+termux:
+	cp -Rav termux.d $(HOME)/.termux
+
+config:
+	cp -Rav config.d $(HOME)/.config
+
