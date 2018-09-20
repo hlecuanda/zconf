@@ -1,36 +1,33 @@
 # vim: number : 
 
-DIRS=git tmux zsh ssh		
-CREPO=git@github.com:hlecuanda/zconf.git
-ZREPO=git@github.com:sorin-iunescu/prezto.git
+# MFS!=find . -name Makefile -mindepth 2 -maxdepth 2
+INSTL=sudo apt-get install -y -q 
+PACKAGES!=cat packages
+	
+ZDOTDIR=$(HOME)/.zconf
+	
+.PHONY: install packages upgrade gcloud
 
-.PHONY: packages tmux zsh ssh update upgrade	
+install: upgrade packages zsh gcloud
 
-.BEGIN: $(DIRS)
-	@echo including ${.TARGET}
-	@if [[ -f ${.TARGET}.d/Makefile ]] ; then \
-		include ${.TARGET}.d/Makefile
+# include $(MFS)
 
 packages: upgrade	
-	
-install: upgrade git tmux zsh ssh 
+	-$(INSTL) $(PACKAGES)
+
+zsh: .zprezto
+	chsh -s /bin/zsh
 
 upgrade: 
-	@echo in upgrade	
-	@echo Updating packages
-	-pkg update -y -q
-	
-update: 
-	@echo in update
-	@(pkg list-installed | grep -v automatic > packages)
-		
-../.zshenv: 
-	@echo installing zsh runcoms
-	@cd .. && ln -s .zconf/zshenv .zshenv 
+	-sudo apt-get update -y -q
+	-sudo apt-get upgrade -y -q
 
-zsh: ../.zsh.conf git upgrade 
-	@echo install zsh
-	@cd .. && git clone $(REPO) .zconf
-	@cd .zconf && git clone --recursive $(PREZTO)
+.zprezto:
+	git clone --recursive https://github.com/sorin-ionescu/prezto.git .zprezto
 
+gcloud: 
+	-curl sdk.cloud.google.com | sh
+	-gcloud components update
 
+$(HOME)/.config: config.d/*
+	cp -Rav config.d $(HOME)/.config
