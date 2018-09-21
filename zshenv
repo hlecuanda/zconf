@@ -7,7 +7,7 @@
 
 if [[ -f "${HOME}/.debug" ]] ; then
    setopt xtrace sourcetrace
-   rm -f "${HOME}/.debug"
+   # rm -f "${HOME}/.debug"
 fi
 
 if [[ -z ${ZDOTDIR}  ]] ; then

@@ -405,9 +405,10 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     else
       mflags=()
     fi
-    mflags=( $mflags "-I ${HOME}/share/bsdowl" )
-    typeset -x MAKEFLAGS="${mflags[@]}"
-    unset mflags
+    # mflags=( $mflags "-I ${HOME}/share/bsdowl" )
+    # typeset -x MAKEFLAGS="${mflags[@]}"
+    # unset mflags
+    typeset -x MAKEFLAGS="-I ${HOME}/share/bsdowl"
   # }}}
   # moar named dirs# {{{
     zlogs=~zconf/logs.d
