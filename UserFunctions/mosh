@@ -1,0 +1,10 @@
+# runs port forwarding on a background ssh session;
+# then runs mosh on udp 61000 as preconfigured on
+# firewalls
+
+to_host=${1}
+command ssh -fNT ${to_host}
+command mosh -p 61000 ${to_host}
+printf("\n SSH ports still forwarded:")
+ps | grep ssh 
+#TODO: Logic to cleanup background forwards on exit
