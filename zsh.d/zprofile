@@ -41,10 +41,13 @@ typeset -gU cdpath fpath mailpath path
 cdpath=(
   ~
   ~/src
+  ~/storage
+  ~/storage/shared
   ~/anaconda3/envs
   /opt
   /usr/local/share
   /usr/share
+  ~/../usr/share
   $cdpath
 )
   # ~/anaconda3/lib/python3.6/site-packages
