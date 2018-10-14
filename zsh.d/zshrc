@@ -173,7 +173,7 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     unalias ls
     alias ls='ls -F --group-directories-first --color=auto'
     alias lC='ls --color=always'
-    alias l='ls -l'
+    alias l='ls'
     alias la='ls -a'
     alias lA='ls -A'
     alias lla='ls -la'
@@ -260,11 +260,12 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
   unalias mv
   unalias cp
   unalias ln
+  unalias grc   
 
-  alias rm=rm -vi
-  alias cp=cp -avi
-  alias mv=mv -vi
-  alias ln=ln -vi
+  alias rm='command rm -vi'
+  alias cp='command cp -avi'
+  alias mv='command mv -vi'
+  alias ln='commsbd ln -vi'
 
     # very vim behavior {{{
       alias :q="exit"
