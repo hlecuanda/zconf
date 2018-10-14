@@ -8,7 +8,8 @@
 
 # ++Sets Prezto options. # General# {{{
     zstyle ':prezto:*:*' case-sensitive 'yes'                         # Set case-sensitivity for completion, history lookup, etc.
-    zstyle ':prezto:*:*' color 'yes'                                  # Color output (auto set to 'no' on dumb terminals).
+    zstyle ':prezto:*:*' color 'no'                                  # Color output (auto set to 'no' on dumb terminals).
+    # Enable grc via UserPrefs
     zstyle ':prezto:load' pmodule-dirs ${ZDOTDIR}/local.d             # Add directories to load prezto modules from
     zstyle ':prezto:load' zmodule complist files zutil terminfo     # Set the Zsh modules to load (man zshmodules).
     zstyle ':prezto:load' zfunction zargs zmv zrecompile \
@@ -48,11 +49,14 @@ zstyle ':prezto:load' pmodule 'helper' 'spectrum' 'prompt' 'UserPrefs' \
     zstyle ':prezto:module:tmux:auto-start' remote 'yes'                # Auto start a session when Zsh is launched in a SSH connection.
     zstyle ':prezto:module:tmux:session' name 'NKIA'                    # Set the default session name:
     zstyle ':prezto:module:utility' safe-ops 'yes'
-    zstyle ':prezto:module:utility:diff' color 'yes'
-    zstyle ':prezto:module:utility:ls' color 'yes'
+    zstyle ':prezto:module:utility:diff' color 'no'
+    zstyle ':prezto:module:utility:ls' color 'no'
     zstyle ':prezto:module:utility:make' color 'no'
-    zstyle ':prezto:module:utility:wdif' color 'yes'
+    zstyle ':prezto:module:utility:wdif' color 'no'
     zstyle ':prezto:module:UserPrefs:syntax-highlighting' theme 'amber'
+    zstyle ':prezto:module:UserPrefs' use-colorizer 'yes'
+    zstyle ':prezto:module:UserPrefs' colorizer 'grc'
+    
   # zstyle ':prezto:module:pacman' frontend 'yaourt'                    # Set the Pacman frontend.
   # zstyle ':prezto:module:python:virtualenv' auto-switch 'yes'         # Auto switch the Python virtualenv on directory change.
   # zstyle ':prezto:module:python:virtualenv' initialize 'yes'          # Automatically initialize virtualenvwrapper if pre-requisites are met.
