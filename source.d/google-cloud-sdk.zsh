@@ -1,11 +1,13 @@
 
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f /home/hector/google-cloud-sdk/path.zsh.inc ]; then
-  source '/home/hector/google-cloud-sdk/path.zsh.inc'
-fi
+sdkpath='/home/hector/google-cloud-sdk' 
+snappath='/snap/bin/google-cloud-sdk/path.zsh.inc'
 
-# The next line enables shell command completion for gcloud.
-if [ -f /home/hector/google-cloud-sdk/completion.zsh.inc ]; then
-  source '/home/hector/google-cloud-sdk/completion.zsh.inc'
+if [ -d $sdkpath ]; then
+  source $sdkpath/path.zsh.inc
+  source $sdkpath/completion.zsh.inc
+elif [ -d $snappath ]; then
+  source $snappath/path.zsh.inc
+  source $snappath/completion.zsh.inc
 fi
