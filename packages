@@ -16,6 +16,8 @@ openssh
 procps
 pwgen 
 python
+ranger
+sed
 termux-am
 termux-api
 termux-exec
