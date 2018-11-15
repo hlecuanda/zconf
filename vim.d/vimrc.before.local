@@ -1,0 +1,120 @@
+" vim: set sw=5 ts=4 sts=4 et tw=78 foldmarker=\ {,\ } foldmethod=marker :
+"        _                      _           __
+" __   _(_)_ __ ___  _ __ ___  | |__   ___ / _| ___  _ __ ___
+" \ \ / / | '_ ` _ \| '__/ __| | '_ \ / _ \ |_ / _ \| '__/ _ \
+"  \ V /| | | | | | | | | (__ _| |_) |  __/  _| (_) | | |  __/
+"   \_/ |_|_| |_| |_|_|  \___(_)_.__/ \___|_|  \___/|_|  \___|
+
+" vimrc.before.local
+
+" Spf13 Options:
+ " {
+
+    " Prevent automatically changing to open file directory
+    "   let g:spf13_no_autochdir = 1
+
+    " Disable Views:
+      let g:spf13_no_views = 1
+
+    " Leader keys
+    "   let g:spf13_leader='\'
+    "   let g:spf13_localleader='_'
+
+    " Disable easier moving in tabs and windows
+    "   let g:spf13_no_easyWindows = 1
+     
+    " Disable Restore Cursor:
+      let g:spf13_no_restore_cursor =1
+      "
+    " Disable Key Fixes:
+      let g:spf13_no_keyfixes =1
+      "
+    " Disable Wrap Relative Motion For Start End Line Motions:
+      let g:spf13_no_wrapRelMotion = 1
+
+    " Disable fast tab navigation
+    "   let g:spf13_no_fastTabs = 1
+
+    " Clear Search Highlighting:
+      let g:spf13_clear_search_highlight = 1
+
+    " Disable neosnippet expansion
+    " This maps over <C-k> and does some Supertab
+    " emulation with snippets
+    "   let g:spf13_no_neosnippet_expand = 1
+
+    " Disable whitespace stripping
+    "   let g:spf13_keep_trailing_whitespace = 1
+
+    " Enable powerline symbols
+      " let g:airline_powerline_fonts = 1
+
+    " Vim Files Directory:
+    "   let g:spf13_consolidated_directory = <full path to desired directory>
+    "   eg: let g:spf13_consolidated_directory = $HOME . '/.vim/'
+      let g:spf13_consolidated_directory = $HOME . '/.vim/'
+
+    " This Makes The Completion Popup Strictly Passive:
+    " Keypresses acts normally. <ESC> takes you of insert mode, words don't
+    " automatically complete, pressing <CR> inserts a newline, etc. Iff the
+    " menu is open, tab will cycle through it. If a snippet is selected, <C-k>
+    " expands it and jumps between fields.
+      let g:spf13_noninvasive_completion = 1
+
+    " Don't turn conceallevel or concealcursor
+    "   let g:spf13_no_conceal = 1
+
+    " For some colorschemes, autocolor will not work (eg: 'desert', 'ir_black')
+    " Indent guides will attempt to set your colors smartly. If you
+    " want to control them yourself, do it here.
+      let g:indent_guides_auto_colors = 1
+      " autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#000000 ctermbg=0
+      " autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1c1c1c ctermbg=234
+      " autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#212122 ctermbg=10
+      " autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#404040 ctermbg=0
+
+    " Leave The Default Font And Size In GVim:
+    " To set your own font, do it from ~/.vimrc.local
+      " let g:spf13_no_big_font = 1
+
+    " Disable  omni complete
+    "   let g:spf13_no_omni_complete = 1
+
+    " Don't create default mappings for multicursors
+    " See :help multiple-cursors-mappings
+    "   let g:multi_cursor_use_default_mapping=0
+    "   let g:multi_cursor_next_key='<C-n>'
+    "   let g:multi_cursor_prev_key='<C-p>'
+    "   let g:multi_cursor_skip_key='<C-x>'
+    "   let g:multi_cursor_quit_key='<Esc>'
+    " Require a special keypress to enter multiple cursors mode
+    "   let g:multi_cursor_start_key='+'
+
+" }
+
+" Bundle Groups:
+" {
+    if exists ("vimpager")
+        let g:override_spf13_bundles=1   " Override Plugin Bundles
+        finish
+    endif
+    " list only the plugin groups you will use {
+    let g:spf14_bundle_groups=[ 'general', 'writing', 'programming', 'neocomplete', 'python', 'javascript', 'html', 'ruby',  'misc' ]
+    " let g:spf13_bundle_groups=[ 'general', 'writing', 'programming', 'youcompleteme', 'python', 'javascript', 'html', 'ruby', 'puppet', 'misc' ]
+    let g:vundle_default_git_proto = 'git'
+    " UnBundle 'wting/rust.vim'
+    " UnBundle 'cespare/vim-toml'
+    " }
+
+     " {V UnUsed Groups
+     " 'go',
+     " 'elixir',
+     " 'scala',
+     " 'haskell',
+     " 'php',
+     " 'snipmate',
+     " 'youcompleteme',
+     " 'neocomplcache',
+     " 'neocomplete', }
+     " }
+
