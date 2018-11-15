@@ -3,18 +3,26 @@
 MFS!=find .  -mindepth 2 -maxdepth 2 -name Makefile
 INSTL=pkg install -y -q 
 PACKAGES!=cat packages
-	
+MODULES != for d in $(find . -name \*.d ) ; do if [[ -f $d/Makefile ]] echo $d ; done
+
 ZDOTDIR=$(HOME)/.zconf
 	
-.PHONY: install packages upgrade 
+.PHONY: install upgrade pkg 
 
-install: upgrade packages gcloud
+install: pkg gcloud modules
 
-include $(MFS)
+$(MODULES): 
+	
 
-packages: upgrade	
+pkg: upgrade	
 	-$(INSTL) $(PACKAGES)
 	termux-setup-storage
+packages:
+	-rm -v $@
+	pkg list-installed -q | \
+		grep -v automatic | \
+		grep -ve '^lib' | \
+		cut -f1 -d\/ > $@
 
 upgrade: 
 	-pkg update -y -q
