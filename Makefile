@@ -1,19 +1,23 @@
 
-SHELL= zsh
+AWK = gawk -p
+DNSOPT = --type=A --ttl=300
 ECHO = print -P '%B %s %b'
-TITL = print -P '%F{blue}%s%f\n'
+FWRULES = --rules=tcp:22,tcp:631,udp:5353,udp:60000-61000
 GCFWRULES = gcloud compute firewall-rules
-FWNAME = ens-in
-MYIP != curl -s mezaops.appspot.com/knock/ | jq .ip 
+HOSTNAME != hostname
+MYIP != curl -s mezaops.appspot.com/knock/ | jq .ip
+SHELL = zsh
+TITL = print -P '%F{blue}%s%f\n'
+VMPARAMS  = --direction=INGRESS --priority=850 --network=default
+VMPARAMS += --action=ALLOW --target-tags=bastion
+ZONE = --zone mcpaints-public
+
 OLDRANGES = $(GCFWRULES) describe $(FWNAME) --format=json
 GETOLDRANGES = $(OLDRANGES)| jw .sourceRanges
+
 DNSPROJ = lecuanda-domain-management
 GDNS = gcloud --project=$(DNSPROJ) dns record-sets transaction
-DNSOPT = --type=A --ttl=300
-ZONE= --zone mcpaints-public
-AWK = gawk -p
 
-HOSTNAME !=hostname
 .PHONY: help createfw listfw describefw updatefw deletefw whatismyip
 
 help::        # Show this message:wq
@@ -47,7 +51,7 @@ whatismyip:  #2 Show your current external IP
 	@$(DOGETIP)
 
 createfw:    #2 Creates a firewall for the current ip
-	$(GCFWRULES) create $(FWNAME) --direction=INGRESS --priority=850 --network=default --action=ALLOW --rules=tcp:22,tcp:631,udp:5353,udp:60000-61000 --source-ranges=$(MYIP) --target-tags=bastion
+	$(GCFWRULES) create $(FWNAME) $(FWPARAMS) $(VMPARAMS) --source-ranges=$(MYIP)
 
 listfw:      #2 Lisrs the projects firewalls
 	$(GCFWRULES) list
@@ -64,3 +68,4 @@ addfw: disabled
 	oldranges = $(GETOLDRANGES)
 	$(GCFWRULES) update $(FWNAME) --source-ranges=$(OLDRANGES)
 
+#  vim: set ft=make sw=4 tw=0 fdm=marker noet :
