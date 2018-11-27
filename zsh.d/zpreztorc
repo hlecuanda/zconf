@@ -21,7 +21,7 @@
 zstyle ':prezto:load' pmodule 'helper' 'spectrum' 'prompt' 'UserPrefs' \
   'environment' 'terminal' 'editor' 'history' 'command-not-found' \
   'directory' 'utility' 'completion' 'archive' 'git' 'ssh' 'docker' \
-  'gpg' 'rsync' 'tmux' 'syntax-highlighting' 'history-substring-search'
+  'gpg' 'rsync' 'syntax-highlighting' 'history-substring-search'
 # }}}
 # disabled# {{{
 # 'autosuggestions' 'dnf' 'emacs' 'gnu-utility' 'haskell' 'homebrew' 'macports' 'node' 'ocaml' 'osx' 'pacman' 'perl' \
