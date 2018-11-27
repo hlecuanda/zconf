@@ -9,7 +9,7 @@
 # Executes commands at the start of an interactive session.
 #
 # Authors:
-#   Hector Lecuanda (H-Lo) <h@h-lo.me>sommand 
+#   Hector Lecuanda (H-Lo) <h@h-lo.me>sommand
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 # 0. Vim navigation awesomness                                            # {{{
@@ -113,7 +113,7 @@ zstyle ':completion:*' use-compctl true
 zstyle ':completion:*' verbose true
 zstyle :compinstall filename "${HOME}/.zconf/.zshrc"
 
-# compinit gets called on prezto's completion module 
+# compinit gets called on prezto's completion module
 # autoload -Uz compinit
 # compinit
 # End of lines added by compinstall
@@ -124,7 +124,7 @@ zstyle :compinstall filename "${HOME}/.zconf/.zshrc"
   # Source Prezto.
   [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && \
     source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-  
+
   # Source local packages (gcloud, harvest, et al)
   [[ -s "${ZDOTDIR:-$HOME}/source.d/" ]] && \
     for sourcefile in ${ZDOTDIR}/source.d/**
@@ -249,15 +249,15 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     alias -s json=jq .
   # }}}
   # Personal additions # {{{
-    for cmd in (rm cp mv ln)
+    for cmd in  rm cp mv ln 
       unalias ${cmd}
-    alias mv='zmv -v'    
-    alias rm='zmv -R -vi'
-    alias cp="zmv -C -va" 
-    alias ln='zmv -L -v'
+    alias mv='nocorrect zmv -v'
+    alias cp="nocorrect zmv -C -va"
+    alias ln='nocorrect zmv -L -v'
+    alias rm='nocorrect rm -vi'
 
     alias mv_="zmv '* *' '${f// /_}'"
-    alias mv-="zmv '* *' '${f// /-}'" 
+    alias mv-="zmv '* *' '${f// /-}'"
 
     # very vim behavior {{{
       alias :q="exit"
@@ -412,7 +412,7 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     bindkey -M vicmd -s ',gl' "git@gitlab.com:hlecuanda/"
     bindkey -M vicmd -s ',gh' "git@github.com:hlecuanda/"
     bindkey -M vicmd -s 'gcc' 'gcloud compute'
-    bindkey .M vicmd -s 'gcf' 'gcloud compute firewall-rules'
+    bindkey -M vicmd -s 'gcf' 'gcloud compute firewall-rules'
 
   # }}}
 # }}}

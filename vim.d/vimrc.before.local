@@ -99,7 +99,7 @@
         finish
     endif
     " list only the plugin groups you will use {
-    let g:spf14_bundle_groups=[ 'general', 'writing', 'programming', 'neocomplete', 'python', 'javascript', 'html', 'ruby',  'misc' ]
+    let g:spf13_bundle_groups=[ 'general', 'writing', 'programming', 'neocomplete', 'python', 'javascript', 'html', 'ruby',  'misc' ]
     " let g:spf13_bundle_groups=[ 'general', 'writing', 'programming', 'youcompleteme', 'python', 'javascript', 'html', 'ruby', 'puppet', 'misc' ]
     let g:vundle_default_git_proto = 'git'
     " UnBundle 'wting/rust.vim'
