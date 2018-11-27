@@ -1,4 +1,4 @@
-#          _
+<R         _
 #  _______| |__  _ __ ___
 # |_  / __| '_ \| '__/ __|
 #  / /\__ \ | | | | | (__
@@ -137,7 +137,7 @@ zstyle :compinstall filename "${HOME}/.zconf/.zshrc"
 
   # source gcloud from prefix
   [[ -s "${TERMUXPREFIX:-$HOME}" ]] && \
-    for sourcefile in ${TERMUXPREFIX:-$HOME}/google-cloud-sdk/**.zsh.inc
+    for sourcefile in /usr/local/google-cloud-sdk/**.zsh.inc
       source "${sourcefile}"
 
   [[ -f /usr/local/share/zsh-navigation-tools/zsh-navigation-tools.plugin.zsh ]] && \
