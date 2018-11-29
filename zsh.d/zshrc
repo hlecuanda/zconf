@@ -249,16 +249,17 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     alias -s json=jq .
   # }}}
   # Personal additions # {{{
+    # {{{ zmv instead of mv cp ln and verbose rm
     for cmd in  rm cp mv ln 
       unalias ${cmd}
     alias mv='nocorrect zmv -v'
     alias cp="nocorrect zmv -C -v -o -a"
     alias ln='nocorrect zmv -L -v'
-    alias rm='command rm -vi'
+    alias rm='nocorrect command rm -vi'
 
     alias mv_="zmv '* *' '${f// /_}'"
     alias mv-="zmv '* *' '${f// /-}'"
-
+# }}}
     # very vim behavior {{{
       alias :q="exit"
       alias qq="exit"
@@ -271,11 +272,12 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     alias colorize='pygmentize -s -l sh -f 258 -O style=solarizeddark | less -RS '
     alias git-describe='git describe --tags --long --abbrev --dirty --always'
     alias info='info --vi-keys'
-    alias list-keys=lsbindings
-    alias lskeys=lsbindings
+    alias list-keys='lsbindings'
+    alias lskeys='lsbindings'
     alias monofonts='fc-list :scalable=true:spacing=mono: family |sort|uniq'
     alias nmap-full='nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v'
     alias pgp='gpg'
+    alias mosh='mosh -a'
   # }}}
 # }}}
 
@@ -429,8 +431,6 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     zlogs=~zconf/logs.d
     zfuncs=~zconf/UserFunctions
     src=~/src
-    nudot=~src/Dotfiles/hlo-dotfiles
-    altdot=~src/Dotfiles/dotfiles
   # }}}
 
   PROMPT='%m %F{216}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
