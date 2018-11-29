@@ -1,4 +1,4 @@
-<R         _
+#
 #  _______| |__  _ __ ___
 # |_  / __| '_ \| '__/ __|
 #  / /\__ \ | | | | | (__
@@ -252,9 +252,9 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     for cmd in  rm cp mv ln 
       unalias ${cmd}
     alias mv='nocorrect zmv -v'
-    alias cp="nocorrect zmv -C -va"
+    alias cp="nocorrect zmv -C -v -o -a"
     alias ln='nocorrect zmv -L -v'
-    alias rm='nocorrect rm -vi'
+    alias rm='command rm -vi'
 
     alias mv_="zmv '* *' '${f// /_}'"
     alias mv-="zmv '* *' '${f// /-}'"
@@ -269,7 +269,6 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
       alias hcl='nocorrect hcl'
     # }}}
     alias colorize='pygmentize -s -l sh -f 258 -O style=solarizeddark | less -RS '
-    alias fuck='$(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
     alias git-describe='git describe --tags --long --abbrev --dirty --always'
     alias info='info --vi-keys'
     alias list-keys=lsbindings
