@@ -1,5 +1,6 @@
 *~
 awkprof.out
+example*
 *.log
 .revolver
 *%.swp
