@@ -269,15 +269,17 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
       # source $(ruby -e "print File.dirname(Gem.bin_path('hcl', 'hcl'))")/_hcl_completions
       alias hcl='nocorrect hcl'
     # }}}
-    alias colorize='pygmentize -s -l sh -f 258 -O style=solarizeddark | less -RS '
-    alias git-describe='git describe --tags --long --abbrev --dirty --always'
-    alias info='info --vi-keys'
-    alias list-keys='lsbindings'
-    alias lskeys='lsbindings'
-    alias monofonts='fc-list :scalable=true:spacing=mono: family |sort|uniq'
-    alias nmap-full='nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v'
-    alias pgp='gpg'
-    alias mosh='mosh -a'
+    # {{{ Misc Aliases
+      alias colorize='pygmentize -s -l sh -f 258 -O style=solarizeddark | less -RS '
+      alias git-describe='git describe --tags --long --abbrev --dirty --always'
+      alias info='info --vi-keys'
+      alias list-keys='lsbindings'
+      alias lskeys='lsbindings'
+      alias monofonts='fc-list :scalable=true:spacing=mono: family |sort|uniq'
+      alias nmap-full='nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v'
+      alias pgp='gpg'
+      alias mosh='mosh -a'
+    # }}}
   # }}}
 # }}}
 
@@ -414,7 +416,9 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     bindkey -M vicmd -s ',gh' "git@github.com:hlecuanda/"
     bindkey -M vicmd -s 'gcc' 'gcloud compute'
     bindkey -M vicmd -s 'gcf' 'gcloud compute firewall-rules'
-
+    # stupid spanish keyboard missing a tilde!!
+    bindkey -M viins -s "ç" "~"
+    bindkey -M vicmd -s "ç" "~"
   # }}}
 # }}}
 
@@ -432,9 +436,8 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     zfuncs=~zconf/UserFunctions
     src=~/src
   # }}}
-
-  PROMPT='%m %F{216}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
 # }}}
 
+PROMPT='%m%F{216}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
 
 #  vim: set ft=zsh sw=2 tw=0 fdm=marker foldlevel=0 et :

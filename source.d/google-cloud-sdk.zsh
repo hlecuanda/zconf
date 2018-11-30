@@ -1,7 +1,7 @@
 
 
 # The next line updates PATH for the Google Cloud SDK.
-sdkpath='/home/hector/google-cloud-sdk' 
+sdkpath='/usr/local/google-cloud-sdk' 
 snappath='/snap/bin/google-cloud-sdk/path.zsh.inc'
 
 if [ -d $sdkpath ]; then
