@@ -1,24 +1,28 @@
-	
-PFX=/data/data/com.termux/files
-ETC=${PFX}/usr/etc
-HOM=${PFX}/home		
 
-.PHONY: install serverconfig personalconfig conf ssh 
+PFX=/data/data/com.termux/files
+ETC=$(PFX)/usr/etc
+HOM=$(PFX)/home
+INSTALL= install -m ugo+rw,o-w --backup=numbered
+.PHONY: install serverconfig personalconfig conf ssh
 
 install: ssh conf
 
-serverconfig: 
-	install sshd_conf -D ${ETC}/sshd_config
+serverconfig: sshd_config banner | $(ETC)/ssh
+	$(INSTALL) sshd_config $(ETC)/ssh
+	$(INSTALL) banner $(ETC)/ssh
 
-personalconfig: $(HOME)/.ssh/id_rsa
-	install authorized_hosts -D ${HOM}/.ssh
-	install config -D ${HOM}/.ssh
-		
+personalconfig:
+	$(INSTALL) authorized_hosts  $(HOM)/.ssh
+	$(INSTALL) config $(HOM)/.ssh
+
 conf: personalconfig serverconfig
-		
-ssh: 
+
+ssh:
 	-pkg install -y -q	openssh mosh sshpass
 
-$(HOME)/.ssh/id_rsa: 
-	ssh-keygen 
-			
+$(ETC)/ssh:
+	mkdir $(ETC)/sh
+
+$(HOME)/.ssh:
+	ssh-keygen
+

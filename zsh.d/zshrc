@@ -255,7 +255,7 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
   alias ssht='ssh -fNT'
   alias mosh='mosh -a'
   #todo conditiob on android
-  alias sshd='sshd -f ~/.zconf/sshd.d/sshd_config -E ~/.zconf/logs.d/sshd.d'
+  alias sshd='sshd -E ~/.zconf/logs.d/sshd.d'
   unalias rm
   unalias mv
   unalias cp

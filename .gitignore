@@ -1,12 +1,14 @@
 *.log
+logs.d/*
+*.swp
 *.zwc
 *.zwc.*
 *~
+.revolver
 .zcomp*
 .zhistory
 .zprezto
 zsticky
-*.swp
 
 #installed runcoms
 #.zlogin

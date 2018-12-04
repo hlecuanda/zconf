@@ -1,21 +1,38 @@
-Host passport
-HostName passport.mcpaints.com
-
 Host trantor
 HostName trantor.lecuanda.com
-LocalForward 5900 localhost:5900
-LocalForward 5901 localhost:5901
+LocalForward 6901 localhost:5901
 LocalForward 5902 localhost:5902
 
-Host lax
-HostName lax.mcpaints.net
+Host terminus
+HostName 35.230.22.28
+LocalForward 6901 localhost:5901
 
-Host github
-HostName github.com
-User git
+Host passport
+HostName passport.mcpaints.com
+LocalForward 1631 localhost:631
+
+Host pi3
+HostName 192.168.2.68
+
+Host co
+HostName compton.mcpaints.net
+LocalForward 6901 localhost:5901
+LocalForward 1631 localhost:631
+LocalForward 8080 licalhost:80
+
+Host ix
+HostName ixtlan.mcpaints.com
+LocalForward 6901 localhost:5901
+LocalForward 1631 localhost:631
+LocalForward 8080 licalhost:80
+
+Host lax
+HostName lax.mcpaints.com
+LocalForward 6901 localhost:5901
+LocalForward 1631 localhost:631
+LocalForward 8080 licalhost:80
 
 Host *
 User hector
 Compression yes
-ForwardAgent yes
-GatewayPorts yes
+
