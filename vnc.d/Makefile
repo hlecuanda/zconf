@@ -10,10 +10,29 @@ XRESGREP     = grep -hvEe '^\!' | grep -vEe ^$$| grep -vEe '^\/'
 XTARGETS     = $(DESTDIR)/$(EXEC_FILES)
 TARGETS     != for file in $(CONFIG_FILES) ; do echo $(DESTDIR)/$${file} ; done
 
-.PHONY: install dir
+.PHONY: install dir update
 
-install: $(TARGETS) $(XTARGETS)
+all: install clean .change update
 
+
+install: $(TARGETS) $(XTARGETS) 
+
+
+update:
+	git pull
+	git merge
+	touch .update
+
+
+.change: $(EXEC_FILES) $(CONFIG_FILES) Xres/* .gitignore | update
+	git add . 
+	git commit -m "Changes on $(DATE)"
+	git push
+	touch .change
+
+
+clean:
+	rm -fv Xresources
 
 Xresources: Xres/*
 	cat Xres/* | $(XRESGREP) > $@
@@ -29,6 +48,9 @@ $(TARGETS): $(CONFIG_FILES) | dir
 
 dir: $(HOME)/.vnc
 
+.gitignore: 
+	cat <<< EOF \
+		
 
 $(HOME)/.vnc:
 	mkdir $@
