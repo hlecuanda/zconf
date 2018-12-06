@@ -7,9 +7,14 @@ INSTL=pkg install-y -q
 	
 ZDOTDIR=$(HOME)/zconftest
 	
-.PHONY: packages tmux zsh ssh update upgrade runcoms 	
+.PHONY: packages tmux zsh ssh update upgrade runcoms test
 
-include $(DIRS).d/Makefile
+# include $(DIRS).d/Makefile
+
+test:
+	-zunit run --verbose --output-text
+	@echo '_____ Outputs ______'
+	cat ./tests/_output/output.txt
 
 install: upgrade packages 
 
@@ -27,3 +32,5 @@ upgrade:
 	
 update: upgrade
 	@echo in update
+
+
