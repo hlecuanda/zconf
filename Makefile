@@ -53,7 +53,8 @@ whatismyip:  #2 Show your current external IP
 	@$(DOGETIP)
 
 createfw:    #2 Creates a firewall for the current ip
-	$(GCFWRULES) create $(FWNAME) $(FWPARAMS) $(VMPARAMS) --source-ranges=$(MYIP)
+	$(GCFWRULES) create $(FWNAME) $(FWPARAMS) \
+		$(VMPARAMS) $(FWRULES) --source-ranges=$(MYIP)
 
 listfw:      #2 Lisrs the projects firewalls
 	$(GCFWRULES) list
