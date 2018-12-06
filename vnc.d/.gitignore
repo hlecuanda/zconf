@@ -1,0 +1,7 @@
+.
+.change
+*.log
+passwd
+*.pid
+.update
+Xresources
