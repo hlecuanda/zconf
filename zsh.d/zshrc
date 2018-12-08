@@ -131,9 +131,10 @@ zstyle :compinstall filename '/home/hector/.zconf/.zshrc'
       source "${sourcefile}"
 
   # autoload quick functions useful to have but too small to warrant a module
-  [[ -s "${ZDOTDIR:-$HOME}/UserFunctions/" ]] && \
-    for func in ${ZDOTDIR:-$HOME}/UserFunctions/**
-      autoload -Uz ${func:t}
+  # [[ -s "${ZDOTDIR:-$HOME}/UserFunctions/" ]] && \
+  #   for func in ${ZDOTDIR:-$HOME}/UserFunctions/**
+  #     autoload -Uz ${func:t}
+
   # source gcloud from prefix
   [[ -s "${TERMUXPREFIX:-$HOME}" ]] && \
     for sourcefile in ${TERMUXPREFIX:-$HOME}/google-cloud-sdk/**.zsh.inc
@@ -443,12 +444,10 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
   # }}}
   # moar named dirs# {{{
     zlogs=~zconf/logs.d
-    zfuncs=~zconf/UserFunctions
+    zfuncs=~zconf/local.d/UserPrefs/functions
     src=~/src
-    nudot=~src/Dotfiles/hlo-dotfiles
-    altdot=~src/Dotfiles/dotfiles
   # }}}
-  PROMPT='${hostinfo:-""}%F{216}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
+  PROMPT='%m%F{216}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
 # }}}
 
 
