@@ -1,18 +1,42 @@
-	
-PFX=/data/data/com.twemux/files
+
+SHELL=zsh
+MV = command mv -v
+OS != uname -o
+
+ifeq "$(OS)" "Android"
+PFX=/data/data/com.termux/files
 ETC=${PFX}/usr/etc
-HOM=${PFX}/home		
+else 
+PFX=/usr/local
+ETC=${PFX}/etc
+endif
+	
+UCF=$(HOME)/.ssh/config
+HOSTALIAS != which ssh-argv0
 
-.PHONY: install
+HATGT != for host in $$(cat $(UCF) | grep -Ee 'Host '| grep -vEe '\*' | sed -Ee 's/Host//'); \
+		echo $(HOME)/bin/$${host}
 
-${ETC}/sshd_config: installserver personalcfg
-	install sshd_conf -D ${ETC}/sshd_config
+.PHONY: install binalias server-cfg user-cfg
 
-${HOM}/.ssh/.done:
-	@install authorized_hosts -D ${HOM}/.ssh/autorized_hosts
-	install config -D ${HOM}/.ssh/config
-	install id_rs* -D $(HOM}/
-		
-install: 
-	-apt install -y -q	openssh mosh sshpass
-			
+
+install: server-cfg user-cfg
+	-apt install -y -q openssh mosh sshpass
+
+ifdef $(HOSTALIAS)
+binalias: $(HATGT)
+
+$(HATGT): user-cfg
+	grep $(nodir $@) $(UCF)
+endif
+
+server-cfg: $(ETC)/sshd_config
+
+user-cfg: $(UCF)
+
+${ETC}/sshd_config:
+	install sshd_conf
+
+$(UCF):
+	install config
+
