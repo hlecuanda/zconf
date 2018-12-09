@@ -11,9 +11,15 @@ grep
 make
 man
 mosh
+openssh
 procps
 pwgen 
 python
+termux-am
+termux-api
+termux-exec
+termux-tools
 tig
 tmux
+vim
 zsh

@@ -29,13 +29,12 @@
 # Execute code only if STDERR is bound to a TTY. {{{
 [[ -o INTERACTIVE && -t 2 ]] && {
   # Print a random, hopefully interesting, adage. {{{
-  if (( $+commands[fortune] && $+commands[toilet] && $+commands[boxes] )); then
+  if (( $+commands[fortune] )); then
     unfunction fortune
-    # fortune -a 
-    # boxes -d utf8 
-    # toilet -f term -F metal 
-  else 
-    # fortune -a
+    fortune -a 
+  fi
+  if (( $+commands[fuck] )); then
+    eval $(thefuck --alias)
   fi
   # }}}
   # {{{ debugging control

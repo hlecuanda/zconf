@@ -1,0 +1,740 @@
+" vim: set ft=vim sw=2 tw=0 fdm=marker et foldmarker=\ {,\ } :
+"  _   _       _                  _                      _                 _
+" | | | |     | |    ___   __   _(_)_ __ ___  _ __ ___  | | ___   ___ __ _| |
+" | |_| |_____| |   / _ \  \ \ / / | '_ ` _ \| '__/ __| | |/ _ \ / __/ _` | |
+" |  _  |_____| |__| (_) |  \ V /| | | | | | | | | (__ _| | (_) | (_| (_| | |
+" |_| |_|     |_____\___/  (_)_/ |_|_| |_| |_|_|  \___(_)_|\___/ \___\__,_|_|
+" 2013-09-03 18:10
+"
+" Vimpager Setup:
+" {
+    if exists ("vimpager")
+        syntax enable
+        set background=dark    " end Plugin config
+        colorscheme solarized
+        set nospell            " speller off
+        set noignorecase       " who ever thought that ignoring case is a good idea?
+        set nolist
+        set nowrap
+        set nocursorcolumn
+        runtime ftplugin/man.vim
+        nmap K :Man <cword><CR>
+        let g:airline#extensions#tmuxline#enabled = 0
+        au VimEnter, Colorscheme * hi! CursorLine ctermbg=0
+        finish
+    endif
+" }
+
+" Diff Mode Mappings:
+" {
+    if &diff
+        nnoremap <F3> :diffupdate<CR>
+        set diffopt=filler,vertical,foldcolumn:4,context:3 " options for diff
+    endif
+" } end diff mode mappings
+
+" Settings:
+" {
+    set autowrite                            " edit using buffers
+    set clipboard=autoselect                 " experimenting, try to see if it fixes yank
+    set colorcolumn=-1,-2,-3,-4,-5           " highlight 5 columns before col8O
+    set completeopt=menu,preview             " try spf default...
+    set confirm                              " Non UTF-8 Fallback
+    set cursorcolumn                         " cursor crosshairs: nice.
+    set diffopt=filler,vertical,foldcolumn:4,context:3 " options for diff
+    set noignorecase                         " see how smartcase works out
+    " set nolist                               " let ft or modeline decide on listmode
+    set nospell                              " speller off
+    set nowrap                               " no wrappin
+    set scrolljump=1                         " Smooth scrolling
+    set scrolloff=1
+    set foldminlines=3
+    set foldcolumn=2                         " fold indicator
+    set foldenable
+    " set foldclose=all
+    " set foldopen= all,block,hor,insert,jump,mark,percent,quickfix search,tag,undo,
+    set foldopen=hor,insert,jump,mark,percent,quickfix,search,tag,undo
+    set timeout
+    set timeoutlen=1500                      " 1.5 sec timeout on mappings
+    set ttimeoutlen=100                      " 1/10 sec timeout on keycides
+    " set textwidth=80                         " 80 col width enforcemen
+    " let g:hlo_modeline='# vim: ft=tmux foldmethod=marker foldmarker={,} foldenable foldlevel=1 : '
+    let g:github_token='7d5160928517b13ea5791426da1ca80dfd03ffe8'
+" }
+
+" Custom Key Mappings:
+" {
+    " Repeat last ex command
+    nnoremap ! @:
+    "column separatopr and date separator insert for a whole column
+    nnoremap <silent> <leader>!  :ColSep<CR>
+    nnoremap <silent> <leader>@  :DateSep<CR>
+    nnoremap <silent> <leader>cr :ReloadHloConfig<CR>
+    nnoremap <silent> <leader>do :DiffOrig<CR>
+    " Capitalize every word.
+    nnoremap <silent> <leader>C  :s/\<\a/\u&/g<CR>:nohlsearch<CR>
+    "turn off pesky search highligmht
+    nnoremap <silent> <leader>l  :nohlsearch<CR>
+    nnoremap <silent> <leader>ll :AppendEditLogLine<CR>
+    "which key does what? awesome
+    nnoremap <silent> <leader>mm :TBrowseOutput map<CR>
+    nnoremap <silent> <leader>mn :TBrowseOutput nmap<CR>
+    nnoremap <silent> <leader>mi :TBrowseOutput imap<CR>
+    nnoremap <silent> <leader>mv :TBrowseOutput vmap<CR>
+    " head off to column 80? why? 'cause its fun, yo
+    nnoremap <silent> <leader>mc :normal 80\|<CR>
+    " get rid of trailing spaces
+    nnoremap <silent> <leader>s  :%s/\s\+$//g<CR>
+    nnoremap <silent> <leader>ts :call setline(line("."), strftime("%Y%m%d %H%M%S %z %Z %s"))<CR>
+    nnoremap <silent> <leader>tS :call setline(line("."),printf(" h@h-lo.me %s %s ", strftime("%Y%m%d %H%M%S %z %Z %s"), "d(-_- )b..." ))<CR>
+    "clipboard cut and paste, cuz im lazy.
+    nnoremap <silent> <leader>c  :normal "+y
+    nnoremap <silent> <leader>p  :normal "+p
+    nnoremap <silent> <leader>v  :normal "+p
+    nnoremap <silent> <leader>y  :normal "+y
+    "insert whatever is on the clipboard forcefully, behind tmux
+    nnoremap <silent> <leader><C-V> :normal r! xclip -o<CR>
+
+
+    " my broken keyboard
+    " cnoremap <S-Down> <Up>
+    " nnoremap <S-Down> <Up>
+    " inoremap Ç <space>
+    " cnoremap Ç <space>
+" }
+
+" Toggles:
+" {
+    noremap  <F2>   :DelimitMateSwitch<CR>
+    noremap  <F3>   :UndoTreeToggle<CR>
+    noremap  <F4>   :set wrap!
+    noremap  <S-F4> :set list!
+    noremap  <F6>   :IndentGuidesToggle<CR>
+    noremap  <F7>   :GitGutterToggle<CR>
+    noremap  <F8>   :set number!<CR>
+    noremap  <F9>   :NumbersOnOff<CR>
+    noremap  <F10>  :NumbersToggle<CR>
+    set pastetoggle=<F12>
+" } end toggles
+
+" Plugin Config:
+" {
+
+    "UnBundle unwanted plugins
+    " let g:bundles = g:vundle#bundles
+    " UnBundle 'spf13/vim-autoclose'
+
+    " Signify {
+        " g:signify_vcs_list
+        " g:signify_disable_by_default
+        " g:signify_skip_filetype
+        " g:signify_skip_filename
+        " g:signify_update_on_bufenter
+        " g:signify_update_on_focusgained
+        " g:signify_line_highlight
+        " g:signify_sign_add
+        " g:signify_sign_delete
+        " g:signify_sign_delete_first_line
+        " g:signify_sign_change
+        " g:signify_sign_changedelete
+        " g:signify_sign_show_count
+        " g:signify_cursorhold_normal
+        " g:signify_cursorhold_insert
+        " g:signify_difftool
+        " g:signify_diffoptions
+    " }
+    " YCM {
+          " let g:ycm_seed_identifiers_with_syntax = 1
+          " let g:ycm_collect_identifiers_from_tags_files = 1
+          " let g:ycm_always_populate_location_list = 1
+          " let g:ycm_collect_identifiers_from_comments_and_strings = 1
+          " let g:ycm_add_preview_to_completeopt = 1
+          " let g:ycm_autoclose_preview_window_after_completion = 1
+          " let g:ycm_autoclose_preview_window_after_insertion = 1
+          " let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
+          " let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>']
+          " let g:ycm_key_invoke_completion = '<C-Space>'
+          " let g:ycm_key_detailed_diagnostics = '<leader>d'
+    " }
+    " DelimitMate {
+         " loaded_delimitMate=            ... " Turns off the script.
+         " delimitMate_autoclose=             " Tells delimitMate whether to automagically insert the closing delimiter.
+         " delimitMate_matchpairs=            " Tells delimitMate which characters are matching  pairs.
+         " delimitMate_quotes=                " Tells delimitMate which quotes should be used.
+         " delimitMate_nesting_quotes=        " Tells delimitMate which quotes should be allowed  to be nested.
+         " delimitMate_expand_cr=             " Turns on/off the expansion of <CR>.
+         " delimitMate_expand_space=          " Turns on/off the expansion of <Space>.
+         " delimitMate_jump_expansion=        " Turns on/off jumping over expansions.
+         " delimitMate_smart_quotes=          " Turns on/off the ''smart quotes feature.
+         " delimitMate_smart_matchpairs=      " Turns on/off the smart matchpairs feature.
+         " delimitMate_balance_matchpairs=    " Turns on/off the balance matching pairs feature.
+         " delimitMate_excluded_regions=      " Turns off the script for the given regions or syntax group names.
+         " delimitMate_excluded_ft=           " Turns off the script for the given file types.
+         " delimitMate_eol_marker=            " Determines what to insert after the closing matchpair when typing an opening matchpair on the end of the line.
+    " }
+    " " Default Man Page plugin {
+    "     runtime ftplugin/man.vim
+    "     nmap K :Man <cword><CR>
+    "     "
+    " " end default man page }
+    " Snipmate athor tag  {
+        let g:snips_author = 'Héctor Lecuanda <hector@lecuanda.com>'
+
+
+    " }
+    " CtrlP Configuration  {
+        let g:ctrlp_extensions = ['line', 'dir', 'tag', 'buffertag', 'quickfix', 'rtscript', 'undo', 'changes', 'mixed', 'bookmarkdir']
+        "
+        "
+        "
+    " }
+    " NerdTree Config   {
+        let g:nerdtree_tabs_open_on_gui_startup = 0     " Open NERDTree on gvim/macvim startup
+        let g:nerdtree_tabs_open_on_console_startup = 0 " Open NERDTree on console vim startup
+        let g:nerdtree_tabs_open_on_new_tab = 1         " Open NERDTree on new tab creation (if NERDTree was globally opened by :NERDTreeTabsToggle)
+        let g:nerdtree_tabs_meaningful_tab_names = 1    " Unfocus NERDTree when leaving a tab for descriptive tab names
+        let g:nerdtree_tabs_autoclose = 1               " Close current tab if there is only one window in it and it's NERDTree
+        let g:nerdtree_tabs_synchronize_view = 1        " Synchronize view of all NERDTree windows (scroll and cursor position)
+        let g:nerdtree_tabs_focus_on_files = 0          " When switching into a tab, make sure that focus is on the file window,
+                                                        " not in the NERDTree window. (Note that this can get annoying if you use
+                                                        " NERDTree's feature 'open in new tab silently', as you will lose focus on the
+                                                        " NERDTree.)
+    " }
+    " NERDComment Config {
+        let g:NERDRemoveExtraSpaces=1
+        let g:NERDSpaceDelims=1
+    " }
+    " Relative numbers {
+        let g:enable_numbers = 0
+        " See Toggles section "
+    " }
+    " Gitgutter {
+        " set shell=/bin/bash
+        let g:gitgutter_realtime = 0
+        highlight clear SignColumn
+        " See Toggles: Section
+        " noremap <F11> :GitGutterLineHighlightsToggle<CR>
+        " noremap <S-F11> :GitGutterToggle<CR>
+    " }
+    " Airline: {
+           let g:airline_theme='dark'
+            " let g:airline#extensions#syntastic#enabled = 1
+            let g:airline#extensions#virtualenv#enabled = 1
+            "Promptline: {
+            "
+                let g:airline#extensions#promptline#enabled = 0
+                " let airline#extensions#promptline#color_template = 'insert'
+                " let airline#extensions#promptline#color_template = 'normal' (default)
+                " let airline#extensions#promptline#color_template = 'replace'
+                " let airline#extensions#promptline#color_template = 'visual'
+                " let airline#extensions#promptline#snapshot_file = "~/Repos/dotfiles/bash.d/prompt.sh"
+            " }
+            "Tmuxline: {
+                let g:airline#extensions#tmuxline#enabled = 0
+                " let airline#extensions#tmuxline#color_template = 'insert'
+                " let airline#extensions#tmuxline#color_template = 'normal' (default)
+                " let airline#extensions#tmuxline#color_template = 'replace'
+                " let airline#extensions#tmuxline#color_template = 'visual'
+                " let airline#extensions#tmuxline#snapshot_file = "~/Repos/dotfiles/tmux.d/statusline.tmux"
+            " }
+            "Branch: {
+                let g:airline#extensions#branch#displayed_head_limit = 10
+                let g:airline#extensions#branch#empty_message = ''
+                let g:airline#extensions#branch#enabled = 1
+                let g:airline#extensions#branch#use_vcscommand = 0
+            " }
+            "Bufferline: {
+                let g:bufferline_echo = 0
+                let g:airline#extensions#bufferline#enabled = 0
+                let g:airline#extensions#bufferline#overwrite_variables = 0
+            " }
+            "Csv: {
+                let g:airline#extensions#csv#column_display = 'Name'
+                " let g:airline#extensions#csv#column_display = 'Number'
+                let g:airline#extensions#csv#enabled = 1
+            " }
+            "CtrlP: {
+                " let g:airline#extensions#ctrlp#color_template = 'insert'
+                " let g:airline#extensions#ctrlp#color_template = 'normal'
+                " let g:airline#extensions#ctrlp#color_template = 'replace'
+                let g:airline#extensions#ctrlp#color_template = 'visual'
+                let g:airline#extensions#ctrlp#show_adjacent_modes = 1
+            " }
+            "Hunks: {
+                " let g:airline#extensions#hunks#enabled = 1
+                " let g:airline#extensions#hunks#hunk_symbols = ['+', '~', '-']
+                " let g:airline#extensions#hunks#non_zero_only = 0
+            " }
+            "QuickFix Location: {
+                let g:airline#extensions#quickfix#location_text = 'Location'
+                let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
+            " }
+            "Tabline: {
+                let g:airline#extensions#tabline#buffer_idx_mode = 1
+                let g:airline#extensions#tabline#enabled = 1
+                " let g:airline#extensions#tabline#excludes = []
+                let g:airline#extensions#tabline#show_buffers = 1
+                let g:airline#extensions#tabline#show_tab_nr = 1
+                " let g:airline#extensions#tabline#show_tab_type = 1
+                let g:airline#extensions#tabline#show_tabs = 1
+                " let g:airline#extensions#tabline#tab_nr_type = 0 " # of splits (default)
+                let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+                " let g:airline#extensions#tabline#tab_nr_type = 2 " splits and tab number
+                nmap <leader>1 <Plug>AirlineSelectTab1
+                nmap <leader>2 <Plug>AirlineSelectTab2
+                nmap <leader>3 <Plug>AirlineSelectTab3
+                nmap <leader>4 <Plug>AirlineSelectTab4
+                nmap <leader>5 <Plug>AirlineSelectTab5
+                nmap <leader>6 <Plug>AirlineSelectTab6
+                nmap <leader>7 <Plug>AirlineSelectTab7
+                nmap <leader>8 <Plug>AirlineSelectTab8
+                nmap <leader>9 <Plug>AirlineSelectTab9
+            " }
+            "Tagbar: {
+                let g:airline#extensions#tagbar#enabled = 1
+                let g:airline#extensions#tagbar#flags = ''
+                " let g:airline#extensions#tagbar#flags = 'f'
+                " let g:airline#extensions#tagbar#flags = 'p'
+                " let g:airline#extensions#tagbar#flags = 's'
+            " }
+            "Whitespace: {
+                " let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing' ]
+                let g:airline#extensions#whitespace#enabled = 0
+                " let g:airline#extensions#whitespace#max_lines = 20000
+                " let g:airline#extensions#whitespace#mixed_indent_algo = 0
+                " let g:airline#extensions#whitespace#mixed_indent_algo = 1
+                " let g:airline#extensions#whitespace#mixed_indent_format = 'mixed-indent[%s]'
+                " let g:airline#extensions#whitespace#show_message = 1
+                " let g:airline#extensions#whitespace#symbol = '!'
+                " let g:airline#extensions#whitespace#trailing_format = 'trailing[%s]'
+            " }
+      " }
+    " Tmuxline: {
+        "let g:tmuxline_preset ={
+            \'a'       : '#S:#I.#P•#W',
+            \'b'       : '#{?client_prefix,⬆,•} #{?client_readonly,RO,•} #{?alternate_on,ALT,•}',
+            \'c'       : '#(echo $PWD)',
+            \'win'     : '#F#I•#W',
+            \'cwin'    : '#F#I•#W',
+            \'x'       : '#(client_activity_string)',
+            \'y'       : '%R',
+            \'z'       : '#h',
+            \'options' : {'status-justify' : 'left'}
+        " }
+
+        let g:TmuxThemeHash={   'a':['#ffffff','#ff00ff',''],  'b':['#000000','#ffffff',''], 'c':['240','237',''],
+                            \'cwin':['#ff00ff','#ffffff',''],'win':['#585858','#ffffff',''],'bg':['56' ,'61',''],
+                               \'x':['#585858','#ffffff',''],  'y':['#250250','#ffffff',''], 'z':['237','#ffffff','']}
+
+        " silent call tmuxline#api#set_theme(g:TmuxThemeHash)
+    " }
+    "IndentGuides: {
+        " let g:indent_guides_auto_colors = 1
+        let g:indent_guides_start_level = 3
+        let g:indent_guides_exclude_filetypes = ['help', 'nerdtree' , 'man']
+        " autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#000000   ctermbg=0
+        " autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#1c1c1c ctermbg=234
+    " }
+    "Undotree: {
+        let g:undotree_DiffAutoOpen =1
+        let g:undotree_DiffPanelHeight=0
+        let g:undotree_SetFocusWhenToggle = 1
+        let g:undotree_HighlightChangedText = 1
+    " }
+    "Wildfire: {
+        " This selects the next closest text object.
+        map <SPACE> <Plug>(wildfire-fuel)
+
+        " This selects the previous closest text object.
+        vmap <C-SPACE> <Plug>(wildfire-water)
+
+        cal wildfire#triggers#Add("<ENTER>", {
+        \ "html,xml" : ["at", "it"],
+        \ })
+
+        nmap <leader>s <Plug>(wildfire-quick-select)
+    " }
+" }
+
+" Custom Commands:
+" {
+    " Source collected scripts under dotfiles
+    " source ~/Repos/dotfiles/bin/vim-scripts/passport.vim
+
+    " InsExCmd:
+    " { Capture ex command output
+    " Arguments:
+        function! InsExCmd(cmd)
+          redir => message
+          silent execute a:cmd
+          redir END
+          silent put=message
+          set nomodified
+        endfunction
+        command! -nargs=+ -complete=command InsExCmd call InsExCmd(<q-args>)
+    " }
+
+    " ColSep:
+    " { Insert a column separator at the current column.
+    " Arguments:
+        function! ColSep()
+            let l:splitcol = col('.')
+            let l:subspattern = '\%' . l:splitcol . 'c'
+            execute '%s/' . l:subspattern . '/|/'
+            :1
+            execute 'normal '. l:splitcol . '|'
+        endfunction
+        command! -nargs=0 -complete=command ColSep call ColSep()
+    " }
+
+    " DateSep:
+    " { Insert a column separator at the current column.
+    " Arguments:
+        function! DateSep()
+            let l:splitcol = col('.')
+            let l:subspattern = '\%' . l:splitcol . 'c'
+            execute '%s/' . l:subspattern . '/-/'
+            :1
+            execute 'normal '. l:splitcol . '-'
+        endfunction
+        command! -nargs=0 -complete=command DateSep call DateSep()
+    " }
+    "
+    " CobolSignFlip:
+    " { Flip the trailing sign to a leading sign and split columns with pipe
+    " Arguments:
+        function! CobolSignFlip()
+            let l:splitcol = col('.')
+            let l:subspattern = '\%>' . l:splitcol . 'c\(\d\{4,\}\)\([+-]\)'
+            execute '%s/' . l:subspattern . '/\2\1|/'
+            :1
+            execute 'normal '. l:splitcol . '|'
+        endfunction
+        command! -nargs=0 -complete=command CobolSignFlip call CobolSignFlip()
+    " }
+
+    " HloCleanTrace:
+    " { make a verbose file more legible
+    " Arguments:
+        function! HloCleanTrace()
+            g/^line/d
+            g/previous dir/d
+            g/finished/d
+            g/continuing/d
+            g/^Searching/d
+        endfunction
+        command! -nargs=0 -complete=command HloCleanTrace call HloCleanTrace()
+    " }
+
+    " HloTitle:
+    " { Desc: Creates a nice ascii-art title for scripts
+    "Arguments: N/A
+        function! HloTitle(title)
+            let l:fname=expand('%:t')
+            let l:totallines=line("$")
+            call append(1,'#')
+            call cursor(3,1)
+            execute ':r! figlet -cw 80 ' . a:title
+            let l:newTotalLines=line("$")
+            let l:increase=l:totallines - l:newTotalLines
+            call setline(l:increase+1,strftime(localtime()))
+            call setline(l:increase+2,l:fname)
+            let l:titlerange=l:increase+3
+            call cursor(2,1)
+            2,l:titlerange call NERDComment('n','alignLeft')
+            %s/\s\+$//g
+        endfunction
+        command! -nargs=1 -complete=command HloTitle silent call HloTitle(<q-args>)
+    " }
+
+    " ReloadHloConfig:
+    " { Reload local configs to vim
+        function! ReloadHloConfig()
+            source ~/src/Dotfiles/dotfiles/vim.d/vimrc.before.local
+            source ~/src/Dotfiles/dotfiles/vim.d/vimrc.local
+        endfunction
+        command! -nargs=0 -complete=command ReloadHloConfig silent call ReloadHloConfig()
+    " }
+
+    " AppendEditLogLine:
+    " { append a timestamp comment
+        function! AppendEditLogLine() abort
+            let l:mlcoment = printf(" h@h-lo.me %s %s ", strftime("%Y%m%d %H%M%S %z %Z %s"), "d(-_- )b..." ) 
+            let l:blnkline = substitute(&commentstring, "%s", l:mlcoment, "")
+            call append(line("$")-1, l:blnkline)
+            :normal G
+        endfunction
+        command! -nargs=0 -complete=command AppendEditLogLine silent call AppendEditLogLine()
+    " }
+
+    " AppendModeline:
+    " { Append modeline after last line in buffer.
+        function! AppendModeline()
+            let l:modeline = printf(" vim: set ft=%s sw=%d tw=%d fdm=%s %set :", &filetype, &shiftwidth, &textwidth, &foldmethod, &expandtab ? '' : 'no')
+            let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+            call append(line("$"), l:modeline)
+            :normal G
+        endfunction
+        nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+    " }
+
+    " DiffOrig:
+    " { Highlight changes vs original file
+        function! DiffOrig()
+            vert new
+            set bt=nofile
+            r ++edit #
+            0d_
+            diffthis
+            wincmd p
+            diffthis
+        endfunction
+        command! -nargs=0 -complete=command DiffOrig silent call DiffOrig()
+    " command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
+    " }
+
+    " FkeyVisuals:
+    " { Visual display of F-keys on statusline
+        function! FkeyVisuals()
+            call a:1.add_section('Statusline','F1:Help')
+            call a:1.add_section('Statusline','F2:Help')
+            call a:1.add_section('Statusline','F3:Help')
+            call a:1.add_section('Statusline','F4:Help')
+            call a:1.add_section('Statusline','F5:Help')
+            call a:1.add_section('Statusline','F6:Help')
+        endfunction
+        command! -nargs=0 -complete=command FkeyVisuals silent call FkeyVisuals()
+    " }
+
+    " Not In Use:
+    "{
+        " "Function: GenMapHelp { :Creates a nice ascii-art title for scripts
+        " "Desc: Generates mapping help screen from config
+        " "Arguments: N/A
+        "     function! GenMapHelp(mapname)
+        "         silent execute 'InsExCmd '.a:mapname
+        "         %!cut -c4-|sort
+        "         g/^<Plug/d
+        "         g/^$/d
+        "         %s/\ \*\|\ &/  /
+        "         %s/\v\s+/ ¡ /
+        "         %s/\v(.*)/  \1/
+        "         nohlsearch
+        "         %Tabularize /¡/
+        "     endfunction
+        " " }
+
+        " "Function: MapHelp { :Creates a nice ascii-art title for scripts
+        " "Desc: Displays mappings on a temp buffer using contents from GenMapHelp
+        " "Arguments: mapname: one of 'normal','visual',etc
+        "     function! MapHelp(mapname)
+        "         10new
+        "         set filetype=vim
+        "         silent call GenMapHelp(a:mapname)
+        "         setlocal readonly
+        "         1
+        "     endfunction
+        "     command! -nargs=1 -complete=command MapHelp silent call MapHelp(<q-args>)
+        " " }
+    " }
+
+" Autocommands:
+" {
+    " FixSolarized:
+    "  {
+        function! FixSolarized()
+          "                Background   Foreground   Effect     Gui Background  Gui Foreground
+          "                -------------------------------------------------------------------
+          hi! CursorColumn ctermbg=0
+          hi! ColorColumn  ctermbg=0
+          hi! LineNr       ctermbg=0
+          hi! CursorLine   ctermbg=0
+          hi! Folded       ctermbg=232                          guibg=Black
+          " hi! Comment                              cterm=italic
+          hi! VertSplit    ctermbg=232
+          hi! FoldColumn   ctermbg=232               cterm=NONE guibg=Black
+          hi! SignColumn   ctermbg=8                            guibg=bg
+          hi! Search       ctermbg=10   ctermfg=15   cterm=NONE guibg=fg        guifg=Black
+          hi! IncSearch    ctermbg=13   ctermfg=7    cterm=NONE guibg=Magenta   guifg=Black
+          hi! Pmenu                     ctermfg=232             guibg=fg        guifg=Black
+          hi! PmenuSel                  ctermfg=16              guibg=White     guifg=Black
+          hi! PmenuSbar                 ctermfg=10              guibg=bg        guifg=fg
+          hi! PmenuThumb                ctermfg=233             guibg=fg        guifg=bg
+        endfunction FixSolarized
+        command! -nargs=0 -complete=command FixSolarized silent call FixSolarized()
+        augroup ConfigBehave
+          au!
+          autocmd VimEnter    * :call FixSolarized()
+          autocmd Colorscheme * :call FixSolarized()
+        augroup END
+     " }
+
+    " CursorCrossHairs:
+    " {
+        augroup CursorCrossHairs
+          au!
+          autocmd WinEnter * setlocal cursorcolumn
+          autocmd WinEnter * setlocal cursorline
+          " au InsertEnter * hi CursorLine ctermbg=232
+          autocmd WinLeave * setlocal nocursorcolumn
+          autocmd WinLeave * setlocal nocursorline
+          " au InsertLeave * hi CursorLine ctermbg=0
+        augroup END
+    " }
+
+    " SearchHighligtBeGone:
+    " " {
+      " function! SearchHighlightBeGone()
+      "   :nohlsearch
+      " endfunction
+      " command! -nargs=0 SearchHighlightBeGone silent call SearchHighlightBeGone()
+      " autocmd CursorMoved * :nohlsearch
+    " " }
+
+" } end autocommands
+
+" Terminal And GUI:
+" {
+    " { Deprecated
+        " set t_Co=256
+        " set term=builtin_pcansi
+
+        " CSApprox Config {
+        "     let g:CSApprox_loaded = 1
+        "     let g:CSApprox_attr_map = { 'bold' : '', 'italic' : '', 'sp' : 'fg' }
+        "     let g:CSApprox_eterm = 1
+        "     let g:CSApprox_kterm = 1
+        " }
+
+        " Reference implementation (conditional term): {
+        "     if (&term == 'xterm' || &term =~? '^screen')
+        "         On my machine, I use an old Konsole with 256 color support
+        "         set t_Co=88
+        "         let g:CSApprox_konsole = 1
+        "     endif
+        "     let g:Powerline_colorscheme='skwp'
+        " } end reference impl
+    " }
+    " {  Ansi || Xterm conditional settings,  + utf8 support 
+        " ansi settings, no utf8 support {
+        if (&term == 'ansi')
+            " set fileencoding=ansi
+            set encoding=ansi
+            set showbreak=~        " Charactr indicating a wrapped line
+            set listchars=tab:> ,trail:.,extends:<,precedes:>,nbsp:.,conceal:x
+            set fillchars=vert:\|,fold:\ 
+            let g:airline_powerline_fonts=0
+            let g:ycm_warning_symbol = '!!'
+            let g:ycm_error_symbol = '>>'
+            " }
+        " xterm settings, utf8 support {
+        else
+            set encoding=utf8
+            set showbreak=➘        " Character indicating a wrapped line
+            set listchars=tab:➔\ ,trail:·,extends:❮,precedes:❯,nbsp:¯
+            set fillchars=vert:\ ,fold:\ 
+            " { Symbols:
+
+            if !exists('g:airline_symbols')
+                  let g:airline_symbols =  { }
+            endif
+            " let g:airline_left_alt_sep = '⮁' " old
+            let g:airline_left_alt_sep = '' " powerline
+            " let g:airline_left_sep = '⮀' " old
+            let g:airline_left_sep = '' " powerline
+            " let g:airline_left_sep = '»' " unicode
+            " let g:airline_left_sep = '▶' " unicode
+            " let g:airline_right_alt_sep = '⮃' " old
+            let g:airline_right_alt_sep = '' " powerline
+            " let g:airline_right_sep = '⮂' " old
+            let g:airline_right_sep = '' " powerline
+            " let g:airline_right_sep = '«' " unicode
+            " let g:airline_right_sep = '◀' " unicode
+            " let g:airline_symbols.branch = '⭠' " old
+            let g:airline_symbols.branch = '' " powerline
+            " let g:airline_symbols.branch = '⎇' " unicode
+            " let g:airline_symbols.crypt = '🔒' " unicode
+            " let g:airline_symbols.linenr = '⭡' " old
+            let g:airline_symbols.linenr = '' " powerline
+            " let g:airline_symbols.linenr = '¶' " unicode
+            " let g:airline_symbols.linenr = '␊' " unicode
+            " let g:airline_symbols.linenr = '␤' " unicode
+            " let g:airline_symbols.maxlinenr = '' " unicode
+            let g:airline_symbols.maxlinenr = '☰' " unicode
+            let g:airline_symbols.notexists = '∄' " unicode
+            " let g:airline_symbols.paste = '∥' " unicode
+            " let g:airline_symbols.paste = 'Þ' " unicode
+            let g:airline_symbols.paste = 'ρ' " unicode
+            " let g:airline_symbols.readonly = '⭤' " old
+            let g:airline_symbols.readonly = '' " powerline
+            let g:airline_symbols.spell = 'Ꞩ' " unicode
+            let g:airline_symbols.whitespace = 'Ξ' " unicode
+" }
+" {5 Old and busted
+            " let g:airline_powerline_fonts=0
+            " if !exists('g:airline_symbols')
+            "     let g:airline_symbols = {  }
+            " endif
+           "  let g:airline_left_alt_sep = ''
+           "  let g:airline_left_sep = ''
+           "  let g:airline_right_alt_sep = ''
+           "  let g:airline_right_sep = ''
+           " " let g:airline_symbols.branch = '🔀'
+           "  " let g:airline_symbols.branch = '⎇'
+           "  let g:airline_symbols.branch = ''
+           "  " let g:airline_symbols.linenr = '📑'
+           "  " let g:airline_symbols.linenr = '¶'
+           "  let g:airline_symbols.linenr = '␊'
+           "  " let g:airline_symbols.linenr = '␤'
+           "  " let g:airline_symbols.linenr = ''
+           "  " let g:airline_symbols.paste = '🅿'
+           "  " let g:airline_symbols.paste = 'Þ'
+           "  let g:airline_symbols.paste = 'ρ'
+           "  " let g:airline_symbols.paste = '∥'
+           "  " let g:airline_symbols.readonly = '🔒'
+           "  let g:airline_symbols.readonly = ''
+           "  let g:airline_symbols.spell = 'S'
+           "  let g:airline_symbols.crypt = 'C'
+           "  " let g:airline_symbols.whitespace = '🈁'
+           "  let g:ycm_warning_symbol = '⚠'
+           "  let g:ycm_error_symbol = '✕'" }
+        endif
+        " }
+    " }
+    " Solarized Colorscheme Config  {
+        set background=dark
+        " let g:solarized_termtrans=0
+        " let g:solarized_termcolors=256
+        " let g:solarized_contrast="high"
+        " let g:solarized_visibility="normal"
+        " let g:solarized_degrade=0
+        " let g:solarized_bold=1
+        " let g:solarized_underline=1
+        " let g:solarized_italic=1
+        " let g:solarized_diffmode="normal"
+        " let g:solarized_hitrail=1
+        " let g:solarized_menu=0
+        " :call togglebg#map("<F5>")
+    " }
+    " Set gui font {
+    if has('gui_running')
+        " set background=light
+        " set guifont=Envy\ Code\ R\ for\ Powerline:h14
+        set guifont=Envy\ Code\ R\ 10
+        set lines=50
+        set columns=85
+        " set noantialias
+        " set fuoptions=maxvert,maxhorz
+        " set transparency=0
+        " set guioptions=egm
+        set guioptions=Paegm
+        " set fullscreen
+    endif
+    " end set gui font  }
+
+" } end Terminal and GUI
+
+" h@h-lo.me 20180211 162014 -0800 PST 1518394814 d(-_- )b... 
+" h@h-lo.me 20180211 162027 -0800 PST 1518394827 d(-_- )b... 
+" h@h-lo.me 20180211 162054 -0800 PST 1518394854 d(-_- )b... 
+" vim: set ft=vim sw=6 tw=0 fdm=marker et :

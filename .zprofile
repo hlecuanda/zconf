@@ -1,1 +1,1 @@
-zprofile
+zsh.d/zprofile

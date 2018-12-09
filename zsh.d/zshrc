@@ -1,4 +1,4 @@
-#          _
+#
 #  _______| |__  _ __ ___
 # |_  / __| '_ \| '__/ __|
 #  / /\__ \ | | | | | (__
@@ -9,7 +9,7 @@
 # Executes commands at the start of an interactive session.
 #
 # Authors:
-#   Hector Lecuanda (H-Lo) <h@h-lo.me>
+#   Hector Lecuanda (H-Lo) <h@h-lo.me>sommand
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 # 0. Vim navigation awesomness                                            # {{{
@@ -111,9 +111,9 @@ zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' substitute 1
 zstyle ':completion:*' use-compctl true
 zstyle ':completion:*' verbose true
-zstyle :compinstall filename '/home/hector/.zconf/.zshrc'
+zstyle :compinstall filename "${HOME}/.zconf/.zshrc"
 
-# compinit gets called on prezto's completion module 
+# compinit gets called on prezto's completion module
 # autoload -Uz compinit
 # compinit
 # End of lines added by compinstall
@@ -134,10 +134,13 @@ zstyle :compinstall filename '/home/hector/.zconf/.zshrc'
   [[ -s "${ZDOTDIR:-$HOME}/UserFunctions/" ]] && \
     for func in ${ZDOTDIR:-$HOME}/UserFunctions/**
       autoload -Uz ${func:t}
+
   # source gcloud from prefix
   [[ -s "${TERMUXPREFIX:-$HOME}" ]] && \
-    for sourcefile in ${TERMUXPREFIX:-$HOME}/google-cloud-sdk/**.zsh.inc
+    for sourcefile in /usr/local/google-cloud-sdk/**.zsh.inc
       source "${sourcefile}"
+
+  [[ -f /usr/local/share/zsh-navigation-tools/zsh-navigation-tools.plugin.zsh ]] && \
 
 typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
 
@@ -160,29 +163,34 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
 # }}}
 
 # 3. Aliases {{{
-  # Le BSD aliases: # {{{
+    # correct prezto's default notion of l and ls
+    # Le BSD aliases: # {{{
     if [[ "$OSTYPE" == (darwin*|*bsd*) ]]; then
       unfunction ls 2> /dev/null
       unalias ls
       set CLICOLOR
       set LSCOLORS='exfxcxdxbxegedabagacad'
       alias ls='/bin/ls -FGh'
+    else
+      unalias ls
+      alias ls='ls -F --group-directories-first --color=auto'
     fi
-    #correct prezto's default notion of l and ls
-    # unalias l
-    # unalias ls
-    alias ls='ls -F --group-directories-first --color=auto'
+    unalias l
+    alias l='ls'
     alias lC='ls --color=always'
-    alias l='ls -l'
     alias la='ls -a'
     alias lA='ls -A'
-    alias lla='ls -la'
+
     alias ll='ls -l'
-    alias llra='ls -lRa'
-    alias llr='ls -lR'
+    alias lla='ls -la'
+
     alias lr='ls -R'
+    alias llr='ls -lR'
+    alias llra='ls -lRa'
+
     alias lsa='ls -ld .*'
     alias lsd='ls -ld *(-/DN)'
+
       # lstree and friends. # {{{
       # Note we defined lstree as a UserFunction to relay arguments to tree(1)
       if ((${+commands[tree]})); then
@@ -195,17 +203,6 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
         alias ltt='tree -CL 2'
         alias lttt='tree -CL 3'
         alias tree='tree -C'
-      else
-        # TODO: write need() UserFunction
-        alias ldt='need tree'
-        alias ldtt='need tree'
-        alias ldttt='need tree'
-        alias lstd='need tree'
-        alias lst='need tree'
-        alias lt='need tree'
-        alias ltt='need tree'
-        alias lttt='need tree'
-        alias tree='need tree'
       fi
       # }}}
   # }}}
@@ -249,12 +246,20 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
   # }}}
   # Suffix aliases # {{{
     alias -s txt=vim
-    alias -s json=jsonfunc
+    alias -s json=jq .
   # }}}
   # Personal additions # {{{
-  alias sshd='sshd -f ~/.zconf/sshd.d/sshd_config -E ~/.zconf/logs.d/sshd.d'
-  
+    # {{{ zmv instead of mv cp ln and verbose rm
+    for cmd in  rm cp mv ln 
+      unalias ${cmd}
+    alias mv='nocorrect zmv -v'
+    alias cp="nocorrect zmv -C -v -o -a"
+    alias ln='nocorrect zmv -L -v'
+    alias rm='nocorrect command rm -vi'
 
+    alias mv_="zmv '* *' '${f// /_}'"
+    alias mv-="zmv '* *' '${f// /-}'"
+# }}}
     # very vim behavior {{{
       alias :q="exit"
       alias qq="exit"
@@ -264,17 +269,17 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
       # source $(ruby -e "print File.dirname(Gem.bin_path('hcl', 'hcl'))")/_hcl_completions
       alias hcl='nocorrect hcl'
     # }}}
-    alias colorize='pygmentize -s -l sh -f 258 -O style=solarizeddark | less -RS '
-    alias fuck='$(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
-    alias git-describe='git describe --tags --long --abbrev --dirty --always'
-    alias git-describe='git describe --tags --long --abbrev --dirty --always'
-    alias info='info --vi-keys'
-    alias list-keys=lsbindings
-    alias lskeys=lsbindings
-    alias monofonts='fc-list :scalable=true:spacing=mono: family |sort|uniq'
-    alias nmap-full='nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v'
-    alias pgp='gpg'
-    alias tmux='tmux -f ~/.zconf/tmux.d/tmux.conf'
+    # {{{ Misc Aliases
+      alias colorize='pygmentize -s -l sh -f 258 -O style=solarizeddark | less -RS '
+      alias git-describe='git describe --tags --long --abbrev --dirty --always'
+      alias info='info --vi-keys'
+      alias list-keys='lsbindings'
+      alias lskeys='lsbindings'
+      alias monofonts='fc-list :scalable=true:spacing=mono: family |sort|uniq'
+      alias nmap-full='nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v'
+      alias pgp='gpg'
+      alias mosh='mosh -a'
+    # }}}
   # }}}
 # }}}
 
@@ -287,6 +292,7 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
 
     zle -N down-line-or-beginning-search
     zle -N up-line-or-beginning-search
+
     bindkey -M vicmd "$key_down"  down-line-or-beginning-search
     bindkey -M vicmd "$key_left"  vi-backward-char
     bindkey -M vicmd "$key_right" vi-forward-char
@@ -391,7 +397,7 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     bindkey -M viins -s "\e$a\C-X\C-P" "\$\(xclip -o\)\C-Xe " # same, but go to viins, appending frst
     bindkey -M vicmd -s "A\C-X\C-P" "\$\(xclip -o\)\C-Xe "    # same, but go to viins, appending frst
     bindkey -M vicmd -s "i\C-X\C-V" "\$\(xclip -o\)\C-Xe "    # same, but go to viins, but rather in place insert
-    # bindkey -M vicmd -s "\C-X" "^Xa\ee"
+    bindkey -M vicmd -s "\C-X" "^Xa\ee"
     bindkey -M vicmd -s "qq" "\C-Csync;\C-Msync;\C-Mexit\C-M" # exit shell, syncing disks
     bindkey -M vicmd -s "ZZ" "qq"                             # ^-- same
   # }}}
@@ -406,6 +412,13 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     bindkey -M vicmd ',"' quote-line
     bindkey -M vicmd ',x' transpose-words
     bindkey -M vicmd ',X' transpose-words
+    bindkey -M vicmd -s ',gl' "git@gitlab.com:hlecuanda/"
+    bindkey -M vicmd -s ',gh' "git@github.com:hlecuanda/"
+    bindkey -M vicmd -s 'gcc' 'gcloud compute'
+    bindkey -M vicmd -s 'gcf' 'gcloud compute firewall-rules'
+    # stupid spanish keyboard missing a tilde!!
+    bindkey -M viins -s "ç" "~"
+    bindkey -M vicmd -s "ç" "~"
   # }}}
 # }}}
 
@@ -418,26 +431,13 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     zle -N sticky-note
     bindkey -M vicmd "\C-N" sticky-note
   # }}}
-  # BSDowl Build Syistem # {{{
-    local -au mflags
-    if (( $+MAKEFLAGS )); then
-      mflags=( $MAKEFLAGS )
-    else
-      mflags=()
-    fi
-    mflags=( $mflags "-I ${HOME}/share/bsdowl" )
-    typeset -x MAKEFLAGS="${mflags[@]}"
-    unset mflags
-  # }}}
   # moar named dirs# {{{
     zlogs=~zconf/logs.d
     zfuncs=~zconf/UserFunctions
     src=~/src
-    nudot=~src/Dotfiles/hlo-dotfiles
-    altdot=~src/Dotfiles/dotfiles
   # }}}
-  PROMPT='${hostinfo:-""}%F{216}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
 # }}}
 
+PROMPT='%m%F{216}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
 
 #  vim: set ft=zsh sw=2 tw=0 fdm=marker foldlevel=0 et :
