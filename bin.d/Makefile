@@ -1,7 +1,7 @@
 BINDIR=$(HOME)/bin
 SOURCES!= ls *.*
 INSTALL=install
-INSTALL_EXECUTABLE=$(INSTALL) -m a+x 
+INSTALL_EXECUTABLE=$(INSTALL) -m a+rx,u+w
 INSTALL_DATA=$(INSTALL) -m 644
 SHELL=zsh
 INSTALLED!= for f in $(SOURCES); do echo $(BINDIR)/$${f} | cut -f1 -d'.' ; done 
