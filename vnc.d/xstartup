@@ -1,0 +1,37 @@
+#!/bin/sh
+
+#unset SESSION_MANAGER
+#unset DBUS_SESSION_BUS_ADDRESS
+# OS=`uname -s`
+# if [ $OS = 'Linux' ]; then
+#   case "$WINDOWMANAGER" in
+#     *gnome*)f
+#       if [ -e /etc/SuSE-release ]; then
+#         PATH=$PATH:/opt/gnome/bin
+#         export PATH
+#       fi
+#       ;;
+#   esac
+# fi
+# if [ -x /etc/X11/xinit/xinitrc ]; then
+#   exec /etc/X11/xinit/xinitrc
+# fi
+# if [ -f /etc/X11/xinit/xinitrc ]; then
+#   exec sh /etc/X11/xinit/xinitrc
+# fi
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+xsetroot -solid "#2f2f2f"
+xset +fp /usr/share/fonts/
+xset +fp /usr/share/fonts/truetype/
+
+vncconfig -nowin &
+# /usr/bin/xterm -e /usr/bin/zsh -
+# exec /usr/bin/rxvt-unicode -e /usr/bin/zsh - &
+
+# x-terminal-emulator -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
+# unity
+i3 &
+xterm &
+rofi -modi ssh,run,window -no-config
+
+# vim: set ft=sh sw=4 tw=0 fdm=manual et :

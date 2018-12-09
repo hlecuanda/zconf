@@ -1,10 +1,21 @@
+*~
+awkprof.out
+example*
 buildlog
 *.log
-*.zwc
-*.zwc.*
-*~
+.revolver
+*%.swp
 .zcomp*
 .zhistory
 .zprezto
 zsticky
-logs.d
+*.zwc
+*.zwc.*
+
+#installed runcoms
+#.zlogin
+#.zlogout
+#.zpreztorc
+#.zprofile
+#.zshrc
+

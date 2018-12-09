@@ -1,0 +1,16 @@
+[user]
+	name = Hector
+	email = hector@lecuanda.com
+[push]
+	default = simple
+[diff]
+	tool =vimdiff 
+[difftool]
+	prompt = false
+[alias]
+	bp = git-big-picture
+[gui]
+	fontui = -family \"Envy Code R Iconic\" -size 10 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = -family \"Envy Code R Iconic\" -size 10 -weight normal -slant roman -underline 0 -overstrike 0
+	warndetachedcommit = true
+	matchtrackingbranch = true

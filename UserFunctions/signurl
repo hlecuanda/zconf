@@ -1,8 +1,0 @@
-
-
-typeset KEY="/home/hector/Downloads/MezaOps-edd7249ce29f.json"
-gsutil signurl -d24h ${KEY} ${1} |
-tail -1 |
-cut -f4 |
-xclip -i
-

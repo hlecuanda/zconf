@@ -1,0 +1,16 @@
+## Supported server options to pass to vncserver upon invocation can be listed
+## in this file. See the following manpages for more: vncserver(1) Xvnc(1).
+## Several common ones are shown below. Uncomment and modify to your liking.
+##
+securitytypes=none
+# desktop=sandbox
+# geometry=1152x864
+geometry=1280x720
+# geometry=1600x1200
+localhost
+# alwaysshared
+AcceptCutText
+SendCutText
+# NeverShared
+DisconnectClients
+
