@@ -49,8 +49,8 @@ help::
 		| sort
 
 whatismyip:  #2 Show your current external IP
-	@$(TITL) "Current IP outside"
-	@$(DOGETIP)
+	@$(TITL) "Current IP outside " 
+	@$(ECHO) $(MYIP)
 
 createfw:    #2 Creates a firewall for the current ip
 	$(GCFWRULES) create $(FWNAME) $(FWPARAMS) \
@@ -61,6 +61,10 @@ listfw:      #2 Lisrs the projects firewalls
 
 describefw:  #2 describes this firewall
 	$(GCFWRULES) describe $(FWNAME)
+
+rmfw: deletefw
+
+mkfw: createfw
 
 deletefw:    #2 deletes this firewall
 	-$(GCFWRULES) delete $(FWNAME)
