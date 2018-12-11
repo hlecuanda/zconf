@@ -33,4 +33,9 @@ upgrade:
 update: upgrade
 	@echo in update
 
+gcloud: 
+	-curl sdk.cloud.google.com | sh
+	-gcloud components update
 
+$(HOME)/.config: config.d/*
+	cp -Rav config.d $(HOME)/.config

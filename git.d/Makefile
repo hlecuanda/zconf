@@ -1,12 +1,20 @@
 
 
+INSTALL=install
+INSTALL_PROGRAM=$(INSTALL)
+INSTALL_DATA=$(INSTALL) -m 644 -T
+DESTDIR=$(HOME)
+SHELL=zsh
+SOURCES != ls | grep -v Makefile 
+INSTALLED != for file in ${SOURCES}; echo "$(DESTDIR)/.$${file}" 
 
+.PHONY: install
 
-../.gitconfig: 
-	@echo installing gitconfig
-	@cd .. && ln -s .zconf/gitconfig .gitconfig
+install: $(SOURCES)
+	$(MAKE) $(INSTALLED)
 
-git: ../.gitconfig upgrade	
-	@echo installing git
-	@pkg install -y git tig diffutils openssh
+$(DESTDIR)/.tigrc: tigrc
+	$(INSTALL_DATA) $? $@
 
+$(DESTDIR)/.gitconfig: gitconfig
+	$(INSTALL_DATA) $? $@

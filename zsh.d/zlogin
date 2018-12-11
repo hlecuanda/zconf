@@ -19,6 +19,7 @@
   # autoload -Uz zrecompile # gets called on compinit
   # bashcompinit          # dunno if needed
   # comprefresh             # gets loaded on UserFunctions
+  reprompt
 
   # trap - DEBUG
 } &!
