@@ -1,0 +1,21 @@
+
+general {
+    output_format = "i3bar"
+    # align = "right"
+    colors = true
+    interval = 16
+    color = '#FFFFFF'
+    color_good = '#00FF00'
+    color_bad = '#FF0000'
+    color_degraded = '#FFFF00'
+}
+
+order += "static_string"
+
+static_string {
+    format = "I  shall be replaced..."
+}
+
+
+
+#  vim: set ft=i3 sw=4 tw=0 fdm=syntax et :
