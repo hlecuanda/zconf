@@ -1,10 +1,12 @@
+*~
 buildlog
 *.log
-*.zwc
-*.zwc.*
-*~
+logs.d
+*.out
+.revolver
 .zcomp*
 .zhistory
 .zprezto
 zsticky
-logs.d
+*.zwc
+*.zwc.*

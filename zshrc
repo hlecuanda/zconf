@@ -367,13 +367,28 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     bindkey -M viins "\C-PL" push-line            # Repeat what i just said on the last line
   # }}}
   # Kick-ass sequences {{{
-    bindkey -M viins -s "\C-X\C-V" "\$\(xclip -o\)\C-Xe "     # paste whatever lives on xclip
-    bindkey -M viins -s "\e$a\C-X\C-P" "\$\(xclip -o\)\C-Xe " # same, but go to viins, appending frst
-    bindkey -M vicmd -s "A\C-X\C-P" "\$\(xclip -o\)\C-Xe "    # same, but go to viins, appending frst
-    bindkey -M vicmd -s "i\C-X\C-V" "\$\(xclip -o\)\C-Xe "    # same, but go to viins, but rather in place insert
-    # bindkey -M vicmd -s "\C-X" "^Xa\ee"
-    bindkey -M vicmd -s "qq" "\C-Csync;\C-Msync;\C-Mexit\C-M" # exit shell, syncing disks
-    bindkey -M vicmd -s "ZZ" "qq"                             # ^-- same
+    bindkey -M viins -s "\C-X\C-V" "\e\C-X\C-V\$A" # vicmd, ^X^V, goto eol, vi-append
+    bindkey -M viins -s "\C-X\C-P" " \$\(xclip -o\)\C-Xe "     # space $(xclip -o) ^Xe (expand-word)
+    bindkey -M vicmd -s "\C-X\C-V" "\e0Diecho \"\ep\$A\"\|xclip -i\C-M\e\C-X\C-P\e"     # paste whatever lives on xclip
+    bindkey -M vicmd -s "\C-X\C-P" "i\$\(xclip -o\)\C-Xe\e"     # same, but go to viins, appending frst
+
+    bindkey -M vicmd -s ",\'" "Bi\'\e Ea\'"     # same, but go to viins, appending frst
+    bindkey -M vicmd -s ",\"" "Bi\"\e Ea\""     # same, but go to viins, appending frst
+    bindkey -M vicmd -s ",\(" "Bi\(\e Ea\)"     # same, but go to viins, appending frst
+    bindkey -M vicmd -s ",\{" "Bi\{\e Ea\}"     # same, but go to viins, appending frst
+    bindkey -M vicmd -s ",\[" "Bi\[\e Ea\]"     # same, but go to viins, appending frst
+
+    bindkey -M vicmd -s ",\$"   "Bi\$\(\e Ea\)" # same, but go to viins, appending frst
+    bindkey -M vicmd -s ",\$\$" "Bi\$\{\e Ea\}" # same, but go to viins, appending frst
+
+    # bindkey -M vicmd -s "\C-X"     "\C-Xa\eE" #expand-alias expand-cmd-path
+    bindkey -M vicmd -s "\C-F"     "0Cfuck\C-M"                             # ^-- same
+    bindkey -M viins -s "\C-F"     "\e\C-F"                             # ^-- same
+    bindkey -M vicmd -s "\C-Z"     "0Cfg\C-M"                             # ^-- same
+    bindkey -M viins -s "\C-Z"     "\e\C-Z"                             # ^-- same
+
+    bindkey -M vicmd -s "qq"       "\C-Csync;\C-Msync;\C-Mexit\C-M" # exit shell, syncing disks
+    bindkey -M vicmd -s "ZZ"       "qq"                             # ^-- same
   # }}}
   # TODO: old tcsh C-Z vim suspend and resume toggle {{{
     # bindjey -M
@@ -381,11 +396,15 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     # bindkey -M viins
   # }}}
   # Personal overrides# {{{
-    bindkey -M vicmd "\C-X \C-E" expand-word
+    # bindkey -M vicmd "\C-X \C-E" expand-word
     bindkey -M vicmd "v" edit-command-line
     bindkey -M vicmd ',"' quote-line
     bindkey -M vicmd ',x' transpose-words
     bindkey -M vicmd ',X' transpose-words
+    bindkey -M vicmd -s ',gl' "igit@gitlab.com:hlecuanda/"
+    bindkey -M vicmd -s ',gh' "igit@github.com:hlecuanda/"
+    bindkey -M vicmd -s 'gcc' 'igcloud compute'
+    bindkey -M vicmd -s 'gcf' 'igcloud compute firewall-rules'
   # }}}
 # }}}
 
