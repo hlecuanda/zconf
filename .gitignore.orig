@@ -3,9 +3,15 @@ awkprof.out
 example*
 buildlog
 *.log
+<<<<<<< HEAD
 logs.d
 *.out
 .revolver
+*.zwc.*
+*~
+=======
+.revolver
+>>>>>>> a1a721d349927d6f6e00cfedb2ac4ab52eba9325
 *%.swp
 .zcomp*
 .zhistory
