@@ -1,6 +1,17 @@
+SHELL        = zsh
+TMUX_CFG     = $(HOME)/.tmux.conf
+SEGMENTS    != ls **/0*.tmux
+INSTALL      = install
+INSTALL_DATA = $(INSTALL) -m ug+rw,o+r -T
+
 .PHONY: install
 
-$(HOME)/.tmux.conf: tmux.d/tmux.conf 
-	install tmux.d/tmux.conf $@
+install: $(TMUX_CFG)
 
-install: $(HOME)/.tmux.conf
+$(TMUX_CFG): tmux.conf build.zsh
+	$(INSTALL_DATA) $< $@
+
+tmux.conf: $(SEGMENTS)
+	-rm -fv tmux.conf
+	./build.zsh
+

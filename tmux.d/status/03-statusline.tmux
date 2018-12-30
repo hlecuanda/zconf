@@ -52,7 +52,7 @@
 #       \ 'right_alt' : '<',
 #       \ 'space' : ' '}
 
-# " set theme 
+# " set-option theme 
 #   tmuxline#api#set_theme({
 #       \ 'a': ['237', '109', 'bold'],
 #       \ 'b': ['109', '236', ''],
@@ -64,7 +64,7 @@
 #       \ 'y': ['109', '236', ''],
 #       \ 'z': ['237', '109', '']})
 
-# " create a snapshot file of the last set statusline, overwriting the file if
+# " create a snapshot file of the last set-option statusline, overwriting the file if
 # " it exists 
 #   tmuxline#api#snapshot(path)
 
@@ -72,31 +72,31 @@
 #   tmuxline#api#create_theme_from_airline(mode_palette)
 # }
 
-set -g message-bg "colour208"
-set -g message-command-bg "colour208"
-set -g message-command-fg "colour16"
-set -g message-fg "colour16"
-set -g pane-active-border-fg "colour12"
-set -g pane-border-fg "colour241"
-set -g status "on"
-set -g status-attr "none"
-set -g status-bg "colour235"
-set -g status-justify "left"
-set -g status-left-attr "none"
-set -g status-left-length "100"
-set -g status-right-attr "none"
-set -g status-right-length "100"
+set-option -g message-bg "colour208"
+set-option -g message-command-bg "colour208"
+set-option -g message-command-fg "colour16"
+set-option -g message-fg "colour16"
+set-option -g pane-active-border-fg "colour12"
+set-option -g pane-border-fg "colour241"
+set-option -g status "on"
+set-option -g status-attr "none"
+set-option -g status-bg "colour235"
+set-option -g status-justify "left"
+set-option -g status-left-attr "none"
+set-option -g status-left-length "100"
+set-option -g status-right-attr "none"
+set-option -g status-right-length "100"
 #set -g status-utf8 "on"
-setw -g window-status-fg "colour240"
-setw -g window-status-attr "none"
-setw -g window-status-activity-bg "colour235"
-setw -g window-status-activity-attr "none"
-setw -g window-status-activity-fg "colour12"
-setw -g window-status-separator ""
-setw -g window-status-bg "colour235"
-set -g status-left "#[fg=colour230,bg=colour12] #S:#I.#P•#W #[fg=colour12,bg=colour241]#[fg=colour254,bg=colour241] #{?client_prefix,⬆,•} #{?client_readonly,RO,•} #{?alternate_on,ALT,•} #[fg=colour241,bg=colour235]#[fg=colour240,bg=colour235] #(echo ola) #[fg=colour235,bg=colour235]  "
-set -g status-right "#[fg=colour235,bg=colour235]  #[fg=colour242,bg=colour235] #(client_activity_string) #[fg=colour241,bg=colour235]#[fg=colour254,bg=colour241] %R #[fg=colour12,bg=colour241]#[fg=colour230,bg=colour12] #h "
-setw -g window-status-format "#[fg=colour235,bg=colour235]#[default] #F#I•#W #[fg=colour235,bg=colour235"
-setw -g window-status-current-format "#[fg=colour235,bg=colour241]#[fg=colour254,bg=colour241] #F#I•#W #[fg=colour241,bg=colour235]"
+set-window-option -g window-status-fg "colour240"
+set-window-option -g window-status-attr "none"
+set-window-option -g window-status-activity-bg "colour235"
+set-window-option -g window-status-activity-attr "none"
+set-window-option -g window-status-activity-fg "colour12"
+set-window-option -g window-status-separator ""
+set-window-option -g window-status-bg "colour235"
+set-option -g status-left "#[fg=colour230,bg=colour12] #S:#I.#P•#W #[fg=colour12,bg=colour241]#[fg=colour254,bg=colour241] #{?client_prefix,⬆,•} #{?client_readonly,RO,•} #{?alternate_on,ALT,•} #[fg=colour241,bg=colour235]#[fg=colour240,bg=colour235] #(echo ola) #[fg=colour235,bg=colour235]  "
+set-option -g status-right "#[fg=colour235,bg=colour235]  #[fg=colour242,bg=colour235] #(client_activity_string) #[fg=colour241,bg=colour235]#[fg=colour254,bg=colour241] %R #[fg=colour12,bg=colour241]#[fg=colour230,bg=colour12] #h "
+set-window-option -g window-status-format "#[fg=colour235,bg=colour235]#[default] #F#I•#W #[fg=colour235,bg=colour235"
+set-window-option -g window-status-current-format "#[fg=colour235,bg=colour241]#[fg=colour254,bg=colour241] #F#I•#W #[fg=colour241,bg=colour235]"
 
 
