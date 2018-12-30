@@ -1,6 +1,0 @@
-
-python -m SimpleHTTPServer 8080
-
-
-
-#  vim: set ft=zsh sw=4 tw=0 fdm=marker foldlevel=0 et :

@@ -8,7 +8,7 @@ CONFIG_FILES = config Xresources
 EXEC_FILES   = xstartup
 XRESGREP     = grep -hvEe '^\!' | grep -vEe ^$$| grep -vEe '^\/'
 XTARGETS     = $(DESTDIR)/$(EXEC_FILES)
-
+TARGETS     != for file in $(CONFIG_FILES) ; do echo $(DESTDIR)/$${file} ; done
 
 .PHONY: install dir update
 

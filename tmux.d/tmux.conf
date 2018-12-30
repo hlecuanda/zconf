@@ -1,0 +1,320 @@
+ # vim: ft=tmux foldmarker={,} foldmethod=marker foldlevel=1 foldenable :
+
+# Global Server Options:
+#{2
+    set -g buffer-limit 8
+    set -g set-clipboard on
+    set -g message-limit 300
+    set -g escape-time 300
+    set -g exit-unattached off
+    # set -g quiet off
+# } end global server options
+
+# Global Session Options:
+# {1
+    # Misc Defaults:  {
+        set -g default-command 'exec /usr/local/bin/zsh -o login'
+        # set -g default-shell '/usr/local/bin/zsh'
+        set -g default-terminal 'screen-256color'
+        set -g destroy-unattached off
+        set -g detach-on-destroy on
+        set -g history-limit 5000
+        set -g repeat-time  2500
+        set -g xterm-keys off
+        set -g terminal-overrides "*:clear=\e[H\e[2J,rxvt*:dch1=\e[P*,colors=88,*88col*:colors=88,*256col*:colors=256,xterm*:XT"
+        set -g display-panes-time 1000
+        set -g base-index 1
+        set -g pane-base-index 1
+        #set -s utf8 on
+    # end misc defaults }
+
+    # Window Options:  {
+        set-window-option -g automatic-rename on
+        set-window-option -g alternate-screen on
+        set-window-option -g allow-rename on
+    # }
+
+    # Locking:  {
+        #set -g lock-after-time number
+        #set -g lock-command shell-command
+        #set -g lock-server [on | off]
+    # } end Locking
+
+    # Mouse  {
+        set -g mouse on
+        # set -g mouse-utf8 on
+    # end mouse }
+
+    # Visual alerts & bindings for them: {
+        set -g bell-action any
+        # set -g bell-on-alert on
+        set -g visual-activity on
+        set -g visual-bell off
+        # set -g visual-content on
+        set -g visual-silence on
+        set -g display-time 1500
+
+    # }
+# end global session options
+
+# Custom Key Bindings:
+# {1
+    # Prefix behavior like screen {
+        unbind C-b
+        set -g prefix  C-a
+        set -g prefix2 C-b      # for purists
+        bind      a send-prefix # Nested connection
+        bind -n C-q send-prefix
+    # }
+    # Std commands remapped  {
+        unbind  & # better safe than sorry
+
+        bind    b set-option  status # toggle status bar
+        bind    c new-window
+        bind    C display "Client ops" \; switch-client -T client
+        bind    f source-file $HOME/.zconf/tmux.d/kbd-fkeys-passport.tmux \; display-message "Passport Function Keys Loaded"
+        bind    F source-file $HOME/.zconf/tmux.d/kbd-fkeys-reset.tmux \; display-message "Xterm Function Keys Loaded"
+        bind    h previous-window
+        bind    j select-window -t {start}
+        bind    k select-window -t {end}
+        # TODO: write script to do this in a more straightforward manner
+        # bind    K command-prompt -p 'Man page to dislplay? : ' "split-window -h 'exec man %%'; send-keys C-p" # New window manpage
+        bind    l next-window
+        bind    L pipe-pane -o "cat >>~/session-logs/#W.log" \; display "Toggled logging to ~/#W.log" \; setenv TMUX_WINDOW_LOG '~/#W.log'
+        bind    m display "Monitoring" \; switch-client -T monitor
+        bind    M display "Monitoring" \; switch-client -T monitor
+        bind    p paste-buffer  # case insensitive paste
+        bind    P paste-buffer
+        bind    r source-file $HOME/.zconf/tmux.d/tmux.conf \; display "Config Reloaded!"
+        bind    R display "Resize" \; switch-client -T resize
+        bind    s display "Sessions" \; switch-client -T monitor
+        bind    v copy-mode # case insentitive  copy mode
+        bind    V copy-mode
+        bind    z resize-pane -Z # case insensitive zoom toggle
+        bind    Z resize-pane -Z
+
+        # bind   F1 
+        bind   F2   choose-buffer
+        bind   F3   choose-client
+        bind   F4   choose-session
+        bind   F5   choose-tree
+        bind   F6   choose-window
+        # bind   F7
+        # bind   F8 
+        # bind   F9 
+        # bind   F10 
+        # bind   F11 
+        # bind   F12 
+
+        # very vim bindings
+        bind  `   copy-mode
+        bind -r   <     resize-pane -L
+        bind -r   >     resize-pane -R
+        bind -r   -     resize-pane -D
+        bind -r   +     resize-pane -U
+
+        bind -r   Right select-pane -t {right-of}
+        bind -r   Left  select-pane -t {left-of}
+        bind -r   Up    select-pane -t {up-of}
+        bind -r   Down  select-pane -t {down-of}
+
+        bind    C-h     resize-pane -L 5
+        bind    C-j     resize-pane -D 5
+        bind    C-k     resize-pane -U 5
+        bind    C-l     resize-pane -R 5
+        bind -r C-R     rotate-window # case insensitive rotate
+        bind -r C-r     rotate-window 
+        bind -r C-Right select-pane -t {right}
+        bind -r C-Left  select-pane -t {left}
+        bind -r C-Up    select-pane -t {top}
+        bind -r C-Down  select-pane -t {bottom}
+
+        unbind  Space
+        bind -r Space set repeat-time 3000 \; next-layout
+        bind -r Tab   select-window -t {next}
+        bind -r BTab  select-window -t {previous}
+
+        bind    | split-window -h
+        bind    - split-window -v
+        bind    / command-prompt "find-window '%%'"
+
+        bind -T resize    ?       list-keys -T resize
+        bind -T resize -r <       resize-pane -L
+        bind -T resize -r >       resize-pane -R
+        bind -T resize -r -       resize-pane -D
+        bind -T resize -r +       resize-pane -U
+        bind -T resize -r Left    resize-pane -L
+        bind -T resize -r Right   resize-pane -R
+        bind -T resize -r Down    resize-pane -D
+        bind -T resize -r Up      resize-pane -U
+        bind -T resize -r C-Left  resize-pane -L 5
+        bind -T resize -r C-Right resize-pane -R 5
+        bind -T resize -r C-Down  resize-pane -D 5
+        bind -T resize -r C-Up    resize-pane -U 5
+
+        bind -T client    ?       list-keys -T client
+        bind -T client    c       choose-client
+        bind -T client    d       detach-client
+        bind -T client    l       list-clients
+        bind -T client    k       lock-client
+        bind -T client    r       refresh-client
+        bind -T client    s       suspend-client
+
+        bind -T session    ?      list-keys -T session
+        bind -T session    c      choose-session
+        # TODO: ADD prompting
+        # bind -t session Left  has-session
+        bind -T session    K      kill-session
+        bind -T session    k      list-sessions
+        bind -T session    l      lock-session
+        bind -T session    n      new-session
+        # TODO: ADD prompting
+        # bind -t session    r  rename-session
+        bind -T session    Left   attach-session -d -c $HOME -t {next}
+        bind -T session    Right  attach-session -d -c $HOME -t {previous}
+
+        bind -T monitor    ?      list-keys -T monitor
+        bind -T monitor    m      select-pane -m
+        bind -T monitor    M      select-pane -m
+        bind -T monitor    a      setw monitor-activity off
+        bind -T monitor    A      setw monitor-activity on
+        bind -T monitor    s      setw monitor-silence 0
+        bind -T monitor    S      setw monitor-silence 15
+    # End }
+
+    # Clipboard acces from TMUX X11!: {
+        bind C-c run "tmux save-buffer - | xclip -i"
+        bind C-v run "xclip -o | tmux load-buffer - && tmux paste-buffer"
+        # bind -t vi-copy Y copy-pipe "xclip -i"
+        # bind -t vi-copy y copy-pipe "xclip -i"
+        # bind -t vi-copy v begin-selection
+        # bind -t vi-copy V begin-selection
+    # End }
+
+    # # Clipboard acces from TMUX Mac!: {
+#         # Requires brew install reattach-to-user-namespace
+#         # http://robots.thoughtbot.com/post/55885045171/tmux-copy-paste-on-os-x-a-better-future
+    #     bind C-c run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
+    #     bind C-v run "reattach-to-user-namespace pbpaste | tmux load-buffer - && tmux paste-buffer"
+    #     bind -t vi-copy Y copy-pipe "reattach-to-user-namespace pbcopy"
+    #     bind -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
+    #     bind -t vi-copy v begin-selection
+    #     bind -t vi-copy V begin-selection
+    # # End }
+
+    # Custom Commands and Scripts: {
+        #TODO: Fix with new option set-remain-on-exit
+        # bind C-R set-window-option remain-on-exit \; kill-pane \; respawn-pane \; set-window-option remain-on-exit off \; display-message "Pane #I:#P Recycled...."
+        # bind M-r set-window-option remain-on-exit \; kill-pane \; respawn-pane \; set-window-option remain-on-exit off \; display-message "Pane #I:#P Recycled...."
+    # End }
+
+# Status bar:
+# {2
+    set -g status on
+    set -g set-titles on
+    set -g set-titles-string '#h'
+    # set -g status-utf8 on
+    set -g status-interval 60
+    set -g status-keys vi
+    set -g status-justify left
+    source-file $HOME/.zconf/tmux.d/statusline.tmux
+# end status bar }
+
+#{1 don't forget to reset foldlevel   }
+# Old Status Line:
+# {5 Archived
+
+    # Left Status {
+        # set -g status-left-length 35
+        # # set -g status-left "#[fg=brightwhite,bg=blue] ❐  #(whoami)@#h #[fg=brightwhite,bg=brightmagenta] #[bold]Ⓢ  #S "
+        # # set -g status-left " #[fg=yellow]⎈#[fg=default] #(echo $$) #[fg=yellow]❐#[fg=default] #h #[fg=yellow]Ⓢ #[fg=default] #S #[fg=yellow]|"
+        # set -g status-left "#[fg=colour220] H:#[fg=default]#h  "
+    # end left status }
+    # Right Status {
+        # #[fg=XXX,bg=XXX,xxx]
+        # set -g status-right-length 44
+        # set -g status-right "#[fg=brightmagenta]#[fg=colour220] id:#[fg=default]$#S:#I.#P "
+        # set -g status-right-attr default
+    # end right status }
+    # Window Status {
+
+        # setw -g window-status-current-format " #F [#[bold]#I#[nobold]] #P:#[bold]#W#[nobold] "
+
+        # setw -g window-status-format " #F#I #W #[bg=brightmagenta]#[fg=white] "
+        # setw -g window-status-current-format "#[bg=white]#[fg=brightmagenta]  #I #W #[bg=brightmagenta]#[fg=white]"
+        # setw -g window-status-separator ""
+
+        # Load theme
+        # source-file $TMUX_DIR/colors-dark.tmux
+
+
+        # {TODO: Find out how if-shell works
+        #  if-shell "if (${?BG_LIGHT}) notset" \
+            # source-file ~/Bin/Tmux-scripts/Tmuxcolors-dark.Conf # ; \
+            # source-file ~/bin/tmux-scripts/tmuxcolors-light.conf }
+
+    # End Window Status }
+#}
+#´ VeryVim userconfig:
+# {5 Archived
+
+# # vim: ft=tmux foldmarker={,} nowrap foldmethod=marker foldenable :
+
+# # source /usr/local/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf
+
+# # act like vim {
+#     setw -g mode-keys vi
+#     bind-key h select-pane -L
+#     bind-key j select-pane -D
+#     bind-key k select-pane -U
+#     bind-key l select-pane -R
+#     bind-key V copy-mode
+#     bind-key v split-window -h
+#     bind-key n split-window -v
+#     bind-key -r C-h select-window -t :-
+#     bind-key -r C-l select-window -t :+
+# # }
+
+# # resize panes like vim {
+# # }
+
+# # Future {
+#     # Mac after copying to a tmux buffer, hit y again to copy to clipboard
+#     # bind-key y run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
+
+#     ## show some useful stats but only when tmux is started
+#     ## outside of Xorg, otherwise dwm statusbar shows these already
+#     #set -g status-right ""
+#     #set -g status-left ""
+#     #if '[ -z "$DISPLAY" ]' 'set -g status-left "[#[fg=green] #H #[default]]"'
+#     #if '[ -z "$DISPLAY" ]' 'set -g status-right "[ #[fg=magenta]#(cat /proc/loadavg | cut -d \" \" -f 1,2,3)#[default] ][ #[fg=cyan,bright]%a %Y-%m-%d %H:%M #[default]]"'
+#     #if '[ -z "$DISPLAY" ]' 'set -g status-right-length 50'
+# # }
+
+# # Experimental {
+#     ## Terminal override {
+#         # set -g terminal-overrides "*:clear=\e[H\e[2J,*:colors=88,*256col*:colors=256,xterm*:XT,kf1=\EOP,kf2=\EOQ,kf3=\EOR,kf4=\EOS,kf5=\E[15~,kf6=\E[17~,kf7=\E[18~,kf8=\E[19~,kf9=\E[20~,kf10=\E[21~,kf11=\E[23~,kf12=\E[24~,kEND=\E[1;2F,kHOM=\E[1;2H,kLFT=\E[1;2D,kRIT=\E[1;2C,screen*:kend=\E[4~,kf1=\EOP,kf2=\EOQ,kf3=\EOR,kf4=\EOS,kfnd@,khome=\E[1~,kslt@"
+#         # set -g terminal-overrides "*:clear=\e[H\e[2J,enacs@:smacs@:rmacs@:acsc@,*256col*:colors=256,xterm*:XT"
+#     ## end termina override }
+
+#     ## Func Keys {
+#         # set -g xterm-keys on
+#     # }
+# # end experimental }
+
+# # Colour overrides {
+
+#     ## Message Bar {
+#         # set -g message-attr bold
+#         # set -g message-fg colour16
+#         # set -g message-bg colour220
+#     ## end message bar }
+
+# # }
+# # start-server
+# }
+
+
+
+
+#

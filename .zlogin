@@ -1,1 +1,1 @@
-zlogin
+zsh.d/zlogin

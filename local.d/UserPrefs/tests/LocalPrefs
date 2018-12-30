@@ -1,0 +1,14 @@
+#!/usr/local/bin zunit
+
+@test Ix Service {
+    run ixurl=$(fortune -i | pv | tee .to-original | ix )
+    run sleep 3 && curl $ixurl > .to-doenloaded
+    run orig=$(cat original) && dwnld=$(cat download)
+
+    assert $ixurl is_not_empty
+    assert "$orig" same_as "$dwnld"
+}
+
+@teardown {
+    rm .to-*
+}

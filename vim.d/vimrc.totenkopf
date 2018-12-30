@@ -1,0 +1,398 @@
+" HLO .vimrc.local
+"  _   _       _                  _                      _                 _
+" | | | |     | |    ___   __   _(_)_ __ ___  _ __ ___  | | ___   ___ __ _| |
+" | |_| |_____| |   / _ \  \ \ / / | '_ ` _ \| '__/ __| | |/ _ \ / __/ _` | |
+" |  _  |_____| |__| (_) |  \ V /| | | | | | | | | (__ _| | (_) | (_| (_| | |
+" |_| |_|     |_____\___/  (_)_/ |_|_| |_| |_|_|  \___(_)_|\___/ \___\__,_|_|
+" 2012-11-11T07:22:39
+"
+" Terminal And GUI:
+" {
+    " set t_Co=256
+    " set term=builtin_pcansi
+
+    " CSApprox Config {
+    " let g:CSApprox_loaded = 1
+    " let g:CSApprox_attr_map = { 'bold' : '', 'italic' : '', 'sp' : 'fg' }
+    " let g:CSApprox_eterm = 1
+    " let g:CSApprox_kterm = 1
+    " }
+
+    " Reference implementation (conditional term): {
+    " if (&term == 'xterm' || &term =~? '^screen') && hostname() == 'my-machine'
+    " " On my machine, I use an old Konsole with 256 color support
+    "   set t_Co=256
+    "   let g:CSApprox_konsole = 1
+    " endif
+    " let g:Powerline_colorscheme='skwp'
+    " } end reference impl
+
+    " Ansi || Xterm conditional settings,  + utf8 support {
+        " ansi settings, no utf8 support {
+        if (&term == 'ansi')
+            " set fileencoding=ansi
+            set encoding=ansi
+            set showbreak=~        " Character indicating a wrapped line
+            set listchars=tab:>.,trail:.,extends:<,precedes:>,nbsp:.,conceal:x
+            let g:Powerline_symbols='compatible'
+            let g:Powerline_symbols_override={'BRANCH': 'B', 'LINE': 'L', 'RO': 'R', 'FT': 'F' }
+            let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
+            " }
+        " xterm settings, utf8 support {
+        else
+            " set fileencoding=utf8
+            set encoding=utf8
+            set showbreak=➘        " Character indicating a wrapped line
+            set listchars=tab:➔·,trail:·,extends:❮,precedes:❯,nbsp:¯
+            if has('gui_running')
+                let g:Powerline_symbols='fancy'
+            else
+                let g:Powerline_symbols='fancy'
+            endif
+        endif
+        " }
+    " }
+
+    " Solarized Colorscheme Config  {
+        set background=light
+        " let g:solarized_termtrans=0
+        " let g:solarized_termcolors=256
+        " let g:solarized_contrast="normal"
+        " let g:solarized_visibility="normal"
+        " let g:solarized_degrade=0
+        " let g:solarized_bold=1
+        " let g:solarized_underline=1
+        " let g:solarized_italic=1
+        " let g:solarized_diffmode="normal"
+        " let g:solarized_hitrail=1
+        " let g:solarized_menu=0
+        :call togglebg#map("<F5>")
+    " }
+
+    " Set gui font {
+    if has('gui_running')
+        " set background=light
+        set guifont=Envy\ Code\ R:h18
+        set noantialias
+        set fuoptions=maxvert,maxhorz
+        set transparency=0
+        set guioptions=egm
+        set fullscreen
+    endif
+    " end set gui font  }
+
+" } end Terminal and GUI
+
+" General Behaviour:
+" {
+
+    " Misc Settings:
+    " {
+        let g:spf13_no_fastTabs=1                " gT, gS go to Top, Bottom
+        let g:spf13_no_keyfixes=1                " Stupid, Stupid idea.
+        set autowrite                            " edit using buffers
+        set clipboard=autoselect                 " experimenting, try to see if it fixes yank
+        set colorcolumn=-1,-2,-3,-4,-5           " highlight 5 columns before col8
+        set completeopt=menu,preview             " try spf default...
+        set confirm                              " Non UTF-8 Fallback
+        set cursorcolumn                         " cursor crosshairs: nice.
+        set diffopt=filler,vertical,foldcolumn:4 " options for diff
+        set foldcolumn=2                         " fold indicator
+        set noignorecase                         " see how smartcase works out
+        set nolist                               " let ft or modeline decide on listmode
+        set nospell                              " speller off
+        set nowrap                               " no wrappin
+        set scrolljump=1                         " Smooth scrolling
+        set scrolloff=1
+        set textwidth=80                         " 80 col width enforcemen
+    " }
+
+    " Custom Key Mappings:
+    " {
+        " Repeat last ex command
+        noremap ! @:
+        " Capitalize every word.
+        noremap! ,C :s/\<\a/\u&/g<CR>:nohlsearch<CR>
+        noremap  ,C :s/\<\a/\u&/g<CR>:nohlsearch<CR>
+        " get rid of trailing spaces
+        noremap  ,S :s/\s\+$//g<CR>
+        noremap! ,S '<.'>:s/\s\+$//g<CR>
+        "
+        " Toggles: {
+        noremap <F6>  :set nohlsearch!<CR>
+        noremap <F8>  <Plug>NERDCommenterToggle
+        noremap <F9>  <Plug>IndentGuidesToggle
+        noremap <F10> :NumbersToggle<CR>
+        " noremap <F11>
+        set pastetoggle=<F12>                                   " } end toggles
+        "                                                       " Diff Mode Mappings: {
+        if &diff
+           nnoremap <F3> :diffupdate<CR>
+        endif                                                   " } end diff mode mappings
+
+    " } end custom mappings
+" } end Gral Behaviour
+
+" Plugin Config:
+" {
+    " Default Man Page plugin {
+        runtime ftplugin/man.vim
+        nmap K :Man <cword><CR>
+    " end default man page }
+
+    " Snipmate athor tag  {
+        let g:snips_author = 'Héctor Lecuanda <hector@lecuanda.com>'
+    " }
+
+    " CtrlP Configuration  {
+        let g:ctrlp_extensions = ['line', 'dir', 'tag', 'buffertag', 'quickfix', 'rtscript', 'undo', 'changes', 'mixed', 'bookmarkdir']
+    " }
+
+    " NerdTree Config   {
+        let g:nerdtree_tabs_open_on_gui_startup = 0     " Open NERDTree on gvim/macvim startup
+        let g:nerdtree_tabs_open_on_console_startup = 0 " Open NERDTree on console vim startup
+        let g:nerdtree_tabs_open_on_new_tab = 1         " Open NERDTree on new tab creation (if NERDTree was globally opened by :NERDTreeTabsToggle)
+        let g:nerdtree_tabs_meaningful_tab_names = 1    " Unfocus NERDTree when leaving a tab for descriptive tab names
+        let g:nerdtree_tabs_autoclose = 1               " Close current tab if there is only one window in it and it's NERDTree
+        let g:nerdtree_tabs_synchronize_view = 1        " Synchronize view of all NERDTree windows (scroll and cursor position)
+        let g:nerdtree_tabs_focus_on_files = 0          " When switching into a tab, make sure that focus is on the file window,
+                                                        " not in the NERDTree window. (Note that this can get annoying if you use
+                                                        " NERDTree's feature 'open in new tab silently', as you will lose focus on the
+                                                        " NERDTree.)
+    " }
+
+    " NERDComment Config {
+        let g:NERDRemoveExtraSpaces=1
+        let g:NERDSpaceDelims=1
+    " }
+
+    " Relative numbers {
+        nnoremap <F2> :NumbersToggle<CR>
+    " }
+" end Plugin config }
+
+" Custom Functions:
+" {
+    if !exists("vimpager")   "Define only if we are not vimpager
+        "Function: ConfigTamer {: Commits a couple of configs just after spf does
+        "Desc: Commits a couple of configs just after spf does
+        "
+        "Arguments:
+        "N/A
+        function! ConfigTamer()
+            :call SetNumbers()  " Default to Absolute numbering
+            autocmd! NumbersAug
+            if (&background == 'dark')
+                highlight ColorColumn  ctermbg=0 ctermfg=14
+                highlight CursorColumn ctermbg=0
+                highlight CursorLine   ctermbg=0
+                highlight CursorLineNr ctermbg=2 ctermfg=230
+                highlight LineNr       ctermbg=0
+            endif
+             " Removes the autocomands
+        endfunction
+        " }
+
+        function! CleanValuation(str) " {
+            " g/^..$/d
+            " g/^\s\+Distri/d
+            g/(cost X qty-oh)$/d
+            g/--/d
+            g/^$/d
+            g/^..Date/d
+            g/^.Date/d
+            g/^Cut-off-date:/d
+            g/^Inventory/d
+            g/^Item/d+
+            g/items\s\+Total:/d+
+            g/^Vendor/d
+            g/^Warehouse/d
+            g/^\s\+I N V E N T O R Y/d
+            g/$/d
+            %s/^/\=a:str . "    "/
+        endfunction
+        command! -nargs=+ -complete=command CleanValuation silent call CleanValuation(<q-args>)
+        " }
+
+        function! CleanPerfGL() "{D 
+            g/G E N E R A L  L E D G E R/d
+            g/Loc:\s\d\+$/d
+            g/^\s\{5,}Beginning/d
+            g/^\s\{5,}Fiscal/d
+            g/^\s\{5,}DETAIL/d
+            g/^\s\{5,}ALL Locations/d
+            g/^=\+$/d
+            g/^\s\+-\+$/d
+            g/^-\+$/d
+            g/^*$/d
+            g/^\s\+Total :/d
+            g/Ending Balance :/d
+            g/(All Locations)/d
+            g/(All Accounts)/d
+            g/^\s\+Account/d
+            g/^Journal Description/d
+            g/\w\+ Totals :/d
+            g/^$/d
+            g/End of Report/d
+        endfunction
+        command! -nargs=0 -complete=command CleanPerfGL call CleanPerfGL()
+        "}
+
+        function! CleanGLLayout() "{
+            %s/ Check //
+            g/--/d
+            g/^$/d
+            g/^..Date/d
+            g/^.Date/d
+            g/^Date/d
+            g/^\s\+C H/d
+            " g/^\s\+Distri/d
+            " g/^\s\+Totals:/d
+        endfunction
+        command! -nargs=0 -complete=command CleanGLLayout silent call CleanGLLayout()
+        " }
+        function! CleanAPEditList() "{
+            %s/ Check //
+            g/--/d
+            g/^$/d
+            g/^..$/d
+            g/^..Date/d
+            g/^.Date/d
+            g/^Checking-acct/d
+            g/^Date/d
+            g/^Descri/d
+            g/^Grand totals:/d
+            g/^\s\+C H/d
+            " g/^\s\+Distri/d
+            " g/^\s\+Totals:/d
+        endfunction
+        command! -nargs=0 -complete=command CleanAPEditList silent call CleanCR()
+        " }
+
+        function! CleanCR() "{
+            %s/ Check //
+            %s/^\s\+\(\d\/\)/ \1/
+            %s/^\s\+\(\d\d\/\)/\1/
+            g/--/d
+            g/^$/d
+            g/^..$/d
+            g/^..Date/d
+            g/^.Date/d
+            g/^Cash/d
+            g/^Che/d
+            g/^Date/d
+            g/^Descri/d
+            g/^Grand totals:/d
+            g/^\s\+Acct-#   Description/d
+            g/^\s\+C H/d
+            g/^\s\+Distri/d
+            g/^\s\+Totals:/d
+        endfunction
+        command! -nargs=0 -complete=command CleanCR call CleanCR()
+        " }
+
+
+        " Function: InsExCmd {: Capture ex command output
+        " Desc: Capture ex command output
+        " Arguments:
+            function! InsExCmd(cmd)
+              redir => message
+              silent execute a:cmd
+              redir END
+              silent put=message
+              set nomodified
+            endfunction
+            command! -nargs=+ -complete=command InsExCmd call InsExCmd(<q-args>)
+        " }
+
+        "Function: HloTitle { :Creates a nice ascii-art title for scripts
+        "Desc: Creates a nice ascii-art title for scripts
+        "
+        "Arguments:
+        "N/A
+        function! HloTitle(title)
+            let l:fname=expand('%:t')
+            call setline(1,'#!')
+            call cursor(1,10)
+            call snipMate#TriggerSnippet()
+            call setline(3,'modeline')
+            call cursor(3,10)
+            call snipMate#TriggerSnippet()
+            call cursor(5,10)
+            execute ':r! figlet ' . a:title
+            call setline(9,system('date -j +%Y-%m-%d\ %H:%M:%S'))
+            call setline(10,l:fname)
+            call cursor(4,1)
+            4,10 call NERDComment('n','alignLeft')
+            %s/\s\+$//g
+            $
+        endfunction
+        command -nargs=1 -complete=command HloTitle silent call HloTitle(<q-args>)
+        " }
+
+        "Function: CleanTrace { 
+        "Desc: moves the comment on the current line to
+        " the line specified by count
+        "Arguments: N/A
+        "
+        function! CleanTrace()
+            :g/Searching/d
+            :g/previous dir/d
+            :g/finished/d
+        endfunction
+        command! -nargs=* -complete=command CleanTrace call CleanTrace()
+        " }
+    endif
+" } end Custom Functions
+
+" Custom Commands:
+" {
+    " Highlight vs original file.
+     command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
+" }
+"
+" Autocommands For This Local Config:
+" {
+    if !exists("vimpager")   "Define only if we are not vimpager
+        augroup ConfigBehave "{
+            au!
+            autocmd GUIEnter    * :call ConfigTamer()
+            autocmd VimEnter    * :call ConfigTamer()
+            autocmd BufNew      * :call ConfigTamer()
+            autocmd BufReadPost * :call ConfigTamer()
+            autocmd BufCreate   * :call ConfigTamer()
+            autocmd BufAdd      * :call ConfigTamer()
+        augroup END "
+        " autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+    endif
+" } end autocommands
+
+" Vimpager Behaviour:
+" {
+    if exists("vimpager")   "Define only if we are vimpager
+    " General Behaviour {
+        " Misc. Settings {
+            set nospell            " speller off
+            set noignorecase       " who ever thought that ignoring case is a good idea?
+            set completeopt=menu,preview
+            set nolist
+        " }
+
+    " } end Gral Behaviour
+
+    " Plugin Config {
+    "
+        " Default Man Page plugin {
+            runtime ftplugin/man.vim
+            nmap K :Man <cword><CR>
+        " end default man page }
+
+        let g:override_spf13_bundles=1   " Override Plugin Bundles
+
+    " end Plugin config }
+    endif
+" }
+"
+" }
+
+" vim: set foldmarker={,} foldmethod=marker foldenable :

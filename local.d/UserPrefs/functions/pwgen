@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+#  _ ____      ____ _  ___ _ __
+# | '_ \ \ /\ / / _` |/ _ \ '_ \
+# | |_) \ V  V / (_| |  __/ | | |
+# | .__/ \_/\_/ \__, |\___|_| |_|
+# |_|           |___/
+# h@h-lo.me 20180218 012701 -0800 PST 1518946021 d(-_- )b...
+setopt xtrace verbose
+echo here we go
+
+if [[ -n ${1} ]]; then
+    pwlen=${1}
+else
+    pwlen=18
+fi
+
+#TODO: logic to choose clipboard carrier 
+
+command pwgen -sy 18 | termux-clipboard-set 
+echo "Secure password generated"
+
+
+unsetopt xtrace verbose
+
+#  vim: set ft=zsh sw=4 tw=0 fdm=marker foldlevel=0 et :

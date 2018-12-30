@@ -1,0 +1,5 @@
+#!/usr/bin/env zunit
+@test UserPrefs-exists {
+    assert ${HOME}/.zconf/local.d/UserPrefs exists
+    assert ${HOME}/.zconf/local.d/UserPrefs is_directory
+}
