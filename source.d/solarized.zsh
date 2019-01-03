@@ -19,19 +19,21 @@
 # cyan      #2aa198  6/6 cyan      37 #00afaf 60 -35 -05  42 161 152 175  74  63
 # green     #859900  2/2 green     64 #5f8700 60 -20  65 133 153   0  68 100  60
 
-typeset -i base03=8     #002b36  8/4 brblack  235 
-typeset -i base02=0     #073642  0/4 black    235 
-typeset -i base01=10    #586e75 10/7 brgreen  240 
-typeset -i base00=11    #657b83 11/7 bryellow 241 
-typeset -i base0=12     #839496 12/6 brblue   244 
-typeset -i base1=14     #93a1a1 14/4 brcyan   245 
-typeset -i base2=7      #eee8d5  7/7 white    254 
-typeset -i base3=15     #fdf6e3 15/7 brwhite  230 
-typeset -i yellow=3     #b58900  3/3 yellow   136 
-typeset -i orange=9     #cb4b16  9/3 brred    166 
-typeset -i red=1        #dc322f  1/1 red      160 
-typeset -i magenta=5    #d33682  5/5 magenta  125 
-typeset -i violet=13    #6c71c4 13/5 brmagenta 61 
-typeset -i blue=4       #268bd2  4/4 blue      33 
-typeset -i cyan=6       #2aa198  6/6 cyan      37 
-typeset -i green=2      #859900  2/2 green     64 
+typeset -A solarized
+
+solarized['base03']=235  # 8   002b36  8/4 brblack   = 235
+solarized['base02']=235  # 0   073642  0/4 black     = 235
+solarized['base01']=240  # 10  586e75 10/7 brgreen   = 240
+solarized['base00']=241  # 11  657b83 11/7 bryellow  = 241
+solarized['base0']=244   # 12  839496 12/6 brblue    = 244
+solarized['base1']=245   # 14  93a1a1 14/4 brcyan    = 245
+solarized['base2']=254   # 7   eee8d5  7/7 white     = 254
+solarized['base3']=230   # 15  fdf6e3 15/7 brwhite   = 230
+solarized['yellow']=136  # 3   b58900  3/3 yellow    = 136
+solarized['orange']=166  # 9   cb4b16  9/3 brred     = 166
+solarized['red']=160     # 1   dc322f  1/1 red       = 160
+solarized['magenta']=125 # 5   d33682  5/5 magenta   = 125
+solarized['violet']=61   # 13  6c71c4 13/5 brmagenta =  61
+solarized['blue']=33     # 4   268bd2  4/4 blue      =  33
+solarized['cyan']=37     # 6   2aa198  6/6 cyan      =  37
+solarized['green']=64    # 2   859900  2/2 green     =  64
