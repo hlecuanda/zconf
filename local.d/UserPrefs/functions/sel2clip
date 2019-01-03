@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+{ xclip -o -sel pri | xclip -i -sel cli } &>! /dev/null
+
+#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :
