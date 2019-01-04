@@ -17,9 +17,7 @@ changes                         : $(I3CONFIG) $(I3STATUS)
 	cp -afv $(I3STATUS) i3status.config
 	git add .
 	git fetch
-	git pull
-	git commit -m "Changes from $(HOST) on $$(date +%Y%m%d)"
-	git push
+	git pull --rebase=true
 
 
 i3config                        : $(I3CONFIG)
