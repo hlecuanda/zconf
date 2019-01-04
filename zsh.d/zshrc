@@ -237,9 +237,9 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
       unalias ${cmd}
 
     alias rm="nocorrect command rm -vi"
-    alias cp="nocorrect cp -vai"
-    alias mv="nocorrect mv -v"
-    alias ln="nocorrect ln -v"
+    alias cp="nocorrect command cp -vai"
+    alias mv="nocorrect command mv -v"
+    alias ln="nocorrect command ln -v"
 
     alias mv_="zmv '* *' '${f// /_}'"
     alias mv-="zmv '* *' '${f// /-}'"
