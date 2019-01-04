@@ -24,6 +24,15 @@ install: $(TARGETS) | relocate
 	-git clone --recursive $(GITRPO) $(SPFDIR)
 	cd $(HOME) && bash $(SPFDIR)/bootstrap.sh
 
+changes: $(TARGETS)
+	for target in $$(TARGETS) \
+		cp -afv $$target .
+	cp -afv $(I3STATUS) i3status.config
+	git add .
+	git commit -m "Changes from $$(date +%Y%m%d)"
+	git fetch
+	git pull --rebase=true
+
 relocate: $(RELOCATED) | dotvim
 
 
