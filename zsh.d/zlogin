@@ -33,7 +33,10 @@
     unfunction fortune
     fortune -a 
   fi
-  if (( $+commands[fuck] )); then
+  if (( $+commands[grc] )); then
+    unalias grc
+  fi
+  if (( $+commands[thefuck] )); then
     eval $(thefuck --alias)
   fi
   # }}}
