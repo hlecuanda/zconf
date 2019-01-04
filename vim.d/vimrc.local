@@ -720,7 +720,8 @@
     if has('gui_running')
         " set background=light
         " set guifont=Envy\ Code\ R\ for\ Powerline:h14
-        set guifont=Envy\ Code\ R\ 10
+        " set guifont=Envy\ Code\ R\ 10
+        set guifont=Monoid\ 11
         set lines=50
         set columns=85
         " set noantialias

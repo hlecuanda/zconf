@@ -1,36 +1,57 @@
 
-SHELL = zsh
-GITRPO = https://github.com/spf13/spf13-vim.git
-LOCALS = $(VIMDIR)/vimrc.before.local
-LOCALS += $(VIMDIR)/vimrc.bundles.local
-LOCALS += $(VIMDIR)/vimrc.local
-SPFDIR = ~/.spf13-vim
-INSTAL = install 
-VIMCMD = vim +BundleInstall! +BundleClean +q
-VIMDIR = $(ZDOTDIR)/vim.d
+SHELL         = zsh
 
-.PHONY: install update  symlink
+OBSOLETES     = ~/.vimbackup ~/.viminfo ~/.vimswap
+OBSOLETES    += ~/.vimundo ~/.vimviews
+#RELOCATED     = ~/.vim/.vimbackup ~/.vim/.viminfo ~/.vim/.vimswap
+#RELOCATED    += ~/.vim/.vimundo ~/.vim/.vimviews
+GITRPO        = https://github.com/spf13/spf13-vim.git
+LOCALS        = vimrc.before.local
+LOCALS       += vimrc.bundles.local
+LOCALS       += vimrc.local
+TARGETS       = ~/.vimrc.before.local
+TARGETS      += ~/.vimrc.bundles.local
+TARGETS      += ~/.vimrc.local
+SPFDIR        = ~/.spf13-vim
+INSTALL       = install
+INSTALL_DATA  = $(INSTALL) -m a+r-x,og-w
+VIMCMD        = vim +BundleInstall! +BundleClean +q
+VIMDIR        = $(ZDOTDIR)/vim.d
 
-install:
+.PHONY: install symlink relocate reinstate clean realclean dotvim
+
+install: $(TARGETS) | relocate
 	-git clone --recursive $(GITRPO) $(SPFDIR)
-	-mkdir bkp
-	-touch bkp/.gitignore
 	cd $(HOME) && bash $(SPFDIR)/bootstrap.sh
-	$(MAKE) symlink
-#	$(VIMCMD)
 
-symlink: $(LOCALS)
-	for loc in ( $(LOCALS) );         \
-		cd ~ \;
-		install -pv $(VIMDIR)/$$loc ./.$$loc
+relocate: $(RELOCATED) | dotvim
 
-update: backup
-	git pull
-	$(VIMCMD)
+
+~/.%: $(LOCALS)
+	$(INSTALL_DATA) $* $@
+
+~/.vim/%: $(OBSOLETES)
+	mv -v $* $@
 
 clean:
-	@rm -rfv ~/.vimrc.*
+	rm -rfv $(TARGETS)
+
+dotvim: ~/.vim
+	mkdir -v $<
 
 realclean: clean
-	@rm -rfv ~/.spf13-vim
+	rm -rfv ~/.spf13-vim
+
+uninstall:
+	rm -rfv ~/.vim
+	[[ -d backups ]] && cp -Rav backups/** ~ || print "No backup found"
+
+#$(TARGETS): $(LOCALS)
+#    $(INSTALL_DATA) $? $@
+
+#$(RELOCATED): $(OBSOLETES)
+#    mv -v $? $@
+
+#$(OBSOLETES):
+
 
