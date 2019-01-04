@@ -20,11 +20,11 @@ VIMDIR        = $(ZDOTDIR)/vim.d
 
 .PHONY: install symlink relocate reinstate clean realclean dotvim
 
-install: $(TARGETS) | relocate
+install                                           : $(TARGETS) | relocate
 	-git clone --recursive $(GITRPO) $(SPFDIR)
 	cd $(HOME) && bash $(SPFDIR)/bootstrap.sh
 
-changes: $(TARGETS)
+changes                                           : $(TARGETS)
 	for target in $$(TARGETS) \
 		cp -afv $$target .
 	cp -afv $(I3STATUS) i3status.config
@@ -33,34 +33,26 @@ changes: $(TARGETS)
 	git fetch
 	git pull --rebase=true
 
-relocate: $(RELOCATED) | dotvim
+relocate                                          : $(RELOCATED) | dotvim
 
-
-~/.%: $(LOCALS)
-	$(INSTALL_DATA) $* $@
-
-~/.vim/%: $(OBSOLETES)
-	mv -v $* $@
-
-clean:
+clean                                             :
 	rm -rfv $(TARGETS)
 
-dotvim: ~/.vim
-	mkdir -v $<
+dotvim                                            : ~/.vim
 
-realclean: clean
+realclean                                         : clean
 	rm -rfv ~/.spf13-vim
 
-uninstall:
+uninstall                                         :
 	rm -rfv ~/.vim
-	[[ -d backups ]] && cp -Rav backups/** ~ || print "No backup found"
+	[[ -d backups ]] && cp -Rav backups /** ~ || print "No backup found"
 
-#$(TARGETS): $(LOCALS)
-#    $(INSTALL_DATA) $? $@
+~/.%                                              : $(LOCALS)
+	$(INSTALL_DATA) $* $@
 
-#$(RELOCATED): $(OBSOLETES)
-#    mv -v $? $@
+~/.vim/%                                          : $(OBSOLETES)
+	mv -v $* $@
 
-#$(OBSOLETES):
-
+~/.vim:
+	mkdir $@
 
