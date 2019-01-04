@@ -18,11 +18,11 @@ INSTALL_DATA  = $(INSTALL) -m a+r-x,og-w
 VIMCMD        = vim +BundleInstall! +BundleClean +q
 VIMDIR        = $(ZDOTDIR)/vim.d
 
-.PHONY: install symlink relocate reinstate clean realclean dotvim
+.PHONY: install symlink relocate reinstate clean realclean dotvim spf-install
 
-install                                           : $(TARGETS) | relocate
-	-git clone --recursive $(GITRPO) $(SPFDIR)
-	cd $(HOME) && bash $(SPFDIR)/bootstrap.sh
+install: $(TARGETS)
+
+spf-install                                       : ~/.spf13-vim
 
 changes                                           : $(TARGETS)
 	for target in $$(TARGETS) \
@@ -35,13 +35,13 @@ changes                                           : $(TARGETS)
 
 relocate                                          : $(RELOCATED) | dotvim
 
-clean                                             :
-	rm -rfv $(TARGETS)
-
 dotvim                                            : ~/.vim
 
 realclean                                         : clean
 	rm -rfv ~/.spf13-vim
+
+clean                                             :
+	rm -rfv $(TARGETS)
 
 uninstall                                         :
 	rm -rfv ~/.vim
@@ -56,3 +56,6 @@ uninstall                                         :
 ~/.vim:
 	mkdir $@
 
+~/.spf13-vim:
+	-git clone --recursive $(GITRPO) $(SPFDIR)
+	cd $(HOME) && bash $(SPFDIR)/bootstrap.sh
