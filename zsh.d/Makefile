@@ -1,21 +1,30 @@
+INSTALL = install -T
+INSTALL_DATA = $(INSTALL) -m 755
+RUNCOMS != ls *.zsh
+RC:=$(basename $(RUNCOMS))
+LIVE := $(addprefix $(ZDOTDIR)/.,$(RC))
+ifndef ZDOTDIR
+ZDOTDIR = $HOME/.zconf/
+endif
 
-.PHONY: zsh zprezto zshenv runcoms
+.SUFFIXES:
+.SUFFIXES: .zsh .zlogin .zlogout .zshrc .zpreztorc
 
-zsh: runcoms zshenv zprezto
+.PHONY: install zshenv zdotdir
 
-zprezto: $(ZDOTDIR)/.zprezto
+install: zshenv zdotdir $(LIVE)
 
 zshenv: $(HOME)/.zshenv
-	
-runcoms: $(ZDOTDIR)/.$(RUNCOMS)
 
-$(ZDOTDIR)/.$(RUNCOMS):
-	@echo installing $(.TARGET)
-	@install $(.IMPSRC) $(ZDOTDIR)/.$(IMPSRC)
+zdotdir: $(ZDOTDIR)/.zprezto
 
-$(HOME)/.zshenv:
-	@echo installing $(.TARGET)
-	@install .zshenv $(.TARGET)
+# $(LIVE): $(RUNCOMS)
+
+$(LIVE): .% : %.zsh
+	$(INSTALL_DATA) $* $@
+
+$(HOME)/.zshenv: $(CURDIR)/zshenv
+	$(INSTALL_DATA) $< $@
 
 $(ZDOTDIR)/.zprezto:
 	@git clone -q --recursive $(PREZTO) $(ZDOTDIR)/.zprezto
