@@ -1,8 +1,10 @@
-
-
-INSTALL=install
-INSTALL_PROGRAM=$(INSTALL)
-INSTALL_DATA=$(INSTALL) -m 644 -T
+ifeq ($(shell uname -s),FreeBSD)
+INSTALL=install -c
+else
+INSTALL=install -T
+endif
+INSTALL_PROGRAM=$(INSTALL) -m 755
+INSTALL_DATA=$(INSTALL) -m 644
 DESTDIR=$(HOME)
 SHELL=zsh
 SOURCES != ls | grep -v Makefile 
