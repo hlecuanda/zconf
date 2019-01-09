@@ -8,7 +8,7 @@ ZDOTDIR = $HOME/.zconf/
 endif
 
 .SUFFIXES:
-.SUFFIXES: .zsh .zlogin .zlogout .zshrc .zpreztorc
+.SUFFIXES: .zsh
 
 .PHONY: install zshenv zdotdir
 
@@ -18,10 +18,9 @@ zshenv: $(HOME)/.zshenv
 
 zdotdir: $(ZDOTDIR)/.zprezto
 
-# $(LIVE): $(RUNCOMS)
 
-$(LIVE): .% : %.zsh
-	$(INSTALL_DATA) $* $@
+$(LIVE): $(ZDOTDIR)/.% : %.zsh
+	$(INSTALL_DATA) $? $@
 
 $(HOME)/.zshenv: $(CURDIR)/zshenv
 	$(INSTALL_DATA) $< $@

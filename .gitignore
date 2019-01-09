@@ -14,10 +14,10 @@ zsticky
 *.zwc
 *.zwc.*
 
-#installed runcoms
-#.zlogin
-#.zlogout
-#.zpreztorc
-#.zprofile
-#.zshrc
+# installed runcoms
+.zlogin
+.zlogout
+.zpreztorc
+.zprofile
+.zshrc
 
