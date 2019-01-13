@@ -1,11 +1,16 @@
+ifeq ($(shell uname -s), FreeBSD)
+INSTALL = install -c
+else
 INSTALL = install -T
+endif
 INSTALL_DATA = $(INSTALL) -m 755
 RUNCOMS != ls *.zsh
 RC:=$(basename $(RUNCOMS))
 LIVE := $(addprefix $(ZDOTDIR)/.,$(RC))
 ifndef ZDOTDIR
-ZDOTDIR = $HOME/.zconf/
+ZDOTDIR = $(HOME)/.zconf/
 endif
+
 
 .SUFFIXES:
 .SUFFIXES: .zsh

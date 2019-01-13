@@ -39,6 +39,9 @@
   if (( $+commands[thefuck] )); then
     eval $(thefuck --alias)
   fi
+  if (( $+command[tig] )) ; then
+    typeset -x TIGRC_USER=~/.zconf/git.d/tigrc
+  fi
   # }}}
   # {{{ debugging control
     if [[ -f "${HOME}/.debug" ]] ; then

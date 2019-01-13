@@ -20,14 +20,13 @@ VIMDIR        = $(ZDOTDIR)/vim.d
 
 .PHONY: install symlink relocate reinstate clean realclean dotvim spf-install
 
-install: $(TARGETS)
+install: $(TARGETS) spf-install
 
 spf-install                                       : ~/.spf13-vim
 
 changes                                           : $(TARGETS)
 	for target in $$(TARGETS) \
 		cp -afv $$target .
-	cp -afv $(I3STATUS) i3status.config
 	git add .
 	git commit -m "Changes from $$(date +%Y%m%d)"
 	git fetch
