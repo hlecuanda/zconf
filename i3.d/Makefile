@@ -12,7 +12,7 @@ I3STATUS     = $(I3STATUS_DIR)/config
 
 install                         : i3config i3status
 
-changes                         : $(I3CONFIG) $(I3STATUS)
+changes                         : 
 	cp -afv $(I3CONFIG) i3.config
 	cp -afv $(I3STATUS) i3status.config
 	git add .
