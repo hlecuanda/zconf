@@ -42,9 +42,12 @@ cdpath=(
   ~
   ~/src
   ~/anaconda3/envs
+  ~/.zconf/
+  /mnt
   /opt
-  /usr/local/share
+  /srv
   /usr/share
+  /ust/local
   $cdpath
 )
   # ~/anaconda3/lib/python3.6/site-packages
