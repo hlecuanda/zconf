@@ -7,12 +7,12 @@
 #define S_base2         #eee8d5
 #define S_base3         #fdf6e3
 
-*background:            S_base03
-*foreground:            S_base0
-*fadeColor:             S_base03
-*cursorColor:           S_base1
-*pointerColorBackground:S_base01
-*pointerColorForeground:S_base1
+*vt100*background:            S_base03
+*vt100*foreground:            S_base0
+*vt100*fadeColor:             S_base03
+*vt100*cursorColor:           S_base1
+*vt100*pointerColorBackground:S_base01
+*vt100*pointerColorForeground:S_base1
 
 #define S_yellow        #b58900
 #define S_orange        #cb4b16
@@ -24,35 +24,35 @@
 #define S_green         #859900
 
 !! black dark/light
-*color0:                S_base02
-*color8:                S_base03
+*vt100*color0:                S_base02
+*vt100*color8:                S_base03
 
 !! red dark/light
-*color1:                S_red
-*color9:                S_orange
+*vt100*color1:                S_red
+*vt100*color9:                S_orange
 
 !! green dark/light
-*color2:                S_green
-*color10:               S_base01
+*vt100*color2:                S_green
+*vt100*color10:               S_base01
 
 !! yellow dark/light
-*color3:                S_yellow
-*color11:               S_base00
+*vt100*color3:                S_yellow
+*vt100*color11:               S_base00
 
 !! blue dark/light
-*color4:                S_blue
-*color12:               S_base0
+*vt100*color4:                S_blue
+*vt100*color12:               S_base0
 
 !! magenta dark/light
-*color5:                S_magenta
-*color13:               S_violet
+*vt100*color5:                S_magenta
+*vt100*color13:               S_violet
 
 !! cyan dark/light
-*color6:                S_cyan
-*color14:               S_base1
+*vt100*color6:                S_cyan
+*vt100*color14:               S_base1
 
 !! white dark/light
-*color7:                S_base2
-*color15:               S_base3
+*vt100*color7:                S_base2
+*vt100*color15:               S_base3
 
-/* vim: set ft=xdefaults sw=4 tw=0 fdm=manual et :*/
+/*vt100* vim: set ft=xdefaults sw=4 tw=0 fdm=manual et :*vt100*/
