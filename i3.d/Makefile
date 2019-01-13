@@ -7,7 +7,6 @@ I3CONFIG     = $(I3CONFIG_DIR)/config
 I3STATUS_DIR = $(HOME)/.config/i3status
 I3STATUS     = $(I3STATUS_DIR)/config
 
-
 .PHONY                          : install changes
 
 install                         : i3config i3status
@@ -18,8 +17,6 @@ changes                         :
 	git add .
 	git commit -m "Changes from $$(date +%Y%m%d)"
 	git fetch
-	git pull --rebase=true
-
 
 i3config                        : $(I3CONFIG)
 
