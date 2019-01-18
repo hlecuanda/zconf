@@ -582,6 +582,10 @@
         augroup END
     " }
 
+    " TextFmt:
+      autocmd BufWritePre * %s/\s\+$//e
+    " }
+
     " SearchHighligtBeGone:
     " " {
       " function! SearchHighlightBeGone()
@@ -720,8 +724,8 @@
     if has('gui_running')
         " set background=light
         " set guifont=Envy\ Code\ R\ for\ Powerline:h14
-        " set guifont=Envy\ Code\ R\ 10
-        set guifont=Monoid\ 9
+        set guifont=Envy\ Code\ R\ 10
+        " set guifont=Monoid\ 9
         set lines=50
         set columns=85
         " set noantialias
