@@ -55,4 +55,4 @@
 *vt100*color7:                S_base2
 *vt100*color15:               S_base3
 
-/*vt100* vim: set ft=xdefaults sw=4 tw=0 fdm=manual et :*vt100*/
+! vim: set ft=xdefaults sw=4 tw=0 fdm=manual et :
