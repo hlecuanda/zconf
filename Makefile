@@ -12,11 +12,11 @@ ZDOTDIR=$(HOME)/.zconf
 install: pkg gcloud modules
 
 $(MODULES): 
-	
 
 pkg: upgrade	
 	-$(INSTL) $(PACKAGES)
 	termux-setup-storage
+
 packages:
 	-rm -v $@
 	pkg list-installed -q | \

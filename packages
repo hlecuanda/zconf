@@ -16,7 +16,6 @@ file
 findutils
 gbt
 git
-golang
 gpgv
 grep
 gzip
