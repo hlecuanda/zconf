@@ -2,38 +2,22 @@
 # Executes commands at login pre-zshrc.
 #
 # Authors:
+#   Hector Lecuanda <h@h-lo.me> 20190130 175207 +0000 GMT 1548870727 d(-_- )b... 
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
 
-#
 # Browser
-#
-
-if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
+[[ "$OSTYPE" == darwin* ]] && export BROWSER='open'
 #TODO: OS detection from .zshenv
-fi
 
-#
 # Editors
-#
-
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
 
-#
 # Language
-#
+[[ -z "$LANG" ]] && export LANG='en_US.UTF-8'
 
-if [[ -z "$LANG" ]]; then
-  export LANG='en_US.UTF-8'
-fi
-
-#
 # Paths
-#
-
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
 
@@ -43,10 +27,7 @@ cdpath=(
   ~/src
   ~/storage
   ~/storage/shared
-  ~/anaconda3/envs
   /opt
-  /usr/local/share
-  /usr/share
   ~/../usr/share
   $cdpath
 )
@@ -63,6 +44,9 @@ for dir in $cdpath
 
 typeset zconf=${ZDOTDIR:-$HOME}
 
+gp="${GCPSDK}/path.inc.zsh"
+[[ -s "${gp}" ]] &&  source ${gp}
+unset gp
 
 # Set the list of directories that Zsh searches for programs.
 path=(
