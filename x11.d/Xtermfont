@@ -1,56 +1,46 @@
 *loginShell: true
 
-*faceSize1: 8
+*faceName: Monoisome
+*faceSize1: 5
 *faceSize2: 8
-*faceSize: 8
-*faceSize3: 8
-*faceSize4: 8
-*faceSize5: 8
-*faceSize6: 8
+*faceSize:  9
+*faceSize3: 10
+*faceSize4: 11
+*faceSize5: 12
+*faceSize6: 14
+! # unreadable
+*font1: -*-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1
+! # tiny
+*font2: -*-terminus-medium-*-*-*-14-*-*-*-*-*-iso10646-1
+! !# default
+*font: -*-terminus-medium-*-*-*-18-*-*-*-*-*-iso10646-1
+! # small
+*font3: -*-terminus-medium-*-*-*-16-*-*-*-*-*-iso10646-1
+! # medium
+*font4: -*-terminus-medium-*-*-*-22-*-*-*-*-*-iso10646-1
+! # large
+*font5: -*-terminus-medium-*-*-*-24-*-*-*-*-*-iso10646-1
+! # huge
+*font6: -*-terminus-medium-*-*-*-32-*-*-*-*-*-iso10646-1
 
-
-*vt100.font2: -efont-biwidth-medium-r-normal--8-100-75-75-p-50-iso10646-1
-*vt100.font: -efont-biwidth-medium-r-normal--10-100-75-75-p-50-iso10646-1
-*vt100.font3: -efont-biwidth-medium-r-normal--12-120-75-75-p-60-iso10646-1
-*vt100.font4: -efont-biwidth-medium-r-normal--14-140-75-75-p-70-iso10646-1
-*vt100.font5: -efont-biwidth-medium-r-normal--16-160-75-75-p-80-iso10646-1
-*vt100.font6: -efont-biwidth-medium-r-normal--24-240-75-75-p-120-iso10646-1
+! ! default
+! *vt100.font: -efont-biwidth-medium-r-normal--10-100-75-75-p-50-iso10646-1
+! ! Unreadable
+! *vt100.font1: -efont-biwidth-medium-r-normal--10-100-75-75-p-50-iso10646-1
+! ! Tiny
+! *vt100.font2: -efont-biwidth-medium-r-normal--8-100-75-75-p-50-iso10646-1
+! ! Small
+! *vt100.font3: -efont-biwidth-medium-r-normal--12-120-75-75-p-60-iso10646-1
+! ! Medium
+! *vt100.font4: -efont-biwidth-medium-r-normal--14-140-75-75-p-70-iso10646-1
+! ! Large
+! *vt100.font5: -efont-biwidth-medium-r-normal--16-160-75-75-p-80-iso10646-1
+! ! Huge
+! *vt100.font6: -efont-biwidth-medium-r-normal--24-240-75-75-p-120-iso10646-1
 
 *vt100.renderFont: True
 *vt100.translations: #override \n\
-    Alt <Key>Return:fullscreen() \n\
-    <Btn1Up>: exec-formatted("xdg-open '%t'", PRIMARY)  \n\
-    <Btn2Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0) \n\
-    <Btn4Down>:scroll-back(5,line,m)     \n\
-    <BtnDown>:ignore()
-    <BtnUp>:select-end(SELECT, CUT_BUFFER0) \n\
-    !Ctrl <Btn1Down>:popup-menu(mainMenu) \n\
-    !Ctrl <Btn2Down>:popup-menu(vtMenu) \n\
-    !Ctrl <Btn3Down>:popup-menu(fontMenu) \n\
-    Ctrl <Btn4Down>:scroll-back(1,halfpage,m) \n\
-    Ctrl <Btn5Down>:scroll-forw(1,halfpage,m) \n\
-    Ctrl <Key>M: maximize() \n\
-    Ctrl <Key>R: restore() \n\
-    ~Ctrl ~Meta <Btn2Down>:ignore() \n\
-    ~Ctrl ~Meta <Btn2Up>:insert-selection(SELECT, CUT_BUFFER0) \n\
-    ~Ctrl ~Meta <Btn3Down>:start-extend() \n\
-    Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
-    Ctrl Shift <Key>V: insert-selection(CLIPBOARD)  \n\
-    <KeyRelease> Scroll_Lock:scroll-lock() \n\
-    ~Meta <Btn1Down>:select-start() \n\
-    ~Meta <Btn1Motion>:select-extend() \n\
-    Meta <Btn2Down>:clear-saved-lines() \n\
-    ~Meta <Btn3Motion>:select-extend() \n\
-    Meta <KeyPress>:insert-eight-bit() \n\
-    ~Meta <KeyPress>:insert-seven-bit() \n\
-    Shift~Ctrl <KeyPress> KP_Add:larger-vt-font() \n\
-    Shift Ctrl <KeyPress> KP_Add:smaller-vt-font() \n\
-    Shift <KeyPress> Insert:insert-selection(SELECT, CUT_BUFFER0) \n\
-    Shift <KeyPress> KP_Subtract:smaller-vt-font() \n\
-    Shift <KeyPress> Next:scroll-forw(1,halfpage) \n\
-    Shift <KeyPress> Prior:scroll-back(1,halfpage) \n\
-    Shift <KeyPress> Select:select-cursor-start() \
-        select-cursor-end(SELECT, CUT_BUFFER0)
+    Ctrl Shift <Key>S: set-sco-functionkeys(toggle) \n\
 
 *allowFontOps: true
 *allowTcapOps: true
@@ -68,6 +58,8 @@ XTerm*selectToClipboard: true
 *on3Clicks: regex ([[:alpha:]]+://)?([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
 *on4Clicks: line
 *on5Clicks: group
+*trimSelection: true
+*highlghtSelecion: true
 
 !! hide the mouse
 pointerMode: always

@@ -61,6 +61,5 @@ Xresources.live:
 
 ~/.Xresources: Xresources
 	$(INSTALL_DATA) $< $@
-	$(MAKE) clean
 
 #  vim: set ft=make sw=4 tw=0 fdm=manual noet :
