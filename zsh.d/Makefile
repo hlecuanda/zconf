@@ -3,7 +3,7 @@ INSTALL = install -c
 else
 INSTALL = install -T
 endif
-INSTALL_DATA = $(INSTALL) -m 755
+INSTALL_DATA = $(INSTALL) -m 664
 RUNCOMS != ls *.zsh
 RC:=$(basename $(RUNCOMS))
 ifndef ZDOTDIR
