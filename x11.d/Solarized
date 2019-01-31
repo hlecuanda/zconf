@@ -7,12 +7,31 @@
 #define S_base2         #eee8d5
 #define S_base3         #fdf6e3
 
+!! Std dark
 *vt100*background:            S_base03
 *vt100*foreground:            S_base0
 *vt100*fadeColor:             S_base03
 *vt100*cursorColor:           S_base1
 *vt100*pointerColorBackground:S_base01
 *vt100*pointerColorForeground:S_base1
+
+*cursorColor: S_blue
+*cursorBlink: true
+*cursorOffTime: 250
+*cursorOnTime:  250
+
+! *colorBD: false
+! *colorBL: false
+*veryBoldColors: 512
+
+!! Xterm by title
+! uxterm
+
+dark*background:            S_base03
+dark*foreground:            S_base01
+
+light*background:            S_base3
+light*foreground:            S_base1
 
 #define S_yellow        #b58900
 #define S_orange        #cb4b16

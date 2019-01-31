@@ -37,9 +37,9 @@ diff: Xresources Xresources.live
 	$(DIFF) $^
 
 10-rofi.ref:
-	git checkout $@ || $(fileheader)
-	git checkout $@ || rofi -dump-xresources >> $@
-	git checkout $@ || $(SET_MODELINE)
+	git checkout $@ -- || $(fileheader)
+	git checkout $@ -- || rofi -dump-xresources >> $@
+	git checkout $@ -- || $(SET_MODELINE)
 
 20-XTerm.ref: $(XTERM_RSC_SRC)
 	$(fileheader)
@@ -51,7 +51,7 @@ Xresources: Xresources.pre Makefile
 	cat $<  > $@
 	$(SET_MODELINE)
 
-Xresources.pre: Solarized Rofi
+Xresources.pre: Solarized Xtermfont Rofi
 	cat $^ > $@
 
 Xresources.live:
