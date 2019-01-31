@@ -18,7 +18,7 @@ rofi.modi:                           window,run,ssh
 ! rofi.width:                          50
 rofi.lines:                          10
 rofi.columns:                        1
-! rofi.font:                           mono 9
+rofi.font:                           Monoisome
 ! rofi.fg:                             S_base0
 ! rofi.bg:                             S_base03
 ! rofi.fg-active:                      S_blue
