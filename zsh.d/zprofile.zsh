@@ -2,7 +2,7 @@
 # Executes commands at login pre-zshrc.
 #
 # Authors:
-#   Hector Lecuanda <h@h-lo.me> 20190130 175207 +0000 GMT 1548870727 d(-_- )b... 
+#   Hector Lecuanda <h@h-lo.me> 20190130 175207 +0000 GMT 1548870727 d(-_- )b...
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 
 # Browser
@@ -16,6 +16,8 @@ export PAGER='less'
 
 # Language
 [[ -z "$LANG" ]] && export LANG='en_US.UTF-8'
+unset LC_ALL
+export LC_COLLATE=C
 
 # Paths
 # Ensure path arrays do not contain duplicates.

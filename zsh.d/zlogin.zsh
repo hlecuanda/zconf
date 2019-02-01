@@ -19,8 +19,6 @@
   # autoload -Uz zrecompile # gets called on compinit
   # bashcompinit          # dunno if needed
   # comprefresh             # gets loaded on UserFunctions
-  reprompt
-
   # trap - DEBUG
 } &!
 # }}}
@@ -28,26 +26,20 @@
 #
 # Execute code only if STDERR is bound to a TTY. {{{
 [[ -o INTERACTIVE && -t 2 ]] && {
+  # fix ordering
+  unset LC_ALL
+  export LC_COLLATE=C
   # Print a random, hopefully interesting, adage. {{{
-  if (( $+commands[fortune] )); then
-    unfunction fortune
-    fortune -a 
-  fi
-  if (( $+commands[grc] )); then
-    unalias grc
-  fi
-  if (( $+commands[thefuck] )); then
-    eval $(thefuck --alias)
-  fi
-  if (( $+command[tig] )) ; then
-    typeset -x TIGRC_USER=~/.zconf/git.d/tigrc
-  fi
+  (( $+commands[fortune] )) && unfunction fortune ; fortune -a
+  (( $+commands[grc]     )) && unalias grc
+  (( $+commands[thefuck] )) && eval $(thefuck --alias)
+  (( $+commands[tig]     )) && typeset -x TIGRC_USER=~/.zconf/git.d/tigrc
   # }}}
   # {{{ debugging control
-    if [[ -f "${HOME}/.debug" ]] ; then
+    [[ -f "${HOME}/.debug" ]] && {
       unsetopt xtrace verbose
       rm -f "${HOME}/.debug"
-    fi
+    }
   # }}}
 } >&2
 # }}}

@@ -9,7 +9,7 @@ RC:=$(basename $(RUNCOMS))
 ifndef ZDOTDIR
 ZDOTDIR = $(HOME)/.zconf/
 endif
-LIVE := $(addprefix $(ZDOTDIR).,$(RC))
+LIVE := $(addprefix $(ZDOTDIR)/.,$(RC))
 
 .SUFFIXES:
 
@@ -21,7 +21,7 @@ zshenv: $(HOME)/.zshenv
 
 zdotdir: $(ZDOTDIR)/.zprezto
 
-$(LIVE):  $(ZDOTDIR).%: %.zsh
+$(LIVE):  $(ZDOTDIR)/.%: %.zsh
 	$(INSTALL_DATA) $*.zsh $@
 
 $(HOME)/.zshenv:
