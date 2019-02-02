@@ -1,6 +1,6 @@
 
 # Variables{{{
-AWK        = gawk -p
+AWK        = gawk
 DNSOPT     = --type=A --ttl=300
 ECHO       = print -P '%B %s %b'
 FWRULES    = --rules=tcp:22,tcp:631,udp:5353,udp:60000-61000
@@ -20,12 +20,6 @@ DNSPROJ = lecuanda-domain-management
 GDNS = gcloud --project=$(DNSPROJ) dns record-sets transaction
 
 .PHONY: help createfw listfw describefw updatefw deletefw whatismyip
-
-define ckenv =
-ifndef FWNAME
-	$(error please define FWNAME)
-endif
-endef
 
 help::        # Show this message:wq
 	@figlet Makecloud
@@ -54,42 +48,32 @@ help::
 		$(AWK) '/#2/ && !/AWK/ { gsub(/#2/,"-"); print  $0  }' \
 		| sort
 
-# Aliases {{{
-dsfw: describefw ;
-
-lsfw: listfw ;
-
-mkfw: createfw ;
-
-rmfw: deletefw ;
-
-upfw: updatefw ;
-# }}}
-#
 whatismyip:  #2 Show your current external IP
-	@$(TITL) "Current IP outside " 
+	@$(TITL) "Current IP outside "
 	@$(ECHO) $(MYIP)
 
 createfw:    #2 Creates a firewall for the current ip
-	$(ckenv)
 	$(GCFWRULES) create $(FWNAME) $(FWPARAMS) \
 		$(VMPARAMS) $(FWRULES) --source-ranges=$(MYIP)
 
-listfw:      #2 Lists the projects firewalls
+listfw:      #2 Lisrs the projects firewalls
 	$(GCFWRULES) list
 
 describefw:  #2 describes this firewall
-	$(ckname)
 	$(GCFWRULES) describe $(FWNAME)
 
+rmfw: deletefw
+
+mkfw: createfw
+
 deletefw:    #2 deletes this firewall
-	$(ckname)
 	-$(GCFWRULES) delete $(FWNAME)
 
-updatefw:: rmfw ;
+updatefw: deleteFirewall createFirewall
 
-updatefw:: mkfw ;
-
+addfw: disabled
+	oldranges = $(GETOLDRANGES)
+	$(GCFWRULES) update $(FWNAME) --source-ranges=$(OLDRANGES)
 # }}}
 
 #  vim: set ft=make sw=4 tw=0 fdm=marker noet :
