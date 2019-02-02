@@ -1,19 +1,35 @@
 # vim: number :
 
-DIRS=git bin vim zsh
-DIRS+=tmux vnc i3 x11
+DIRS     = git bin vim zsh
+DIRS    += tmux vnc i3 x11
+SHELL    = zsh
+ZDOTDIR  = ~/.zconf
 
-ZDOTDIR=~/.zconf
-.PHONY: packages tmux zsh ssh update upgrade runcoms test
+.PHONY: all update upgrade
+.SUFFIXES=
 
-# include $(DIRS).d/Makefile
+all: ;
 
-install:
+upgrade: update
+	git pull
 
-packages: upgrade
-	@$(INSTL) zsh git tig vim tmux grep coreutils \
-		binutils curl diffutils figlet file \
-		grep man mosh openssh python termux-api \
-		termux-tools tree
-	@termux-setup-storage
+update:
+	git fetch
 
+clean:
+	find . -name Xterm.log\* -print -delete
+	for d in $(addsuffix .d,$(DIRS))\
+		$(MAKE) -C $$d clean
+
+ifdef MAKECMDGOALS
+
+.PHONY: $(MAKECMDGOALS)
+
+$(MAKECMDGOALS):
+	for d in $(addsuffix .d,$(DIRS)) ;\
+		$(MAKE) $(MFLAGS) -C $$d $(MAKECMDGOALS)
+
+endif
+
+
+#  vim: set ft=make sw=4 tw=0 fdm=manual noet :

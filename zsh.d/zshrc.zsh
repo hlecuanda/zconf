@@ -66,7 +66,6 @@
   zstyle ':completion:*:gksu:*' command-path /usr/local/sbin /usr/local/bin \
           /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 
-  # zstyle -e ':completion:*' special-dirs '[[ $PREFIX = (../)#(|.|..) ]] && reply=(..)'
   # #     zstyle ':completion::complete:*' use-cache 1
   #
 # Compinstall automatic preferences, don't touch comments or indent # {{{
@@ -111,18 +110,10 @@ zstyle :compinstall filename "${HOME}/.zconf/.zshrc"
     for sourcefile in ${ZDOTDIR}/source.d/**
       source "${sourcefile}"
 
-  # autoload quick functions useful to have but too small to warrant a module
-  [[ -e "${ZDOTDIR:-$HOME}/UserFunctions/" ]] && \
-    for func in ${ZDOTDIR:-$HOME}/UserFunctions/**
-      autoload -Uz ${func:t}
-
   # source gcloud from prefix
   [[ -e "${TERMUXPREFIX:-$HOME}" ]] && \
     for sourcefile in /usr/local/google-cloud-sdk/**.zsh.inc
       source "${sourcefile}"
-
-  [[ -f /usr/local/share/zsh-navigation-tools/zsh-navigation-tools.plugin.zsh ]] && \
-    true # no-op waiting for something worthwile o activate
 
 typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
 
@@ -415,13 +406,14 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     bindkey -M vicmd -s ',gh' "git@github.com:hlecuanda/"
     bindkey -M vicmd -s 'gcc' 'gcloud compute'
     bindkey -M vicmd -s 'gcf' 'gcloud compute firewall-rules'
-    # stupid spanish keyboard missing a tilde!!
-    bindkey -M viins -s "ç" "~"
-    bindkey -M vicmd -s "ç" "~"
     bindkey -M vicmd -s ',gl' "igit@gitlab.com:hlecuanda/"
     bindkey -M vicmd -s ',gh' "igit@github.com:hlecuanda/"
     bindkey -M vicmd -s 'gcc' 'igcloud compute'
     bindkey -M vicmd -s 'gcf' 'igcloud compute firewall-rules'
+    setopt xtrace
+    for key in {\(,\[,\{,\",\'}
+      bindkey -M viins ${key} auto-close-pairs
+    unsetopt xtrace
   # }}}
 # }}}
 
@@ -436,7 +428,8 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
   # }}}
   # moar named dirs# {{{
     zlogs=~zconf/logs.d
-    zfuncs=~zconf/UserFunctions
+    zfuncs=~zconf/local.d/UserPrefs/functions
+    zwidgs=~zconf/local.d/UserPrefs/widgets
     src=~/src
   # }}}
 # }}}
