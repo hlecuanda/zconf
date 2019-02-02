@@ -1,5 +1,5 @@
 #  vim: set ft=zsh sw=2 tw=0 fdm=marker et :
-#   
+#
 # Sets Prezto options.
 #
 # Authors:
@@ -21,11 +21,11 @@
 zstyle ':prezto:load' pmodule 'helper' 'spectrum' 'prompt' 'UserPrefs' \
   'environment' 'terminal' 'editor' 'history' 'command-not-found' \
   'directory' 'utility' 'completion' 'archive' 'git' 'ssh' 'docker' \
-  'gpg' 'rsync' 'syntax-highlighting' 'history-substring-search'
+  'python' 'gpg' 'rsync' 'syntax-highlighting' 'history-substring-search'
 # }}}
 # disabled# {{{
 # 'autosuggestions' 'dnf' 'emacs' 'gnu-utility' 'gpg' ' 'haskell' 'homebrew' 'macports' 'node' 'ocaml' 'osx' 'pacman' 'perl' \
-# 'python' 'rails' 'ruby' 'screen' 'wakeonlan' 'yum'  
+# 'rails' 'ruby' 'screen' 'wakeonlan' 'yum'
 # }}}
 
 #  prezto options local preferences {{{
