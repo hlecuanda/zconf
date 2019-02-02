@@ -51,9 +51,11 @@ zstyle ':prezto:load' pmodule 'helper' 'spectrum' 'prompt' 'UserPrefs' \
     zstyle ':prezto:module:utility:make' color 'no'
     zstyle ':prezto:module:utility:wdif' color 'yes'
     zstyle ':prezto:module:UserPrefs:syntax-highlighting' theme 'amber'
+    zstyle ':prezto:module:UserPrefs:widgets' load 'yes'
+    zstyle ':prezto:module:UserPrefs:widgets:autoclose-pairs' enabled 'yes'
   # zstyle ':prezto:module:pacman' frontend 'yaourt'                    # Set the Pacman frontend.
-  # zstyle ':prezto:module:python:virtualenv' auto-switch 'yes'         # Auto switch the Python virtualenv on directory change.
-  # zstyle ':prezto:module:python:virtualenv' initialize 'yes'          # Automatically initialize virtualenvwrapper if pre-requisites are met.
+    zstyle ':prezto:module:python:virtualenv' auto-switch 'yes'         # Auto switch the Python virtualenv on directory change.
+    zstyle ':prezto:module:python:virtualenv' initialize 'yes'          # Automatically initialize virtualenvwrapper if pre-requisites are met.
   # zstyle ':prezto:module:ruby:chruby' auto-switch 'yes'               # Auto switch the Ruby version on directory change.
   # zstyle ':prezto:module:screen:auto-start' local 'yes'               # Auto start a session when Zsh is launched in a local terminal.
   # zstyle ':prezto:module:screen:auto-start' remote 'yes'              # Auto start a session when Zsh is launched in a SSH connection.

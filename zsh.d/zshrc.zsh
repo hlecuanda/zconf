@@ -410,10 +410,8 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     bindkey -M vicmd -s ',gh' "igit@github.com:hlecuanda/"
     bindkey -M vicmd -s 'gcc' 'igcloud compute'
     bindkey -M vicmd -s 'gcf' 'igcloud compute firewall-rules'
-    setopt xtrace
-    for key in {\(,\[,\{,\",\'}
-      bindkey -M viins ${key} auto-close-pairs
-    unsetopt xtrace
+    for key in \( \[ \{ \" \'
+      bindkey -M viins $key auto-close-pairs
   # }}}
 # }}}
 
