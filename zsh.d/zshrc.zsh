@@ -448,6 +448,7 @@ else
   fi
   PROMPT='%F{166}%m%f:%F{136}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
 fi
+LESS_TERMCAP_se=[44m[30m
 # }}}
 #
 #  vim: set ft=zsh sw=2 tw=0 fdm=marker foldlevel=0 et :
