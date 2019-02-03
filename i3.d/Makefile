@@ -1,7 +1,4 @@
 
-SHELL        = zsh
-INSTALL      = install --backup=numbered
-INSTALL_DATA = $(INSTALL) -m 755 -T
 I3CONFIG_DIR = $(HOME)/.config/i3
 I3CONFIG     = $(I3CONFIG_DIR)/config
 I3STATUS_DIR = $(HOME)/.config/i3status
@@ -11,7 +8,7 @@ I3STATUS     = $(I3STATUS_DIR)/config
 
 install                         : i3config i3status
 
-changes                         : 
+changes                         :
 	cp -afv $(I3CONFIG) i3.config
 	cp -afv $(I3STATUS) i3status.config
 	git add .

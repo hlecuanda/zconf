@@ -16,6 +16,10 @@
 *vt100*pointerColorBackground:S_base01
 *vt100*pointerColorForeground:S_base1
 
+*boldMode: false
+*colorBDMode: true
+*colorBD: rgb:fc/fc/fc
+*customization: -color
 *cursorColor: S_blue
 *cursorBlink: true
 *cursorOffTime: 250

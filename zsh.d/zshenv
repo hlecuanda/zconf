@@ -15,15 +15,17 @@
 [[ -z ${ZDOTDIR}  ]] &&  typeset -x ZDOTDIR=$HOME/.zconf
 
 if [[ -d /data/data/com.termux ]] ; then
-   # were in termuxland
-   typeset -x TZ=$(getprop persist.timezone)
-   typeset -x TERMUXPREFIX=/data/data/com.termux/files/usr
-   #TODO: make this platform independent
-   typeset -x GCPSDK=$TERMUXPREFIX/google-cloud-sdk
-   typeset -x USRLOCAL=$TERMUXPREFIX/local
- else
-   typeset -x USRLOCAL=/usr/local
+  # were in termuxland
+  typeset -x TZ=$(getprop persist.timezone)
+  typeset -x TERMUXPREFIX=/data/data/com.termux/files/usr
+  #TODO: make this platform independent
+  typeset -x GCPSDK=$TERMUXPREFIX/google-cloud-sdk
+  typeset -x USRLOCAL=$TERMUXPREFIX/local
+else
+  typeset -x USRLOCAL=/usr/local
+  typeset -x TZ="/usr/share/zoneinfo/America/Tijuana"
 fi
+
 #bypasses system configs, full of nonsense
 unsetopt global_rcs
 

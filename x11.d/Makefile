@@ -2,9 +2,10 @@ SHELL         = zsh
 
 DATE          != date +%Y%m%d-%H%M%S
 DIFF           = p4merge
+VNCFILES       = startx tigervnc config
+VNCSOURCES     := $(addsuffix .vnc,$(VNCFILES))
+VNCCONFIG      := $(addprefix ~./vnc/,$(VNCFILES))
 DROP_COMMENTS  = awk '/^[^\#!/]/ { print $$0 }'
-INSTALL        = VERSION_CONTROL=numbered install -T -b
-INSTALL_DATA   = $(INSTALL) -m 755
 MODELINE       = "! vim: set ft=xdefaults sw=4 tw=0 fdm=manual et :"
 SED            = sed -ri -e
 SET_MODELINE   = echo $(MODELINE) >> $@
@@ -19,12 +20,14 @@ $(SED) 's/\./ /g' $@
 $(SED) 's/\s+$$//' $@
 endef
 
-.PHONY: install clean diffa load
+.PHONY: install clean diff load installvnc
 
 load: ~/.Xresources
 	xrdb -quiet -load $^
 
-install: ~/.Xresources
+install: ~/.Xresources installvnc
+
+installvnc: $(VNCCONFIG) | ~/.vnc
 
 clean:
 	-rm -fv Xresources*
@@ -62,4 +65,9 @@ Xresources.live:
 ~/.Xresources: Xresources
 	$(INSTALL_DATA) $< $@
 
+$(VNCCONFIG): ~/.vnc/% : %.vnc
+	$(INSTALL_DATA) $? $@:
+
+~/.vnc:
+	mkdir $@
 #  vim: set ft=make sw=4 tw=0 fdm=manual noet :
