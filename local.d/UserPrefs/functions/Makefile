@@ -9,6 +9,8 @@ else
 all: test
 endif
 
+install: ;
+
 .ONESHELL: test
 
 test:
