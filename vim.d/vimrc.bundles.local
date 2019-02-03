@@ -38,6 +38,7 @@
         " Plugin 'django.vim'
         Plugin 'PotatoesMaster/i3-vim-syntax'
         " Plugin 'guns/xterm-color-table.vim'
+        Plugin 'wmvanvliet/jupyter-vim'
         " Plugin 'hlecuanda/tmux.vim'
         " Plugin 'powerman/vim-plugin-viewdoc'
         " Plugin 'sjl/vitality.vim'

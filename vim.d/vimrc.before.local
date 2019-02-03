@@ -22,7 +22,7 @@
 
     " Disable easier moving in tabs and windows
     "   let g:spf13_no_easyWindows = 1
-     
+
     " Disable Restore Cursor:
       let g:spf13_no_restore_cursor =1
       "
@@ -99,8 +99,8 @@
         finish
     endif
     " list only the plugin groups you will use {
-    let g:spf13_bundle_groups=[ 'general', 'writing', 'programming', 'neocomplete', 'python', 'javascript', 'html', 'ruby',  'misc' ]
-    " let g:spf13_bundle_groups=[ 'general', 'writing', 'programming', 'youcompleteme', 'python', 'javascript', 'html', 'ruby', 'puppet', 'misc' ]
+    " let g:spf13_bundle_groups=[ 'general', 'writing', 'programming', 'neocomplete', 'python', 'javascript', 'html', 'ruby',  'misc' ]
+    let g:spf13_bundle_groups=[ 'general', 'writing', 'programming', 'youcompleteme', 'python', 'javascript', 'html', 'ruby',  'misc' ]
     let g:vundle_default_git_proto = 'git'
     " UnBundle 'wting/rust.vim'
     " UnBundle 'cespare/vim-toml'
