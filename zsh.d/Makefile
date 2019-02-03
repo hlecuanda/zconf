@@ -1,9 +1,6 @@
-ifeq ($(shell uname -s), FreeBSD)
-INSTALL = install -c
-else
-INSTALL = install -T
-endif
-INSTALL_DATA = $(INSTALL) -m 664
+include ../mk.d/common.mk
+include ../mk.d/help.mk:
+
 RUNCOMS != ls *.zsh
 RC:=$(basename $(RUNCOMS))
 ifndef ZDOTDIR

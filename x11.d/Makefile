@@ -1,7 +1,6 @@
-SHELL         = zsh
+include ../mk.d/common.mk
+include ../mk.d/help.mk
 
-DATE          != date +%Y%m%d-%H%M%S
-DIFF           = p4merge
 VNCFILES       = startx tigervnc config
 VNCSOURCES     := $(addsuffix .vnc,$(VNCFILES))
 VNCCONFIG      := $(addprefix ~./vnc/,$(VNCFILES))
