@@ -1,5 +1,5 @@
 #  vim: set ft=zsh sw=2 tw=0 fdm=marker et :
-#   
+#
 # Sets Prezto options.
 #
 # Authors:
@@ -21,11 +21,11 @@
 zstyle ':prezto:load' pmodule 'helper' 'spectrum' 'prompt' 'UserPrefs' \
   'environment' 'terminal' 'editor' 'history' 'command-not-found' \
   'directory' 'utility' 'completion' 'archive' 'git' 'ssh' 'docker' \
-  'gpg' 'rsync' 'tmux' 'syntax-highlighting' 'history-substring-search'
+  'python' 'gpg' 'rsync' 'syntax-highlighting' 'history-substring-search'
 # }}}
 # disabled# {{{
-# 'autosuggestions' 'dnf' 'emacs' 'gnu-utility' 'haskell' 'homebrew' 'macports' 'node' 'ocaml' 'osx' 'pacman' 'perl' \
-# 'python' 'rails' 'ruby' 'screen' 'wakeonlan' 'yum'  
+# 'autosuggestions' 'dnf' 'emacs' 'gnu-utility' 'gpg' ' 'haskell' 'homebrew' 'macports' 'node' 'ocaml' 'osx' 'pacman' 'perl' \
+# 'rails' 'ruby' 'screen' 'wakeonlan' 'yum'
 # }}}
 
 #  prezto options local preferences {{{
@@ -51,9 +51,11 @@ zstyle ':prezto:load' pmodule 'helper' 'spectrum' 'prompt' 'UserPrefs' \
     zstyle ':prezto:module:utility:make' color 'no'
     zstyle ':prezto:module:utility:wdif' color 'yes'
     zstyle ':prezto:module:UserPrefs:syntax-highlighting' theme 'amber'
+    zstyle ':prezto:module:UserPrefs:widgets' load 'yes'
+    zstyle ':prezto:module:UserPrefs:widgets:autoclose-pairs' enabled 'yes'
   # zstyle ':prezto:module:pacman' frontend 'yaourt'                    # Set the Pacman frontend.
-  # zstyle ':prezto:module:python:virtualenv' auto-switch 'yes'         # Auto switch the Python virtualenv on directory change.
-  # zstyle ':prezto:module:python:virtualenv' initialize 'yes'          # Automatically initialize virtualenvwrapper if pre-requisites are met.
+    zstyle ':prezto:module:python:virtualenv' auto-switch 'yes'         # Auto switch the Python virtualenv on directory change.
+    zstyle ':prezto:module:python:virtualenv' initialize 'yes'          # Automatically initialize virtualenvwrapper if pre-requisites are met.
   # zstyle ':prezto:module:ruby:chruby' auto-switch 'yes'               # Auto switch the Ruby version on directory change.
   # zstyle ':prezto:module:screen:auto-start' local 'yes'               # Auto start a session when Zsh is launched in a local terminal.
   # zstyle ':prezto:module:screen:auto-start' remote 'yes'              # Auto start a session when Zsh is launched in a SSH connection.
@@ -62,7 +64,7 @@ zstyle ':prezto:load' pmodule 'helper' 'spectrum' 'prompt' 'UserPrefs' \
   # zstyle ':prezto:module:terminal:tab-title' format '%m: %s'          # Set the tab title format.
   # zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'    # Set the window title format.
   # zstyle ':prezto:module:tmux:auto-start' local 'yes'                 # Auto start a session when Zsh is launched in a local terminal.
-  # zstyle ':prezto:module:tmux:auto-start' remote 'yes'                # Auto start a session when Zsh is launched in a SSH connection.
-  # zstyle ':prezto:module:tmux:iterm' integrate 'yes'                  # Integrate with iTerm2.
+  zstyle ':prezto:module:tmux:auto-start' remote 'no'                # Auto start a session when Zsh is launched in a SSH connection.
+  zstyle ':prezto:module:tmux:iterm' integrate 'no'                  # Integrate with iTerm2.
   # zstyle ':prezto:module:tmux:session' name 'H-Lo'                    # Set the default session name:
 # }}}

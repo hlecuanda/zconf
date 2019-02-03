@@ -1,0 +1,67 @@
+*loginShell: true
+
+*faceName: Monoisome
+*faceSize1: 5
+*faceSize2: 8
+*faceSize:  9
+*faceSize3: 10
+*faceSize4: 11
+*faceSize5: 12
+*faceSize6: 14
+! # unreadable
+*font1: -*-terminus-medium-*-*-*-12-*-*-*-*-*-iso10646-1
+! # tiny
+*font2: -*-terminus-medium-*-*-*-14-*-*-*-*-*-iso10646-1
+! !# default
+*font: -*-terminus-medium-*-*-*-18-*-*-*-*-*-iso10646-1
+! # small
+*font3: -*-terminus-medium-*-*-*-16-*-*-*-*-*-iso10646-1
+! # medium
+*font4: -*-terminus-medium-*-*-*-22-*-*-*-*-*-iso10646-1
+! # large
+*font5: -*-terminus-medium-*-*-*-24-*-*-*-*-*-iso10646-1
+! # huge
+*font6: -*-terminus-medium-*-*-*-32-*-*-*-*-*-iso10646-1
+
+! ! default
+! *vt100.font: -efont-biwidth-medium-r-normal--10-100-75-75-p-50-iso10646-1
+! ! Unreadable
+! *vt100.font1: -efont-biwidth-medium-r-normal--10-100-75-75-p-50-iso10646-1
+! ! Tiny
+! *vt100.font2: -efont-biwidth-medium-r-normal--8-100-75-75-p-50-iso10646-1
+! ! Small
+! *vt100.font3: -efont-biwidth-medium-r-normal--12-120-75-75-p-60-iso10646-1
+! ! Medium
+! *vt100.font4: -efont-biwidth-medium-r-normal--14-140-75-75-p-70-iso10646-1
+! ! Large
+! *vt100.font5: -efont-biwidth-medium-r-normal--16-160-75-75-p-80-iso10646-1
+! ! Huge
+! *vt100.font6: -efont-biwidth-medium-r-normal--24-240-75-75-p-120-iso10646-1
+
+*vt100.renderFont: True
+*vt100.translations: #override \n\
+    Ctrl Shift <Key>S: set-sco-functionkeys(toggle) \n\
+
+*allowFontOps: true
+*allowTcapOps: true
+*allowTitleOps: true
+*allowWindowOps: true
+*allowSendEvents: true
+*bellIsUrgent: true
+*c132: true
+*cdXtraScroll: true
+
+
+XTerm*selectToClipboard: true
+
+*on2Clicks: word
+*on3Clicks: regex ([[:alpha:]]+://)?([[:alnum:]!#+,./=?@_~-]|(%[[:xdigit:]][[:xdigit:]]))+
+*on4Clicks: line
+*on5Clicks: group
+*trimSelection: true
+*highlghtSelecion: true
+
+!! hide the mouse
+pointerMode: always
+
+/* vim: set ft=xdefaults sw=4 tw=0 fdm=manual et :*/

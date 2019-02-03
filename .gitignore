@@ -1,17 +1,20 @@
+*%.swp
 *.log
+*.out
 *.zwc
 *.zwc.*
 *~
+.revolver
 .zcomp*
 .zhistory
-.zprezto
-zsticky
-*.swp
-
-#installed runcoms
 .zlogin
 .zlogout
+.zprezto
 .zpreztorc
 .zprofile
 .zshrc
-
+awkprof.out
+buildlog
+example*
+logs.d
+zsticky

@@ -1,0 +1,7 @@
+#TODO: validate entry
+yr=$1
+cy=`date +%Y`
+echo "$cy $yr - p"  | dc
+
+
+#  vim: set ft=zsh sw=4 tw=0 fdm=marker foldlevel=0 et :

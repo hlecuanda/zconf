@@ -1,7 +1,4 @@
 binutils
-bsdowl
-colormake
-bmake
 command-not-found
 coreutils
 curl
@@ -16,6 +13,7 @@ man
 mosh
 openssh
 procps
+pwgen 
 python
 termux-am
 termux-api

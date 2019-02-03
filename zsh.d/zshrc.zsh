@@ -1,94 +1,73 @@
-#          _
+#
 #  _______| |__  _ __ ___
 # |_  / __| '_ \| '__/ __|
 #  / /\__ \ | | | | | (__
 # /___|___/_| |_|_|  \___|
 # h@h-lo.me 20180219 205525 -0800 PST 1519102525 d(-_- )b...
+# h@h-lo.me 20181231 130308 -0800 PST 1546290188 d(-_- )b...
 #
 # link to .zshrc
 # Executes commands at the start of an interactive session.
 #
 # Authors:
-#   Hector Lecuanda (H-Lo) <h@h-lo.me>
+#   Hector Lecuanda (H-Lo) <h@h-lo.me>sommand
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
-# 0. Vim navigation awesomness                                            # {{{
-#
-# Add this to your vimrc or paste to your command line to navigate this
-# file like a boss
-#
-# nnoremap <buffer> <CR> <C-]>
-# nnoremap <buffer> <BS> <C-T>
-# nnoremap <buffer> o /'\l\{2,\}'<CR>
-# nnoremap <buffer> O ?'\l\{2,\}'<CR>
-# nnoremap <buffer> s /\|\zs\S\+\ze\|<CR>
-# nnoremap <buffer> S ?\|\zs\S\+\ze\|<CR>
-#
-# otherwise, use the vim code-folding kick-assery:
-#
-#    zo - open fold
-#    zc - close fold
-#    zR - recursively open folds
-#    zC - recursively, aha.. thats it you got it.
-#
-#    m,nzf - create a fold from line m through n
-#    zf - create a fold on visual selection
-#
-# Note, however that the sheer size of this file and the need for navigation
+# The sheer size of this file and the need for folding as a navigation
 # shortcut indicate that it is ridiculously long and should be split into
-# more manageable pieces. perhaps when i'm not wasting my emplouyer's time
-# i'll find time to do so. in the meantime....
-#
-#                                                                         # }}}
+# more manageable pieces. perhaps when i'm not wasting my emplouer's time
+# i'll find time to do so. in the meantime....                               # }}}
 #
 # 0. Index                                                               # {{{
 #
-# 1. Source Prezto, local packages and UserFunctions
+# 1. Completion system overrides
 #
-# 2. Zsh options
-#   2.1 Changing dirs
-#   2.2 Completion
-#   2.3 Globbing
-#   2.4 History
-#   2.3 CLI Correct
+# 2.Source Prezto, local packages and UserFunctions
 #
-# 3. Aliases
-#   3.1 Le BSD aliases
-#   3.2 MacVim aliases
-#   3.3 Global aliases
-#   3.4 Suffix aliases
-#   3.5 GRC Colorizer (Y u dont have it? go get it! now!)
-#   3.6 Personal additions
+# 3. Zsh options
+#   3.1 Changing dirs
+#   3.2 Completion
+#   3.3 Globbing
+#   3.4 History
+#   3.3 CLI Correct
 #
-# 4. Keybindings
-#   4.1 Dynamic keypad
-#   4.2 F-Keys
-#   4.3 Incremental search
-#   4.4 Command position word historu search
-#   4.5 Scroll most recent files
-#   4.6 Lat word in previous or current command
-#   4.7 Kick-ass swquence triggered bindings
-#   4.8 C-Z vim toggle like le old tcsh used to
-#   4.9 Personal overrides
+# 4. Aliases
+#  .5.1 Le BSD aliases
+#   4.2 MacVim aliases
+#   4.3 Global aliases
+#   4.4 Suffix aliases
+#   4.5 GRC Colorizer (Y u dont have it? go get it! now!)
+#   4.6 Personal additions
 #
-# 5. Zsh Extras I'm fond of
+# 5. Keybindings
+#   5.1 Dynamic keypad
+#   5.2 F-Keys
+#   5.3 Incremental search
+#  .5.4 Command position word historu search
+#   5.5 Scroll most recent files
+#   5.6 Lat word in previous or current command
+#   5.7 Kick-ass swquence triggered bindings
+#   5.8 C-Z vim toggle like le old tcsh used to
+#  .5.9 Personal overrides
+#
+# 6  Zsh Extras I'm fond of
 #   5.1 zsh stycky notes
 #   5.2 BSDowl Build system (don't need no stinkin' grunt or gulp)
 #   5.3 Moar named dirs besides .zprofile defined tnamed dirs
 #
-# 6. Completion system overrides
-#
 #                                                                         # }}}
 #
-# 6. Compsys styles overrides # {{{
+# 1. Compsys styles overrides # {{{
 # make sudo complete correctly with root-only dirs on debian
   zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
           /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 
-  # zstyle -e ':completion:*' special-dirs '[[ $PREFIX = (../)#(|.|..) ]] && reply=(..)'
+# make it work for gksu also
+  zstyle ':completion:*:gksu:*' command-path /usr/local/sbin /usr/local/bin \
+          /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+
   # #     zstyle ':completion::complete:*' use-cache 1
   #
-
 # Compinstall automatic preferences, don't touch comments or indent # {{{
 # The following lines were added by compinstall
 
@@ -111,32 +90,29 @@ zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' substitute 1
 zstyle ':completion:*' use-compctl true
 zstyle ':completion:*' verbose true
-zstyle :compinstall filename '/home/hector/.zconf/.zshrc'
+zstyle :compinstall filename "${HOME}/.zconf/.zshrc"
 
-# compinit gets called on prezto's completion module 
+# compinit gets called on prezto's completion module
 # autoload -Uz compinit
 # compinit
 # End of lines added by compinstall
 # }}}
+#
 # }}}
 #
 # 1. Source Prezto, local packages and UserFunctions  # {{{
   # Source Prezto.
-  [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && \
+  [[ -e "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]] && \
     source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 
   # Source local packages (gcloud, harvest, et al)
-  [[ -s "${ZDOTDIR:-$HOME}/source.d/" ]] && \
+  [[ -e "${ZDOTDIR:-$HOME}/source.d/" ]] && \
     for sourcefile in ${ZDOTDIR}/source.d/**
       source "${sourcefile}"
 
-  # autoload quick functions useful to have but too small to warrant a module
-  [[ -s "${ZDOTDIR:-$HOME}/UserFunctions/" ]] && \
-    for func in ${ZDOTDIR:-$HOME}/UserFunctions/**
-      autoload -Uz ${func:t}
   # source gcloud from prefix
-  [[ -s "${TERMUXPREFIX:-$HOME}" ]] && \
-    for sourcefile in ${TERMUXPREFIX:-$HOME}/google-cloud-sdk/**.zsh.inc
+  [[ -e "${TERMUXPREFIX:-$HOME}" ]] && \
+    for sourcefile in /usr/local/google-cloud-sdk/**.zsh.inc
       source "${sourcefile}"
 
 typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
@@ -156,33 +132,39 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     setopt incappendhistorytime
   # 2.5 Correct
     setopt ignoreeof hashdirs hashexecutablesonly rmstarwait shortloops
+    unsetopt correct
     # setopt recexact
 # }}}
 
 # 3. Aliases {{{
-  # Le BSD aliases: # {{{
+    # correct prezto's default notion of l and ls
+    # Le BSD aliases: # {{{
     if [[ "$OSTYPE" == (darwin*|*bsd*) ]]; then
       unfunction ls 2> /dev/null
       unalias ls
       set CLICOLOR
       set LSCOLORS='exfxcxdxbxegedabagacad'
       alias ls='/bin/ls -FGh'
+    else
+      unalias ls
+      alias ls='ls -F --group-directories-first --color=auto'
     fi
-    #correct prezto's default notion of l and ls
     unalias l
-    unalias ls
-    alias ls='ls -F --group-directories-first --color=auto'
+    alias l='ls'
     alias lC='ls --color=always'
-    alias l='ls -l'
     alias la='ls -a'
     alias lA='ls -A'
-    alias lla='ls -la'
+
     alias ll='ls -l'
-    alias llra='ls -lRa'
-    alias llr='ls -lR'
+    alias lla='ls -la'
+
     alias lr='ls -R'
+    alias llr='ls -lR'
+    alias llra='ls -lRa'
+
     alias lsa='ls -ld .*'
     alias lsd='ls -ld *(-/DN)'
+
       # lstree and friends. # {{{
       # Note we defined lstree as a UserFunction to relay arguments to tree(1)
       if ((${+commands[tree]})); then
@@ -195,17 +177,6 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
         alias ltt='tree -CL 2'
         alias lttt='tree -CL 3'
         alias tree='tree -C'
-      else
-        # TODO: write need() UserFunction
-        alias ldt='need tree'
-        alias ldtt='need tree'
-        alias ldttt='need tree'
-        alias lstd='need tree'
-        alias lst='need tree'
-        alias lt='need tree'
-        alias ltt='need tree'
-        alias lttt='need tree'
-        alias tree='need tree'
       fi
       # }}}
   # }}}
@@ -249,13 +220,21 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
   # }}}
   # Suffix aliases # {{{
     alias -s txt=vim
-    alias -s json=jsonfunc
+    alias -s json=jq .
   # }}}
   # Personal additions # {{{
-  alias mosh='mosh -p 61000'
-  alias sshd='sshd -f ~/.zconf/sshd.d/sshd_config -E ~/.zconf/logs.d/sshd.d'
-  
+    # {{{ zmv instead of mv cp ln and verbose rm
+    for cmd in  {rm,cp,mv,ln}
+      unalias ${cmd}
 
+    alias rm="nocorrect command rm -vi"
+    alias cp="nocorrect command cp -vai"
+    alias mv="nocorrect command mv -v"
+    alias ln="nocorrect command ln -v"
+
+    alias mv_="zmv '* *' '${f// /_}'"
+    alias mv-="zmv '* *' '${f// /-}'"
+# }}}
     # very vim behavior {{{
       alias :q="exit"
       alias qq="exit"
@@ -265,17 +244,17 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
       # source $(ruby -e "print File.dirname(Gem.bin_path('hcl', 'hcl'))")/_hcl_completions
       alias hcl='nocorrect hcl'
     # }}}
-    alias colorize='pygmentize -s -l sh -f 258 -O style=solarizeddark | less -RS '
-    alias fuck='$(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
-    alias git-describe='git describe --tags --long --abbrev --dirty --always'
-    alias git-describe='git describe --tags --long --abbrev --dirty --always'
-    alias info='info --vi-keys'
-    alias list-keys=lsbindings
-    alias lskeys=lsbindings
-    alias monofonts='fc-list :scalable=true:spacing=mono: family |sort|uniq'
-    alias nmap-full='nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v'
-    alias pgp='gpg'
-    alias tmux='tmux -f ~/.zconf/tmux.d/tmux.conf'
+    # {{{ Misc Aliases
+      alias colorize='pygmentize -s -l sh -f 258 -O style=solarizeddark | less -RS '
+      alias git-describe='git describe --tags --long --abbrev --dirty --always'
+      alias info='info --vi-keys'
+      alias list-keys='lsbindings'
+      alias lskeys='lsbindings'
+      alias monofonts='fc-list :scalable=true:spacing=mono: family |sort|uniq'
+      alias nmap-full='nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v'
+      alias pgp='gpg'
+      alias mosh='mosh -a'
+    # }}}
   # }}}
 # }}}
 
@@ -288,6 +267,7 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
 
     zle -N down-line-or-beginning-search
     zle -N up-line-or-beginning-search
+
     bindkey -M vicmd "$key_down"  down-line-or-beginning-search
     bindkey -M vicmd "$key_left"  vi-backward-char
     bindkey -M vicmd "$key_right" vi-forward-char
@@ -388,13 +368,28 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     bindkey -M viins "\C-PL" push-line            # Repeat what i just said on the last line
   # }}}
   # Kick-ass sequences {{{
-    bindkey -M viins -s "\C-X\C-V" "\$\(xclip -o\)\C-Xe "     # paste whatever lives on xclip
-    bindkey -M viins -s "\e$a\C-X\C-P" "\$\(xclip -o\)\C-Xe " # same, but go to viins, appending frst
-    bindkey -M vicmd -s "A\C-X\C-P" "\$\(xclip -o\)\C-Xe "    # same, but go to viins, appending frst
-    bindkey -M vicmd -s "i\C-X\C-V" "\$\(xclip -o\)\C-Xe "    # same, but go to viins, but rather in place insert
-    # bindkey -M vicmd -s "\C-X" "^Xa\ee"
-    bindkey -M vicmd -s "qq" "\C-Csync;\C-Msync;\C-Mexit\C-M" # exit shell, syncing disks
-    bindkey -M vicmd -s "ZZ" "qq"                             # ^-- same
+    bindkey -M viins -s "\C-X\C-V" "\e\C-X\C-V\$A" # vicmd, ^X^V, goto eol, vi-append
+    bindkey -M viins -s "\C-X\C-P" " \$\(xclip -o\)\C-Xe "     # space $(xclip -o) ^Xe (expand-word)
+    bindkey -M vicmd -s "\C-X\C-V" "\e0Diecho \"\ep\$A\"\|xclip -i\C-M\e\C-X\C-P\e"     # paste whatever lives on xclip
+    bindkey -M vicmd -s "\C-X\C-P" "i\$\(xclip -o\)\C-Xe\e"     # same, but go to viins, appending frst
+
+    bindkey -M vicmd -s ",\'" "Bi\'\e Ea\'"     # same, but go to viins, appending frst
+    bindkey -M vicmd -s ",\"" "Bi\"\e Ea\""     # same, but go to viins, appending frst
+    bindkey -M vicmd -s ",\(" "Bi\(\e Ea\)"     # same, but go to viins, appending frst
+    bindkey -M vicmd -s ",\{" "Bi\{\e Ea\}"     # same, but go to viins, appending frst
+    bindkey -M vicmd -s ",\[" "Bi\[\e Ea\]"     # same, but go to viins, appending frst
+
+    bindkey -M vicmd -s ",\$"   "Bi\$\(\e Ea\)" # same, but go to viins, appending frst
+    bindkey -M vicmd -s ",\$\$" "Bi\$\{\e Ea\}" # same, but go to viins, appending frst
+
+    # bindkey -M vicmd -s "\C-X"     "\C-Xa\eE" #expand-alias expand-cmd-path
+    bindkey -M vicmd -s "\C-F"     "0Cfuck\C-M"                             # ^-- same
+    bindkey -M viins -s "\C-F"     "\e\C-F"                             # ^-- same
+    bindkey -M vicmd -s "\C-Z"     "0Cfg\C-M"                             # ^-- same
+    bindkey -M viins -s "\C-Z"     "\e\C-Z"                             # ^-- same
+
+    bindkey -M vicmd -s "qq"       "\C-Csync;\C-Msync;\C-Mexit\C-M" # exit shell, syncing disks
+    bindkey -M vicmd -s "ZZ"       "qq"                             # ^-- same
   # }}}
   # TODO: old tcsh C-Z vim suspend and resume toggle {{{
     # bindjey -M
@@ -402,11 +397,21 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     # bindkey -M viins
   # }}}
   # Personal overrides# {{{
-    bindkey -M vicmd "\C-X \C-E" expand-word
+    # bindkey -M vicmd "\C-X \C-E" expand-word
     bindkey -M vicmd "v" edit-command-line
     bindkey -M vicmd ',"' quote-line
     bindkey -M vicmd ',x' transpose-words
     bindkey -M vicmd ',X' transpose-words
+    bindkey -M vicmd -s ',gl' "git@gitlab.com:hlecuanda/"
+    bindkey -M vicmd -s ',gh' "git@github.com:hlecuanda/"
+    bindkey -M vicmd -s 'gcc' 'gcloud compute'
+    bindkey -M vicmd -s 'gcf' 'gcloud compute firewall-rules'
+    bindkey -M vicmd -s ',gl' "igit@gitlab.com:hlecuanda/"
+    bindkey -M vicmd -s ',gh' "igit@github.com:hlecuanda/"
+    bindkey -M vicmd -s 'gcc' 'igcloud compute'
+    bindkey -M vicmd -s 'gcf' 'igcloud compute firewall-rules'
+    for key in \( \[ \{ \" \'
+      bindkey -M viins $key auto-close-pairs
   # }}}
 # }}}
 
@@ -419,26 +424,30 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     zle -N sticky-note
     bindkey -M vicmd "\C-N" sticky-note
   # }}}
-  # BSDowl Build Syistem # {{{
-    local -au mflags
-    if (( $+MAKEFLAGS )); then
-      mflags=( $MAKEFLAGS )
-    else
-      mflags=()
-    fi
-    mflags=( $mflags "-I ${HOME}/share/bsdowl" )
-    typeset -x MAKEFLAGS="${mflags[@]}"
-    unset mflags
-  # }}}
   # moar named dirs# {{{
     zlogs=~zconf/logs.d
-    zfuncs=~zconf/UserFunctions
+    zfuncs=~zconf/local.d/UserPrefs/functions
+    zwidgs=~zconf/local.d/UserPrefs/widgets
     src=~/src
-    nudot=~src/Dotfiles/hlo-dotfiles
-    altdot=~src/Dotfiles/dotfiles
   # }}}
-  PROMPT='${hostinfo:-""}%F{216}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
 # }}}
 
-
+# Prompt: {{{
+# while on tmux, neve show hostname, its shown on the statusbar
+# outside tmux, hardcode hostname for Android installs and use
+# hostname of regular instlls. its good to know where you are when
+# nesting sessions... =)
+#
+#TODO: Ddifferen color schemes  on the status bar per host.
+#
+if ((${+TMUX})); then
+  PROMPT='%F{136}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
+else
+  if [[ "$(uname -o)" == "Android" ]]; then
+    PROMPT='%F{166}nokia%f:%F{136}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
+  fi
+  PROMPT='%F{166}%m%f:%F{136}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
+fi
+# }}}
+#
 #  vim: set ft=zsh sw=2 tw=0 fdm=marker foldlevel=0 et :

@@ -1,29 +1,47 @@
-# vim: number : 
+# vim: number :
 
-DIRS=git tmux zsh ssh		
-RUNCOMS=zlogin zlogout zpreztorc zprofile zshenv zshrc
-PREZTO=https://github.com/sorin-ionescu/prezto.git
-INSTL=pkg install-y -q 
-	
-ZDOTDIR=$(HOME)/zconftest
-	
-.PHONY: packages tmux zsh ssh update upgrade runcoms 	
+ifeq ($(shell uname -s),FreeBSD)
+INSTALL=install -c
+else
+INSTALL=install -T
+endif
 
-include $(DIRS).d/Makefile
+DIRS     = git bin vim zsh
+DIRS    += tmux vnc i3 x11
+SHELL    = zsh
+ZDOTDIR  = ~/.zconf
+INSTALL_DATA=$(INSTALL) -m 644
+INSTALL_PROG=$(INSTALL) -m 754
 
-install: upgrade packages 
+export INSTALL INSTALL_PROG INSTALL_DATA
+export SHELL
 
-packages: upgrade	
-	@$(INSTL) zsh git tig vim tmux grep coreutils \
-		binutils curl diffutils figlet file \
-		grep man mosh openssh python termux-api \
-		termux-tools tree
-	@termux-setup-storage
 
-upgrade: 
-	@echo in upgrade	
-	@echo Updating packages
-	-pkg update -y -q
-	
-update: upgrade
-	@echo in update
+.PHONY: all update upgrade
+.SUFFIXES=
+
+all: ;
+
+upgrade: update
+	git pull
+
+update:
+	git fetch
+
+clean:
+	find . -name Xterm.log\* -print -delete
+	for d in $(addsuffix .d,$(DIRS))\
+		$(MAKE) -C $$d clean
+
+ifdef MAKECMDGOALS
+
+.PHONY: $(MAKECMDGOALS)
+
+$(MAKECMDGOALS):
+	for d in $(addsuffix .d,$(DIRS)) ;\
+		$(MAKE) $(MFLAGS) -C $$d $(MAKECMDGOALS)
+
+endif
+
+
+#  vim: set ft=make sw=4 tw=0 fdm=manual noet :

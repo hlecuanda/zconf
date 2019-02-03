@@ -1,21 +1,34 @@
+ifeq ($(shell uname -s), FreeBSD)
+INSTALL = install -c
+else
+INSTALL = install -T
+endif
+INSTALL_DATA = $(INSTALL) -m 664
+RUNCOMS != ls *.zsh
+RC:=$(basename $(RUNCOMS))
+ifndef ZDOTDIR
+ZDOTDIR = $(HOME)/.zconf/
+endif
+LIVE := $(addprefix $(ZDOTDIR)/.,$(RC))
 
-.PHONY: zsh zprezto zshenv runcoms
+.SUFFIXES:
 
-zsh: runcoms zshenv zprezto
+.PHONY: install zshenv zdotdir
 
-zprezto: $(ZDOTDIR)/.zprezto
+install: zshenv zdotdir $(LIVE)
 
 zshenv: $(HOME)/.zshenv
-	
-runcoms: $(ZDOTDIR)/.$(RUNCOMS)
 
-$(ZDOTDIR)/.$(RUNCOMS):
-	@echo installing $(.TARGET)
-	@install $(.IMPSRC) $(ZDOTDIR)/.$(IMPSRC)
+zdotdir: $(ZDOTDIR)/.zprezto
+
+$(LIVE):  $(ZDOTDIR)/.%: %.zsh
+	$(INSTALL_DATA) $*.zsh $@
 
 $(HOME)/.zshenv:
-	@echo installing $(.TARGET)
-	@install .zshenv $(.TARGET)
+	$(INSTALL_DATA) $< $@
 
-$(ZDOTDIR)/.zprezto:
+$(ZDOTDIR)/.zprezto: | $(ZDOTDIR)
 	@git clone -q --recursive $(PREZTO) $(ZDOTDIR)/.zprezto
+
+$(ZDOTDIR):
+	mkdir $(ZDOTDIR)

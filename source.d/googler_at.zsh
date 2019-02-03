@@ -4,7 +4,7 @@
 # email: engineerarun@gmail.com
 #
 # To request key addition or removal upstream, please drop an email.
-
+alias googler='googler --noua -n4 --url-handler xdg-open'
     # A
 
 # Amazon.com
@@ -38,7 +38,7 @@
 # # crunchbase
 #   alias @cb='googler -w crunchbase.com'
 # # Chrome Extensions
-#   alias @chrome='googler -w chrome.google.com'
+  alias @chrome='googler -w chrome.google.com'
 # # craigslist
 #   alias @cl='googler -w craigslist.org'
 # commandlinefu
@@ -68,7 +68,7 @@
 #     # E
 
 # # eBay
-#   alias @e='googler -w ebay.com'
+   alias @e='googler -w ebay.com'
 # # Episode Guides
 #   alias @eg='googler -w epguides.com'
 # # Embedded
@@ -87,7 +87,7 @@
 # # Fandango Movie Reviews
 #   alias @fd='googler -w fandango.com'
 # # Firefox Add-ons
-#   alias @firefox='googler -w addons.mozilla.org'
+  alias @firefox='googler -w addons.mozilla.org'
 # # Flipkart
 #   alias @fk='googler -w flipkart.com'
 # # Forbes
@@ -158,7 +158,7 @@
 #     # L
 
 # # Last.fm
-#   alias @lfm='googler -w last.fm'
+  alias @lfm='googler -w last.fm'
 # # LinkedIn
 #   alias @li='googler -w linkedin.com'
 # # Linux.com

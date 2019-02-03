@@ -1,29 +1,36 @@
+#!/usr/bin/env zsh
+#          _
+#  _______| |__   ___ _ ____   __
+# |_  / __| '_ \ / _ \ '_ \ \ / /
+#  / /\__ \ | | |  __/ | | \ V /
+# /___|___/_| |_|\___|_| |_|\_/
 #
-# Defines environment variables.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
+# Basic Environment for zsh with debugging provision
+# h@h-lo.me 20190110 115942 -0800 PST 1547150382 d(-_- )b...
 
-if [[ -f "${HOME}/.debug" ]] ; then
-   setopt xtrace sourcetrace
-   rm -f "${HOME}/.debug"
-fi
+[[ -f "${HOME}/.debug" ]] && setopt xtrace sourcetrace
+   # this file gets deleted on completion of .login for
+   # interactive shells
 
-if [[ -z ${ZDOTDIR}  ]] ; then 
-   typeset -x ZDOTDIR=$HOME/.zconf
-fi
-	
+[[ -z ${ZDOTDIR}  ]] &&  typeset -x ZDOTDIR=$HOME/.zconf
+
 if [[ -d /data/data/com.termux ]] ; then
-   # were in termuxland
-   typeset -x TZ=$(getprop persist.timezone)
-   typeset -x TERMUXPREFIX=/data/data/com.termux/files/usr
+  # were in termuxland
+  typeset -x TZ=$(getprop persist.timezone)
+  typeset -x TERMUXPREFIX=/data/data/com.termux/files/usr
+  #TODO: make this platform independent
+  typeset -x GCPSDK=$TERMUXPREFIX/google-cloud-sdk
+  typeset -x USRLOCAL=$TERMUXPREFIX/local
+else
+  typeset -x USRLOCAL=/usr/local
+  typeset -x TZ="/usr/share/zoneinfo/America/Tijuana"
 fi
 
+#bypasses system configs, full of nonsense
 unsetopt global_rcs
-# skip_global_compinit=1
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
-if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprofile"
-fi
+# Sorin Ionescu <sorin.ionescu@gmail.com>
+[[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]] && source "${ZDOTDIR:-$HOME}/.zprofile"
+
+#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :

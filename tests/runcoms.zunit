@@ -1,0 +1,17 @@
+#!/usr/bin/env zunit
+@test 'Runcoms' {  
+  load   ${ZDOTDIR}/zsh.d/zshenv
+  load   ${ZDOTDIR}/zsh.d/zprofile
+  load   ${ZDOTDIR}/zsh.d/zshrc
+  load   ${ZDOTDIR}/zsh.d/zshlogin
+
+  run  zstyle -s :prezto:module:editor key-bindings current
+
+  assert ${status} equals 0
+  assert ${output} is_empty
+  assert ${current} same_as "vi"
+}
+#
+#
+#
+#  vim: set ft=zsh sw=4 tw=0 fdm=manual et :
