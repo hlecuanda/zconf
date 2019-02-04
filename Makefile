@@ -1,30 +1,36 @@
-# vim: number : 
+# vim: number :
+
+# conditional statement using prompt expansion to
+# test exit statusnof last command 	:w
+#
+ # [[ ftw == ftw ]] && true || false
+ # pstring=%1(?.failed.ftw)
 
 MFS!=find .  -mindepth 2 -maxdepth 2 -name Makefile
-INSTL=pkg install -y -q 
+INSTL=pkg install -y -q
 PACKAGES!=cat packages
 MODULES != for d in $(find . -name \*.d ) ; do if [[ -f $d/Makefile ]] echo $d ; done
 
 ZDOTDIR=$(HOME)/.zconf
-	
-.PHONY: install upgrade pkg 
 
-install: pkg gcloud modules
+.PHONY: install upgrade packages
 
-$(MODULES): 
+install: packages gcloud modules
 
-pkg: upgrade	
+$(MODULES):
+
+packages: packages-list
 	-$(INSTL) $(PACKAGES)
 	termux-setup-storage
 
-packages:
+packages-list:
 	-rm -v $@
 	pkg list-installed -q | \
 		grep -v automatic | \
-		grep -ve '^lib' | \
+		grep -ve '^lib'   | \
 		cut -f1 -d\/ > $@
 
-upgrade: 
+upgrade:
 	-pkg update -y -q
 
 $(HOME)/usr/google-cloud-sdk:
