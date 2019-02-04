@@ -16,7 +16,7 @@ fi
 	
 if [[ -d /data/data/com.termux ]] ; then
    # were in termuxland
-   typeset -x TZ=$(getprop persist.timezone)
+   typeset -x TZ=$(getprop persist.sys.timezone)
    typeset -x TERMUXPREFIX=/data/data/com.termux/files/usr
    #TODO: make this platform independent
    typeset -x GCPSDK=$TERMUXPREFIX/google-cloud-sdk

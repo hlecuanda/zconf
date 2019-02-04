@@ -64,7 +64,6 @@ path=(
 
 READNULLCMD=${PAGER:-/usr/bin/pager}
 
-typeset -x TZ="/usr/share/zoneinfo/America/Tijuana"
 typeset -x zls_colours # in addition to module zsh/complist
 
 # Set the default Less options.
