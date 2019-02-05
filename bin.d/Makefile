@@ -1,10 +1,8 @@
 BINDIR=$(HOME)/bin
 SOURCES!= ls *.*
 INSTALL=install
-INSTALL_EXECUTABLE=$(INSTALL) -m a+rx,u+w
-INSTALL_DATA=$(INSTALL) -m 644
 SHELL=zsh
-INSTALLED!= for f in $(SOURCES); do echo $(BINDIR)/$${f} | cut -f1 -d'.' ; done 
+INSTALLED!= for f in $(SOURCES); do echo $(BINDIR)/$${f} | cut -f1 -d'.' ; done
 .SUFFIXES:
 .SUFFIXES:zsh sh py pl tcsh csh awk
 
@@ -13,7 +11,7 @@ INSTALLED!= for f in $(SOURCES); do echo $(BINDIR)/$${f} | cut -f1 -d'.' ; done
 install: all
 
 # $(INSTALLED):
-#     $(INSTALL_EXECUTABLE) $* $@
+#     $(INSTALL_PROG) $* $@
 
 all: $(INSTALLED)
 
@@ -22,26 +20,26 @@ $(INSTALLED): | $(BINDIR)
 $(BINDIR):
 	mkdir $(BINDIR)
 
-$(BINDIR)/%:: %.zsh 
-	$(INSTALL_EXECUTABLE) $? $@
+$(BINDIR)/%:: %.zsh
+	$(INSTALL_PROG) $? $@
 
 $(BINDIR)/%:: %.sh
-	$(INSTALL_EXECUTABLE) $? $@
+	$(INSTALL_PROG) $? $@
 
 $(BINDIR)/%:: %.py
-	$(INSTALL_EXECUTABLE) $? $@
+	$(INSTALL_PROG) $? $@
 
 $(BINDIR)/%:: %.pl
-	$(INSTALL_EXECUTABLE) $? $@
+	$(INSTALL_PROG) $? $@
 
 $(BINDIR)/%:: %.tcsh
-	$(INSTALL_EXECUTABLE) $? $@
+	$(INSTALL_PROG) $? $@
 
 $(BINDIR)/%:: %.csh
-	$(INSTALL_EXECUTABLE) $? $@
+	$(INSTALL_PROG) $? $@
 
 $(BINDIR)/%:: %.awk
-	$(INSTALL_EXECUTABLE) $? $@
+	$(INSTALL_PROG) $? $@
 
 $(BINDIR)/%:: %.md
 	$(INSTALL_DATA) $? $@.md

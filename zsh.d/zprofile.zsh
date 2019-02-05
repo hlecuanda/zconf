@@ -2,67 +2,42 @@
 # Executes commands at login pre-zshrc.
 #
 # Authors:
+#   Hector Lecuanda <h@h-lo.me> 20190130 175207 +0000 GMT 1548870727 d(-_- )b...
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
 
-#
 # Browser
-#
-
-if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
+[[ "$OSTYPE" == darwin* ]] && export BROWSER='open'
 #TODO: OS detection from .zshenv
-fi
 
-#
 # Editors
-#
-
-export EDITOR='vim'
-export VISUAL='vim'
+[[ $+DISPLAY -ne 0 ]] && export EDITOR='gvim' || export EDITOR='vim'
+export VISUAL=$EDITOR
 export PAGER='less'
 
-#
 # Language
-#
+[[ -z "$LANG" ]] && export LANG='en_US.UTF-8'
+unset LC_ALL
+export LC_COLLATE=C
 
-if [[ -z "$LANG" ]]; then
-  export LANG='en_US.UTF-8'
-fi
-
-#
 # Paths
-#
-
-# Ensure path arrays do not contain duplicates.
-typeset -gU cdpath fpath mailpath path
-
 # Set the list of directories that cd searches.
 cdpath=(
   ~
   ~/src
-  ~/anaconda3/envs
-  ~/.zconf/
-  /mnt
   /opt
-  /srv
+  /usr/local/share
   /usr/share
-  /ust/local
   $cdpath
 )
-  # ~/anaconda3/lib/python3.6/site-packages
-
 # makes dirs in cdpath callable as ~dir
-# for dir in $cdpath
-#     if [[ -d ${dir} ]]; then
-#         "${dir:t}"="${dir}" 2>&1 >/dev/null
-#     else
-#         #TODO: find a better way to determine unused var
-#         "${dir:t}2"="${dir}"
-#     fi
+for dir in $cdpath
+  [[ -d $dir ]] && typeset "${dir:t}"="${dir}" 2>&1 >/dev/null
 
 typeset zconf=${ZDOTDIR:-$HOME}
 
+#add gcp path definitions to normal path
+[[ -s "${GCPSDK}/path.inc.zsh" ]] &&  source ${GCPSDK}/path.inc.zsh
+unset gp
 
 # Set the list of directories that Zsh searches for programs.
 path=(
@@ -74,19 +49,15 @@ path=(
   $path
 )
 
-#
 # Less
-#
-
 READNULLCMD=${PAGER:-/usr/bin/pager}
 
-typeset -x TZ="/usr/share/zoneinfo/America/Tijuana"
 typeset -x zls_colours # in addition to module zsh/complist
 
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
-export LESS='-F -g -M -R -S -w -X -z-2'
+export LESS='-g -M -R -S -w -z-2'
 
 # Set the Less input preprocessor.
 # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
@@ -95,9 +66,7 @@ if (( $#commands[(i)lesspipe(|.sh)] )); then
 fi
 #TODO: write a reasonable lessfilter
 
-#
 # Tmpfile specs
-#
 if [[ ! -d "$TMPDIR" ]]; then
   export TMPDIR="/tmp/$LOGNAME"
   mkdir -p -m 700 "$TMPDIR"

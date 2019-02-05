@@ -3,17 +3,15 @@ INSTALL = install -c
 else
 INSTALL = install -T
 endif
-INSTALL_DATA = $(INSTALL) -m 755
+INSTALL_DATA = $(INSTALL) -m 664
 RUNCOMS != ls *.zsh
 RC:=$(basename $(RUNCOMS))
-LIVE := $(addprefix $(ZDOTDIR)/.,$(RC))
 ifndef ZDOTDIR
 ZDOTDIR = $(HOME)/.zconf/
 endif
-
+LIVE := $(addprefix $(ZDOTDIR)/.,$(RC))
 
 .SUFFIXES:
-.SUFFIXES: .zsh
 
 .PHONY: install zshenv zdotdir
 
@@ -23,12 +21,14 @@ zshenv: $(HOME)/.zshenv
 
 zdotdir: $(ZDOTDIR)/.zprezto
 
+$(LIVE):  $(ZDOTDIR)/.%: %.zsh
+	$(INSTALL_DATA) $*.zsh $@
 
-$(LIVE): $(ZDOTDIR)/.% : %.zsh
-	$(INSTALL_DATA) $? $@
-
-$(HOME)/.zshenv: $(CURDIR)/zshenv
+$(HOME)/.zshenv:
 	$(INSTALL_DATA) $< $@
 
-$(ZDOTDIR)/.zprezto:
+$(ZDOTDIR)/.zprezto: | $(ZDOTDIR)
 	@git clone -q --recursive $(PREZTO) $(ZDOTDIR)/.zprezto
+
+$(ZDOTDIR):
+	mkdir $(ZDOTDIR)

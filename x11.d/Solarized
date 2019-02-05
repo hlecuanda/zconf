@@ -1,3 +1,4 @@
+*termName: xterm-256color
 #define S_base03        #002b36
 #define S_base02        #073642
 #define S_base01        #586e75
@@ -7,12 +8,35 @@
 #define S_base2         #eee8d5
 #define S_base3         #fdf6e3
 
+!! Std dark
 *vt100*background:            S_base03
 *vt100*foreground:            S_base0
 *vt100*fadeColor:             S_base03
 *vt100*cursorColor:           S_base1
 *vt100*pointerColorBackground:S_base01
 *vt100*pointerColorForeground:S_base1
+
+*boldMode: false
+*colorBDMode: true
+*colorBD: rgb:fc/fc/fc
+*customization: -color
+*cursorColor: S_blue
+*cursorBlink: true
+*cursorOffTime: 250
+*cursorOnTime:  250
+
+! *colorBD: false
+! *colorBL: false
+*veryBoldColors: 512
+
+!! Xterm by title
+! uxterm
+
+dark*background:            S_base03
+dark*foreground:            S_base01
+
+light*background:            S_base3
+light*foreground:            S_base1
 
 #define S_yellow        #b58900
 #define S_orange        #cb4b16
@@ -55,4 +79,4 @@
 *vt100*color7:                S_base2
 *vt100*color15:               S_base3
 
-/*vt100* vim: set ft=xdefaults sw=4 tw=0 fdm=manual et :*vt100*/
+! vim: set ft=xdefaults sw=4 tw=0 fdm=manual et :

@@ -8,31 +8,29 @@
 # Basic Environment for zsh with debugging provision
 # h@h-lo.me 20190110 115942 -0800 PST 1547150382 d(-_- )b...
 
-if [[ -f "${HOME}/.debug" ]] ; then
-   setopt xtrace sourcetrace
+[[ -f "${HOME}/.debug" ]] && setopt xtrace sourcetrace
    # this file gets deleted on completion of .login for
    # interactive shells
-fi
 
-if [[ -z ${ZDOTDIR}  ]] ; then
-   typeset -x ZDOTDIR=$HOME/.zconf
-fi
+[[ -z ${ZDOTDIR}  ]] &&  typeset -x ZDOTDIR=$HOME/.zconf
 
 if [[ -d /data/data/com.termux ]] ; then
-   # were in termuxland
-   typeset -x TZ=$(getprop persist.timezone)
-   typeset -x TERMUXPREFIX=/data/data/com.termux/files/usr
-   typeset -x USRLOCAL=$TERMUXPREFIX/local
- else
-   typeset -x USRLOCAL=/usr/local
+  # were in termuxland
+  typeset -x TZ=$(getprop persist.timezone)
+  typeset -x TERMUXPREFIX=/data/data/com.termux/files/usr
+  #TODO: make this platform independent
+  typeset -x GCPSDK=$TERMUXPREFIX/google-cloud-sdk
+  typeset -x USRLOCAL=$TERMUXPREFIX/local
+else
+  typeset -x USRLOCAL=/usr/local
+  typeset -x TZ="/usr/share/zoneinfo/America/Tijuana"
 fi
 
+#bypasses system configs, full of nonsense
 unsetopt global_rcs
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
 # Sorin Ionescu <sorin.ionescu@gmail.com>
-if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprofile"
-fi
+[[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]] && source "${ZDOTDIR:-$HOME}/.zprofile"
 
 #  vim: set ft=zsh sw=2 tw=0 fdm=manual et :

@@ -14,23 +14,36 @@ TARGETS      += ~/.vimrc.bundles.local
 TARGETS      += ~/.vimrc.local
 SPFDIR        = ~/.spf13-vim
 INSTALL       = install
-INSTALL_DATA  = $(INSTALL) -m a+r-x,og-w
+INSTALL_DATA  = $(INSTALL) -m 664
 VIMCMD        = vim +BundleInstall! +BundleClean +q
 VIMDIR        = $(ZDOTDIR)/vim.d
 
-.PHONY: install symlink relocate reinstate clean realclean dotvim spf-install
+.PHONY: install symlink relocate reinstate
+.PHONY: clean realclean dotvim spf-install
+.PHONY: changes gitcommit
 
 install: $(TARGETS) spf-install
 
 spf-install                                       : ~/.spf13-vim
 
-changes                                           : $(TARGETS)
-	for target in $$(TARGETS) \
-		cp -afv $$target .
-	git add .
+ifeq "$(MAKECMDGOALS)" "changes"
+changes: gitcommit .changed-makefile
+
+.changed-makefile: Makefile
+	git add $<
+	touch .changed-makefile
+
+$(LOCALS): %.local : ~/.%.local
+	cp -afv $< $@
+	git add $@
+
+gitcommit: $(LOCALS) | .changed-makefile
 	git commit -m "Changes from $$(date +%Y%m%d)"
 	git fetch
-	git pull --rebase=true
+else
+~/.%                                              : $(LOCALS)
+	$(INSTALL_DATA) $* $@
+endif
 
 relocate                                          : $(RELOCATED) | dotvim
 
@@ -45,9 +58,6 @@ clean                                             :
 uninstall                                         :
 	rm -rfv ~/.vim
 	[[ -d backups ]] && cp -Rav backups /** ~ || print "No backup found"
-
-~/.%                                              : $(LOCALS)
-	$(INSTALL_DATA) $* $@
 
 ~/.vim/%                                          : $(OBSOLETES)
 	mv -v $* $@
