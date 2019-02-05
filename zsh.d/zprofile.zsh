@@ -53,13 +53,13 @@ cdpath=(
   # ~/anaconda3/lib/python3.6/site-packages
 
 # makes dirs in cdpath callable as ~dir
-for dir in $cdpath
-    if [[ -d ${dir} ]]; then
-        typeset "${dir:t}"="${dir}" 2>&1 >/dev/null
-    else
-        #TODO: find a better way to determine unused var
-        typeset "${dir:t}2"="${dir}"
-    fi
+# for dir in $cdpath
+#     if [[ -d ${dir} ]]; then
+#         "${dir:t}"="${dir}" 2>&1 >/dev/null
+#     else
+#         #TODO: find a better way to determine unused var
+#         "${dir:t}2"="${dir}"
+#     fi
 
 typeset zconf=${ZDOTDIR:-$HOME}
 
