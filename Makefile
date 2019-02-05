@@ -1,4 +1,3 @@
-# vim: number :
 
 ifeq ($(shell uname -s),FreeBSD)
 INSTALL=install -c
