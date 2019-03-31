@@ -21,11 +21,11 @@ GDNS = gcloud --project=$(DNSPROJ) dns record-sets transaction
 
 .PHONY: help createfw listfw describefw updatefw deletefw whatismyip
 
-define ckenv =
-ifndef FWNAME
-	$(error please define FWNAME)
-endif
-endef
+# define ckname =
+# ifndef FWNAME
+#     $(error please define FWNAME)
+# endif
+# endef
 
 help::        # Show this message:wq
 	@figlet Makecloud
@@ -71,7 +71,7 @@ whatismyip:  #2 Show your current external IP
 	@$(ECHO) $(MYIP)
 
 createfw:    #2 Creates a firewall for the current ip
-	$(ckenv)
+	$(ckname)
 	$(GCFWRULES) create $(FWNAME) $(FWPARAMS) \
 		$(VMPARAMS) $(FWRULES) --source-ranges=$(MYIP)
 
