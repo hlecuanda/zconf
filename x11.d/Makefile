@@ -1,5 +1,13 @@
 SHELL         = zsh
 
+ifeq ($(shell uname -s),FreeBSD)
+INSTALL=install -c
+else
+INSTALL=install -T
+endif
+INSTALL_DATA=$(INSTALL) -m 644
+INSTALL_PROG=$(INSTALL) -m 754
+
 DATE          != date +%Y%m%d-%H%M%S
 DIFF           = p4merge
 VNCFILES       = startx tigervnc config

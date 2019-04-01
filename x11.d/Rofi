@@ -6,7 +6,7 @@ rofi.width:                          -25
 rofi.lines:                          7
 rofi.columns:                        1
 rofi.font:                           Monoid 10
-! rofi.fg:                             S_base0
+rofi.fg:                             S_base0
 ! rofi.bg:                             S_base03
 ! rofi.fg-active:                      S_blue
 ! rofi.fg-urgent:                      S_red

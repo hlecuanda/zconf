@@ -16,7 +16,7 @@ export INSTALL INSTALL_PROG INSTALL_DATA
 export SHELL
 
 
-.PHONY: all update upgrade
+.PHONY: all update upgrade $(DIRS)
 .SUFFIXES=
 
 all: ;
@@ -32,15 +32,19 @@ clean:
 	for d in $(addsuffix .d,$(DIRS))\
 		$(MAKE) -C $$d clean
 
-ifdef MAKECMDGOALS
+$(DIRS): % : %.d
+	$(MAKE) -C $*.d
 
-.PHONY: $(MAKECMDGOALS)
 
-$(MAKECMDGOALS):
-	for d in $(addsuffix .d,$(DIRS)) ;\
-		$(MAKE) $(MFLAGS) -C $$d $(MAKECMDGOALS)
+# ifdef MAKECMDGOALS
 
-endif
+# .PHONY: $(MAKECMDGOALS)
+
+# $(MAKECMDGOALS):
+#     for d in $(addsuffix .d,$(DIRS)) ;\
+#         $(MAKE) $(MFLAGS) -C $$d $(MAKECMDGOALS)
+
+# endif
 
 
 #  vim: set ft=make sw=4 tw=0 fdm=manual noet :
