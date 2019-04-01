@@ -6,11 +6,13 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 
 # Browser
-[[ "$OSTYPE" == darwin* ]] && export BROWSER='open'
+[[ $mac    ]] && export BROWSER='open'
+[[ $linux  ]] && export BROWSER='xdg-open-url'
+[[ $termux ]] && export BROWSER='termux-open-url'
 #TODO: OS detection from .zshenv
 
 # Editors
-[[ $+DISPLAY -ne 0 ]] && export EDITOR='gvim' || export EDITOR='vim'
+export EDITOR='vim'
 export VISUAL=$EDITOR
 export PAGER='less'
 
@@ -37,7 +39,6 @@ typeset zconf=${ZDOTDIR:-$HOME}
 
 #add gcp path definitions to normal path
 [[ -s "${GCPSDK}/path.inc.zsh" ]] &&  source ${GCPSDK}/path.inc.zsh
-unset gp
 
 # Set the list of directories that Zsh searches for programs.
 path=(

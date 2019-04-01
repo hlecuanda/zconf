@@ -13,18 +13,18 @@ LIVE := $(addprefix $(ZDOTDIR)/.,$(RC))
 
 .SUFFIXES:
 
-.PHONY: install zshenv zdotdir
+.PHONY: install hzshenv zdotdir
 
 install: zshenv zdotdir $(LIVE)
 
-zshenv: $(HOME)/.zshenv
+hzshenv: ~/.zshenv
 
 zdotdir: $(ZDOTDIR)/.zprezto
 
 $(LIVE):  $(ZDOTDIR)/.%: %.zsh
 	$(INSTALL_DATA) $*.zsh $@
 
-$(HOME)/.zshenv:
+~/.zshenv: zshenv
 	$(INSTALL_DATA) $< $@
 
 $(ZDOTDIR)/.zprezto: | $(ZDOTDIR)

@@ -14,19 +14,40 @@
 
 [[ -z ${ZDOTDIR}  ]] &&  typeset -x ZDOTDIR=$HOME/.zconf
 
-if [[ -d /data/data/com.termux ]] ; then
-  # were in termuxland
-  typeset -x TZ=$(getprop persist.timezone)
+typeset os=$(uname -o)
+
+case os in
+  FreeBSD)
+    typeset freebsd=true ;;
+  Linux)
+    typeset linux=true ;;
+  Darwin)
+    typeset mac=true ;;
+  Android)
+    typeset termux=true ;;
+  * )
+    false ;;
+esac
+
+[[ $termux ]] && {
+  typeset -x TZ=$(getprop persist.sys.timezone)
   typeset -x TERMUXPREFIX=/data/data/com.termux/files/usr
-  #TODO: make this platform independent
   typeset -x GCPSDK=$TERMUXPREFIX/google-cloud-sdk
   typeset -x USRLOCAL=$TERMUXPREFIX/local
-else
-  typeset -x USRLOCAL=/usr/local
-  typeset -x TZ="/usr/share/zoneinfo/America/Tijuana"
-fi
+}
 
+[[ $freebsd || $mac ]] && {
+  typeset -x USRLOCAL=/usr/local
+  typeset -x GCPSDK=$USRLOCAL/google-cloud-sdk
+}
+
+[[ $linux ]] && {
+  typeset -x USRLOCAL=/usr/local
+  typeset -x GCPSDK=/opt/google-cloud-sdk
+  typeset -x TZ="/usr/share/zoneinfo/America/Tijuana"
+}
 #bypasses system configs, full of nonsense
+
 unsetopt global_rcs
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
