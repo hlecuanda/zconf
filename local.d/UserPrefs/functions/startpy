@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+
+#shamelessly stolen from
+# https://gitlab.com/alfiedotwtf/mangosteen/blob/d39e3cdc57970d89987fd4484524259c7eb351ba/pythonify/pythonify.source
+
+which virtualenv                || sudo apt install -y virtualenv
+[[ -z pythonify/bin/activate ]] || virtualenv -p $(which python3) pythonify
+source pythonify/bin/activate
+
+pip3 inatall pip --upgrade
+pip3 install autopep8
+
+# grep autopep8 ~/.vimrc || echo "au FileType python setlocal formatprg=autopep8\ -" >> ~/.vimrc
+
+#  vim: set ft=zsh sw=4 tw=0 fdm=manual et :
