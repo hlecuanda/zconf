@@ -18,7 +18,7 @@ rofi.modi:                           window,run,ssh
 ! rofi.width:                          50
 rofi.lines:                          10
 rofi.columns:                        1
-rofi.font:                           Monoisome
+rofi.font:                           Monoisome 10
 ! rofi.fg:                             S_base0
 ! rofi.bg:                             S_base03
 ! rofi.fg-active:                      S_blue
@@ -49,7 +49,7 @@ rofi.color-normal: #002b37, #819396, #003643, #008ed4, #ffffff
 rofi.color-active: #002b37, #008ed4, #003643, #008ed4, #66c6ff
 rofi.color-urgent: #002b37, #da4281, #003643, #008ed4, #890661
 ! ! Border width
-! rofi.bw:                             2
+rofi.bw:                             2
 ! ! Location on screen
 ! rofi.location:                       0
 ! rofi.padding:                        5

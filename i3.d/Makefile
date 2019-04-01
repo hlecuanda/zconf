@@ -1,4 +1,11 @@
 
+ifeq ($(shell uname -s),FreeBSD)
+INSTALL=install -c
+else
+INSTALL=install -T
+endif
+INSTALL_DATA=$(INSTALL) -m 644
+INSTALL_PROG=$(INSTALL) -m 754
 I3CONFIG_DIR = $(HOME)/.config/i3
 I3CONFIG     = $(I3CONFIG_DIR)/config
 I3STATUS_DIR = $(HOME)/.config/i3status
