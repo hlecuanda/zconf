@@ -12,6 +12,9 @@ SET_MODELINE   = echo $(MODELINE) >> $@
 XTERM_RSC_FIL  = XTerm XTerm-color UXTerm UXTerm-color
 XTERM_RSC_SRC := $(addprefix /etc/X11/app-defaults/,$(XTERM_RSC_FIL))
 
+INSTALL = install
+INSTALL_DATA = $(INSTALL) -m 644
+
 define fileheader =
 [[ -f $@ ]] && rm -fv $@ || true
 figlet $@ |tr \  . | while read -r line; do echo "!// $${line}"; done > $@
