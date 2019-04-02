@@ -30,10 +30,13 @@
   unset LC_ALL
   export LC_COLLATE=C
   # Print a random, hopefully interesting, adage. {{{
-  (( $+commands[fortune] )) && unfunction fortune ; fortune -a
+  # (( $+commands[fortune] )) && unfunction fortune ; fortune -a
   (( $+commands[grc]     )) && unalias grc
   (( $+commands[thefuck] )) && eval $(thefuck --alias)
   (( $+commands[tig]     )) && typeset -x TIGRC_USER=~/.zconf/git.d/tigrc
+  [[ -e "${ZDOTDIR:-$HOME}/.cloudshell" ]] && \
+    set PS1=%F{4}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} 
+
   # }}}
   # {{{ debugging control
     [[ -f "${HOME}/.debug" ]] && {
