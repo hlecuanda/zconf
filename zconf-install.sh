@@ -20,11 +20,11 @@ function unm () {
 
 case $(unm) in
     Debian |Ubuntu )
-        curl https://hlo.mx/zdeb | bash ;;
+        curl -L https://hlo.mx/zdeb | bash ;;
     Android)
-        curl https://hlo.mx/zand | bash ;;
+        curl -L https://hlo.mx/zand | bash ;;
     FreeBSD)
-        curl https://hlo.mx/zbsd | bash ;;
+        curl -L https://hlo.mx/zbsd | bash ;;
     * )
         echo "No Installer available" ;;
 esac
