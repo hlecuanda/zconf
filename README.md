@@ -3,6 +3,15 @@
 So there i was, tweaking my custom keybindings for `zsh`, so i could invoke `thefuck` just by hitting <kbd>Control</kbd><kbd>Alt</kbd><kbd>F</kbd>, when I realized i had spent more time tweaking the `.dotfiles ` rather than doing *any actual work*, and then it hit me: it must be a franework! i should share its awesomness with the world!
 
 some features:
+* [ ] Installable via its own trendy `curl` redirect to `bash`! just do:
+```bash
+
+              curl -L https://hlo.mx/zconf | bash
+
+
+```
+what could go wrong?! (I own hlo.mx you can find [cryptographic proof at my keybase profile][1]
+
 * [ ] `make` automated, no need to download half the internet so yo can `npm somethubg`
 * [ ] sets up and installs what I think is a kick-ass lightweight text-based zsh-centered, prezto-enhanced, tmux-multiplexed environment suitable for sysadmin, devops or devel work, using native packages on all supported platforms
 
@@ -12,4 +21,6 @@ some features:
 
 * [ ] keeps my environment up-to date and in sync, natively on FreeBSD, Linux (Ubuntu, Debian and Google's cloud-shell), a fleet of Raspberry-pi devices and my trusty AndroidOne Nokia 6 (Almost as good as my beloved Nexus 4, rest it's soul)
 
-[  ] other stuff that ill write later.
+* [ ] other stuff that ill write later.
+
+[1]: https://keybase.io/hlecuanda
