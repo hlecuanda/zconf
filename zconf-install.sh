@@ -15,19 +15,24 @@ case $(uname -a) in
     *GNU/Linux*)
         case $(uname -a) in
             *armv71* | *Debian* | *Ubuntu* )
-            echo "Installing for Debian-derived distribution"
-            curl -L https://hlo.mx/zdeb | bash ;;
-        *)
-            echo "No installer for this Linux" ;;
-    esac ;;
+                echo "Installing for Debian-derived distribution"
+                 curl -L https://hlo.mx/zdeb | bash
+                 ;;
+            * )
+                echo "No installer for this Linux"
+                ;;
+        esac ;;
     *Android*)
         echo "Installing for Android/Termux"
-        curl -L https://hlo.mx/zand | bash ;;
+        curl -L https://hlo.mx/zand | bash
+        ;;
     *FreeBSD*)
         echo "Installing for FreeBSD"
-        curl -L https://hlo.mx/zbsd | bash ;;
+        curl -L https://hlo.mx/zbsd | bash
+        ;;
     * )
-        echo "No Installer available" ;;
+        echo "No Installer available"
+        ;;
 esac
 
 
