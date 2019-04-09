@@ -12,9 +12,14 @@
 # h@hlo.mx 20190402 064020 +0000 GMT 1554187220 d(-_- )b...
 
 case $(uname -a) in
-    *Debian* | *Ubuntu* )
-        echo "Installing for Debian-derived distribution"
-        curl -L https://hlo.mx/zdeb | bash ;;
+    *GNU/Linux*)
+        case $(uname -a) in
+            *armv71* | *Debian* | *Ubuntu* )
+            echo "Installing for Debian-derived distribution"
+            curl -L https://hlo.mx/zdeb | bash ;;
+        *)
+            echo "No installer for this Linux" ;;
+    esac ;;
     *Android*)
         echo "Installing for Android/Termux"
         curl -L https://hlo.mx/zand | bash ;;
