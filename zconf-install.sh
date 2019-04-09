@@ -14,10 +14,10 @@
 case $(uname -a) in
     *GNU/Linux*)
         case $(uname -a) in
-            *armv71* | *Debian* | *Ubuntu* )
+            *armv* | *Debian* | *Ubuntu* )
                 echo "Installing for Debian-derived distribution"
-                 curl -L https://hlo.mx/zdeb | bash
-                 ;;
+                curl -L https://hlo.mx/zdeb | bash
+                ;;
             * )
                 echo "No installer for this Linux"
                 ;;
