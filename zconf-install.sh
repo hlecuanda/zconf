@@ -9,21 +9,17 @@
 # | |_) | (_) | (_) | |_\__ \ |_| | | (_| | |_) |
 # |_.__/ \___/ \___/ \__|___/\__|_|  \__,_| .__/
 #                                         |_|
-# h@hlo.mx 20190402 064020 +0000 GMT 1554187220 d(-_- )b... 
+# h@hlo.mx 20190402 064020 +0000 GMT 1554187220 d(-_- )b...
 
-function unm () {
-    uname -v \
-    | awk '{print $1}' \
-    | sed 's/\W//g'    \
-    | sed 's/[0-9]//g'
-}
-
-case $(unm) in
-    Debian |Ubuntu )
+case $(uname -a) in
+    *Debian* | *Ubuntu* )
+        echo "Installing for Debian-derived distribution"
         curl -L https://hlo.mx/zdeb | bash ;;
-    Android)
+    *Android*)
+        echo "Installing for Android/Termux"
         curl -L https://hlo.mx/zand | bash ;;
-    FreeBSD)
+    *FreeBSD*)
+        echo "Installing for FreeBSD"
         curl -L https://hlo.mx/zbsd | bash ;;
     * )
         echo "No Installer available" ;;
