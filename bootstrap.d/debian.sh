@@ -1,4 +1,4 @@
-sudo apt install -y git tig zsh tmux jq figlet mosh pwgen vim-nox
+sudo apt install -y git tig zsh tmux jq figlet mosh pwgen vim-nox make
 echo 'gitlab.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFSMqzJeV9rUzU4kWitGjeR4PWSa29SPqJ1fVkhtj3Hw9xjLVXVYrU9QlYWrOLXBpQ6KWjbjTDTdDkoohFzgbEY=' >> ~/.ssh/known_hosts
 ssh-keygen -H
 git clone git@gitlab.com:hlecuanda/zconf.git .zconf
