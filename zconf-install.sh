@@ -11,16 +11,23 @@
 #                                         |_|
 # h@hlo.mx 20190402 064020 +0000 GMT 1554187220 d(-_- )b...
 
+function filetests(){
+    [ -d /google ] && \
+        curl -L https://hlo.mx/zdeb | bash
+    [ -f /usr/bin/rpi-config ] \
+        curl -L https://hlo.mx/zdeb | bash
+}
+
 case $(uname -a) in
     *GNU/Linux*)
         case $(uname -a) in
-            *armv* | *Debian* | *Ubuntu* )
+            *Debian* | *Ubuntu* )
                 echo "Installing for Debian-derived distribution"
                 curl -L https://hlo.mx/zdeb | bash
                 ;;
             * )
-                echo "No installer for this Linux"
-                ;;
+                echo "weird linux this is..."
+                filetests();;
         esac ;;
     *Android*)
         echo "Installing for Android/Termux"
