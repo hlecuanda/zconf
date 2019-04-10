@@ -27,7 +27,7 @@ case $(uname -a) in
                 ;;
             * )
                 echo "weird linux this is..."
-                filetests();;
+                filetests()
         esac ;;
     *Android*)
         echo "Installing for Android/Termux"
