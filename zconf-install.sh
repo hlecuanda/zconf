@@ -20,15 +20,9 @@ function filetests(){
 
 case $(uname -a) in
     *GNU/Linux*)
-        case $(uname -a) in
-            *Debian* | *Ubuntu* )
-                echo "Installing for Debian-derived distribution"
-                curl -L https://hlo.mx/zdeb | bash
-                ;;
-            * )
-                echo "weird linux this is..."
-                filetests()
-        esac
+        echo "Installing for Debian-derived distribution"
+        curl -L https://hlo.mx/zdeb | bash
+        ;;
     *Android*)
         echo "Installing for Android/Termux"
         curl -L https://hlo.mx/zand | bash
