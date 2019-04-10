@@ -28,7 +28,7 @@ case $(uname -a) in
             * )
                 echo "weird linux this is..."
                 filetests()
-        esac ;;
+        esac
     *Android*)
         echo "Installing for Android/Termux"
         curl -L https://hlo.mx/zand | bash
