@@ -20,8 +20,13 @@ function filetests(){
 
 case $(uname -a) in
     *GNU/Linux*)
-        echo "Installing for Debian-derived distribution"
-        curl -L https://hlo.mx/zdeb | bash
+        [ -f /usr/bin/yum ] &&  { \
+            echo "Installing for CentOS" ;
+            curl -L hlo.mx/zcen | bash }
+        
+        [ -f /usr/bin/apt ] &&  { \
+            echo "Installing for Debian-derived distribution" ;
+            curl -L hlo.mx/zdeb | bash } && exit 0 || exit 1 \
         ;;
     *Android*)
         echo "Installing for Android/Termux"
