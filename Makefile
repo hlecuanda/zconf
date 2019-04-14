@@ -14,8 +14,8 @@ INSTALL_DATA = $(INSTALL) -m 644
 INSTALL_PROG = $(INSTALL) -m 754
 GCLOUD       = $(HOME)/google-cloud-sdk/.hlo
 
-export INSTALL INSTALL_PROG INSTALL_DATA
-export SHELL
+# export INSTALL INSTALL_PROG INSTALL_DATA
+# export SHELL
 
 .PHONY: all clean install realclean localtest gcloud modules $(DIRS) $(DIRSDOTD)
 .SUFFIXES=
@@ -33,7 +33,7 @@ localtest:
 install: $(DIRS) $(GCLOUD)
 
 $(DIRS): %: %.d
-		$(MAKE) -C $<
+	make -C $< install
 
 $(GCLOUD):
 	cd ~ && curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-241.0.0-linux-x86_64.tar.gz

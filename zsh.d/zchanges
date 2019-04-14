@@ -1,0 +1,30 @@
+#!/usr/bin/env make
+RUNCOMS != ls *.zsh
+NOSUFIX := $(basename $(RUNCOMS)
+DOTRUNC := $(addsuffix $(ZDOTDIR)/,$(NOSUFIX))
+DATE !=  date +%Y%m%d-%H%M%S%
+
+.PHONY: update $(RUNCOMS) push
+.SUFFIXES:
+
+getchanges:: update zshenv $(RUNCOMS) push
+
+zchanges:: zshenv $(RUNCOMS)
+	git  checkout -b $(DATE)
+
+zshenv:: ~/.zshenv
+	cp -av $< $@
+	git add $@
+	git commit -m "changes collected from $@"
+
+$(RUNCOMS):: %.zsh: $(DOTRUNC)
+	cp -av $< $@
+	git add $@
+	git commit -m "changes collected from $@"
+
+push::
+	git stash
+	git pull
+	git push origin master:refs/heads/$(DATE)
+
+
