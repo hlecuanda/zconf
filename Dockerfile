@@ -1,13 +1,15 @@
-FROM continuumio/miniconda2
+FROM debian:stretch
+FROM zshusers/zsh-5.3.1
+# need to have at least zsh make and curl
 
-# install gcc and common build dependencies
-RUN apt-get update     \
- && apt-get install -y \
-      build-essential  \
-      zsh              \
-      vim-nox          \
-      curl
+ENV ZDOTDIR ~/.zconf
+RUN adduser --quiet testuser --shell $(which zsh)
+USER testuser
+WORKDIR /home/testuser/.zconf
+ADD . .
+RUN pwd
 
-WORKDIR /zconf
 
-RUN curl -L https://hlo.mx/zconf
+ENTRYPOINT ["docker-init","zsh","-l"]
+
+

@@ -1,6 +1,6 @@
 SHELL         = zsh
 
-ifeq ($(shell uname -s),FreeBSD)
+ifdef FREEBSD
 INSTALL=install -c
 else
 INSTALL=install -T
