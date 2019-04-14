@@ -1,5 +1,12 @@
-include ../mk.d/common.mk
-include ../mk.d/help.mk
+SHELL         = zsh
+
+ifdef FREEBSD
+INSTALL=install -c
+else
+INSTALL=install -T
+endif
+INSTALL_DATA=$(INSTALL) -m 644
+INSTALL_PROG=$(INSTALL) -m 754
 
 VNCFILES       = startx tigervnc config
 VNCSOURCES     := $(addsuffix .vnc,$(VNCFILES))

@@ -6,6 +6,8 @@ RUN adduser --quiet testuser --shell $(which zsh)
 USER testuser
 WORKDIR /home/testuser/.zconf
 ADD . .
+RUN pwd
+
 
 ENTRYPOINT ["docker-init","zsh","-l"]
 

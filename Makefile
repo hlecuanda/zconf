@@ -2,11 +2,19 @@
 ifdef FREEBSD
 
 include mk.d/common.mk
+ALLCODE     != find . -type f
+ADDTOCLEAN   = echo "$@" >>! .clean
+DIRS     = git bin vim zsh
+DIRS    += tmux vnc i3 x11
+SHELL    = zsh
+ZDOTDIR  = ~/.zconf
+INSTALL_DATA=$(INSTALL) -m 644
+INSTALL_PROG=$(INSTALL) -m 754
 
 
 
-.PHONY: all clean install image realclean localtest
-.PHONY: gcloud modules $(DIRS) $(DIRSDOTD)
+.PHONY: all update upgrade $(DIRS)
+.SUFFIXES=
 
 # Build everithing
 all: ;
@@ -25,12 +33,23 @@ clean::
 	for d in $(addsuffix .d,$(DIRS))\
 		$(MAKE) -C $$d clean
 
-install: $(DIRS) $(GCLOUD)
+$(DIRS): % : %.d
+	$(MAKE) -C $*.d
 
-$(DIRS): %: %.d
-	make -C $< install
+clean:
+	-[[ -n "$$(find . -name Xterm.log* -print | head -1 )" ]] && \
+		find . -name Xterm.log* -print -delete || true
+	-[[ -f ~/google-cloud-sdk-*.tar.gz ]] && \
+		rm -v ~/google-cloud-sdk-*.tar.gz || true
+	-docker container stop zconf:testbox
+	-docker container rm zconf:testbox --force
+	-docker image prune -a -f
+	# for d in $(addsuffix .d,$(DIRS))\
+	#     $(MAKE) -C $$d clean
 
-endif
+realclean: clean
+	-rm -rf ~/google-cloud-sdk
+	-rm -rfv ~/bin
 
 
 #  vim: set ft=make sw=4 tw=0 fdm=manual noet :
