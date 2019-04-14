@@ -111,8 +111,7 @@ zstyle :compinstall filename "${HOME}/.zconf/.zshrc"
       source "${sourcefile}"
 
   # source gcloud from prefix
-  [[ -e "${TERMUXPREFIX:-$HOME}" ]] && \
-    for sourcefile in /usr/local/google-cloud-sdk/**.zsh.inc
+    for sourcefile in ~/google-cloud-sdk/**.zsh.inc
       source "${sourcefile}"
 
 typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
