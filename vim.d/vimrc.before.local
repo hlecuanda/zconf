@@ -102,6 +102,8 @@
     " let g:spf13_bundle_groups=[ 'general', 'writing', 'programming', 'neocomplete', 'python', 'javascript', 'html', 'ruby',  'misc' ]
     let g:spf13_bundle_groups=[ 'general', 'writing', 'programming', 'youcompleteme', 'python', 'javascript', 'html', 'ruby',  'misc' ]
     let g:vundle_default_git_proto = 'git'
+    UnBundle 'gorodinskiy/vim-coloresque'
+    UnBundle 'amirh/HTML-AutoCloseTag'
     " UnBundle 'wting/rust.vim'
     " UnBundle 'cespare/vim-toml'
     " }

@@ -11,39 +11,17 @@
 " {
     if exists("vimpager")   "Define only if we are vimpager
         Plugin 'altercation/vim-colors-solarized'
-        " Plugin 'powerman/vim-plugin-viewdoc'
         Plugin 'bling/vim-airline'
-        " Plugin 'flazz/vim-colorschemes'
-        " Plugin 'godlygeek/csapprox'
-        Plugin 'sjl/vitality.vim'
-        " Plugin 'spf13/vim-colors'
         finish
     endif
 " }
 
 " Standard:
 "  {
-        " Plugin 'Conque-Shell'
-        " Plugin 'PyInteractive'
-        " Plugin 'VimRepress'
-        " Plugin 'edkolev/promptline.vim'
-        " Plugin 'edkolev/tmuxline.vim'
-        " Plugin 'gorodinskiy/vim-coloresque'
-        " Plugin 'hlecuanda/vim-coloresque'
-        " Plugin 'jmcantrell/vim-virtualenv'
         Plugin 'zaiste/tmux.vim'
         Plugin 'Threesome'
         Plugin 'bufexplorer.zip'
-        " Plugin 'delimitMate.vim'
-        " Plugin 'django.vim'
+        Plugin 'hail2u/vim-css3-syntax'
         Plugin 'PotatoesMaster/i3-vim-syntax'
-        " Plugin 'guns/xterm-color-table.vim'
-        Plugin 'wmvanvliet/jupyter-vim'
-        " Plugin 'hlecuanda/tmux.vim'
-        " Plugin 'powerman/vim-plugin-viewdoc'
-        " Plugin 'sjl/vitality.vim'
-        " Plugin 'applescript.vim'
-        " Plugin 'rizzatti/dash.vim'
-        " Plugin 'file:///Users/hector/Repos/vim-cupsd-conf-syntax'
 " }
 
