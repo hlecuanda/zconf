@@ -21,12 +21,6 @@ GDNS = gcloud --project=$(DNSPROJ) dns record-sets transaction
 
 .PHONY: help createfw listfw describefw updatefw deletefw whatismyip
 
-# define ckname =
-# ifndef FWNAME
-#     $(error please define FWNAME)
-# endif
-# endef
-
 help::        # Show this message:wq
 	@figlet Makecloud
 	@$(TITL) 'Cloud tasks automation '
@@ -71,12 +65,10 @@ whatismyip:  #2 Show your current external IP
 	@$(ECHO) $(MYIP)
 
 celnet:      #2 firewal for the phone
-	$(ckname)
 	$(GCFWRULES) create $@  $(FWPARAMS) \
 		$(VMPARAMS) $(FWRULES) --source-ranges=0.0.0.0/0
 
 createfw:    #2 Creates a firewall for the current ip
-	$(ckname)
 	$(GCFWRULES) create $(FWNAME) $(FWPARAMS) \
 		$(VMPARAMS) $(FWRULES) --source-ranges=$(MYIP)
 
@@ -84,11 +76,9 @@ listfw:      #2 Lists the projects firewalls
 	$(GCFWRULES) list
 
 describefw:  #2 describes this firewall
-	$(ckname)
 	$(GCFWRULES) describe $(FWNAME)
 
 deletefw:    #2 deletes this firewall
-	$(ckname)
 	-$(GCFWRULES) delete $(FWNAME)
 
 updatefw:: rmfw ;
