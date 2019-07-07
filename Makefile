@@ -36,7 +36,7 @@ help::
 	@cat Makefile             |      \
 		$(AWK) '/#1/ && !/AWK/ { gsub(/#1/,"-"); print  $0  }' \
 		| sort
-
+# DNS Rules  {{{
 setdns:      #1 set this host DNS
 	$(GDNS) start $(ZONE)
 	$(GDNS) remove --name=$(HOSTNAME) $(ZONE) $(DNSOPT)
@@ -46,7 +46,7 @@ setdns:      #1 set this host DNS
 
 abdns:       #1 abort a transaction
 	-$(GDNS) abort $(ZONE)
-
+# }}}
 # Firewall Related rules{{{
 help::
 	@$(TITL) "Cloud Firewall"
@@ -70,7 +70,7 @@ whatismyip:  #2 Show your current external IP
 	@$(TITL) "Current IP outside " 
 	@$(ECHO) $(MYIP)
 
-celnet:
+celnet:      #2 firewal for the phone
 	$(ckname)
 	$(GCFWRULES) create $@  $(FWPARAMS) \
 		$(VMPARAMS) $(FWRULES) --source-ranges=0.0.0.0/0
