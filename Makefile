@@ -70,6 +70,11 @@ whatismyip:  #2 Show your current external IP
 	@$(TITL) "Current IP outside " 
 	@$(ECHO) $(MYIP)
 
+celnet:
+	$(ckname)
+	$(GCFWRULES) create $@  $(FWPARAMS) \
+		$(VMPARAMS) $(FWRULES) --source-ranges=0.0.0.0/0
+
 createfw:    #2 Creates a firewall for the current ip
 	$(ckname)
 	$(GCFWRULES) create $(FWNAME) $(FWPARAMS) \
