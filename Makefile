@@ -1,12 +1,17 @@
 
 # Variables{{{
+ifdef TERMUX
+CURL       = /data/data/com.termux/files/usr/bin/curl
+else
+CURL       = curl
+endif
 AWK        = gawk -p
 DNSOPT     = --type=A --ttl=300
 ECHO       = print -P '%B %s %b'
 FWRULES    = --rules=tcp:22,tcp:631,udp:5353,udp:60000-61000
 GCFWRULES  = gcloud compute firewall-rules
 HOSTNAME  != hostname
-MYIP      != curl -s https://mezaops.appspot.com/knock/ | jq .ip
+MYIP      != $(CURL) -4 ifconfig.co
 SHELL      = zsh
 TITL       = print -P '%F{blue}%s%f\n'
 VMPARAMS   = --direction=INGRESS --priority=850 --network=default
@@ -58,8 +63,31 @@ mkfw: createfw ;
 rmfw: deletefw ;
 
 upfw: updatefw ;
+
+fw-ens: mkens ;
+
+fw-alcazar: mkalcazar ;
+
 # }}}
-#
+
+movil: FWNAME=movil
+movil: cycle
+
+mkens: FWNAME=ens-main
+mkens: cycle
+
+rmens: FWNAME=ens-main
+rmens: rmfw
+
+mkalcazar: FWNAME=ens-alcazar
+mkalcazar: cycle
+
+rmalcazar: FWNAME=ens-alcazar
+rmalcazar: rmfw
+
+cycle:: rmfw
+cycle:: mkfw
+
 whatismyip:  #2 Show your current external IP
 	@$(TITL) "Current IP outside " 
 	@$(ECHO) $(MYIP)
@@ -79,7 +107,7 @@ describefw:  #2 describes this firewall
 	$(GCFWRULES) describe $(FWNAME)
 
 deletefw:    #2 deletes this firewall
-	-$(GCFWRULES) delete $(FWNAME)
+	-$(GCFWRULES) delete --quiet $(FWNAME)
 
 updatefw:: rmfw ;
 
