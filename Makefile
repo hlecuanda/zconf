@@ -1,9 +1,11 @@
 
 # Variables{{{
 ifdef TERMUX
-CURL       = /data/data/com.termux/files/usr/bin/curl
+CURL       = /data/data/com.termux/files/usr/bin/curl -s
+TITL       = echo
 else
-CURL       = curl
+TITL       = print -P '%F{blue}%s%f\n'
+CURL       = curl -s
 endif
 AWK        = gawk -p
 DNSOPT     = --type=A --ttl=300
@@ -13,7 +15,6 @@ GCFWRULES  = gcloud compute firewall-rules
 HOSTNAME  != hostname
 MYIP      != $(CURL) -4 ifconfig.co
 SHELL      = zsh
-TITL       = print -P '%F{blue}%s%f\n'
 VMPARAMS   = --direction=INGRESS --priority=850 --network=default
 VMPARAMS  += --action=ALLOW --target-tags=bastion
 ZONE       = --zone mcpaints-public# }}}
@@ -64,6 +65,8 @@ rmfw: deletefw ;
 
 upfw: updatefw ;
 
+updatefw: cycle ;
+
 fw-ens: mkens ;
 
 fw-alcazar: mkalcazar ;
@@ -92,26 +95,22 @@ whatismyip:  #2 Show your current external IP
 	@$(TITL) "Current IP outside " 
 	@$(ECHO) $(MYIP)
 
-celnet:      #2 firewal for the phone
-	$(GCFWRULES) create $@  $(FWPARAMS) \
-		$(VMPARAMS) $(FWRULES) --source-ranges=0.0.0.0/0
-
 createfw:    #2 Creates a firewall for the current ip
-	$(GCFWRULES) create $(FWNAME) $(FWPARAMS) \
+	@$(TITL) "Creating mobile firewall" 
+	@$(GCFWRULES) create $(FWNAME) $(FWPARAMS) \
 		$(VMPARAMS) $(FWRULES) --source-ranges=$(MYIP)
 
 listfw:      #2 Lists the projects firewalls
-	$(GCFWRULES) list
+	@$(TITL) "Listing curent firewall rules" 
+	@$(GCFWRULES) list
 
 describefw:  #2 describes this firewall
-	$(GCFWRULES) describe $(FWNAME)
+	@$(GCFWRULES) describe $(FWNAME)
 
 deletefw:    #2 deletes this firewall
-	-$(GCFWRULES) delete --quiet $(FWNAME)
+	@$(TITL) "Clearing old rules... (this may take a minute...)" 
+	-@$(GCFWRULES) delete --quiet $(FWNAME)
 
-updatefw:: rmfw ;
-
-updatefw:: mkfw ;
 
 # }}}
 

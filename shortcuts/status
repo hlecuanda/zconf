@@ -1,0 +1,4 @@
+export PATH=/data/data/com.termux/files/usr/google-cloud-sdk/bin:/data/data/com.termux/files/home/bin:/data/data/com.termux/files/home/anaconda3/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets
+TERMUX=1 make -C ~/src/Makecloud lsfw | grep movil
+
+# vim: set ft=sh sw=4 tw=0 fdm=manual et :
