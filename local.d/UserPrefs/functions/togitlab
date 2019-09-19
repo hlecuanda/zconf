@@ -6,7 +6,7 @@ function togitlab_dopush () {
 }
 
 function togitlab_dorepo () {
-    #remember to set  GIITLAB_TOKEN on enviroonment 
+    GITLAB_TOKEN=$(git config --get gitlab.token)
     #also, namespace_id is hardcoded x_X
     echo "Creating repo via API"
     curl --header "PRIVATE-TOKEN: ${GITLAB_TOKEN} " \

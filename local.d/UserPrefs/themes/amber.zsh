@@ -26,25 +26,27 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
   'main' \
   'brackets' \
   'pattern' \
-  'cursor' 
+  'line' \
+  'cursor' \
+  'root'
 ## }}}
 
 case "$TERM" in
   screen*)
       # screen # {{{
       zstyle ':prezto:module:syntax-highlighting' styles         \
-        "unknown-token"                  "fg=white,underline"      \
+        "unknown-token"                  "fg=7,standout"      \
         "default"                        "fg=3"                  \
         "precommand"                     "fg=166"                \
-        "builtin"                        "fg=214,underline"      \
+        "builtin"                        "fg=214,standout"      \
         "command"                        "fg=214,bold"           \
         "hashed-command"                 "fg=214,standout"       \
-        "function"                       "fg=214,bold,underline" \
+        "function"                       "fg=214,bold,standout" \
         "alias"                          "fg=214"                \
         "reserved-word"                  "fg=178"                \
         "commandseparator"               "fg=11"                 \
         "assign"                         "fg=15"                 \
-        "path_prefix"                    "fg=220,underline"      \
+        "path_prefix"                    "fg=220,standout"      \
         "path"                           "fg=220"                \
         "globbing"                       "fg=202"                \
         "suffix-alias"                   "fg=202,bold"           \
@@ -58,32 +60,32 @@ case "$TERM" in
         "double-hyphen-option"           "fg=white"              \
         "double-quoted-argument"         "fg=11"                 \
         "single-hyphen-option"           "fg=white"              \
-        "single-quoted-argument"         "fg=11,underline"       \
+        "single-quoted-argument"         "fg=11,standout"       \
         "bracket-error"                  "bg=white,bold"           \
         "bracket-level-1"                "fg=yellow"             \
         "bracket-level-2"                "fg=green"              \
         "bracket-level-3"                "fg=magenta"            \
         "bracket-level-4"                "fg=cyan"               \
         "redirection"                    "fg=11,bold"            \
-        "comment"                        "fg=172,underline"      \
+        "comment"                        "fg=172,standout"      \
         "arg0"                           "fg=208"                \
       # }}}
     ;;
-  *xterm*)
+  *xterm*|alacritty*)
       # xterm # {{{
       zstyle ':prezto:module:syntax-highlighting' styles         \
-        "unknown-token"                  "fg=white,underline"      \
+        "unknown-token"                  "fg=white,standout"      \
         "default"                        "fg=3"                  \
         "precommand"                     "fg=166"                \
-        "builtin"                        "fg=214,underline"      \
+        "builtin"                        "fg=214,standout"      \
         "command"                        "fg=214,bold"           \
         "hashed-command"                 "fg=214,standout"       \
-        "function"                       "fg=214,bold,underline" \
+        "function"                       "fg=214,bold,standout" \
         "alias"                          "fg=214"                \
         "reserved-word"                  "fg=178"                \
         "commandseparator"               "fg=11"                 \
         "assign"                         "fg=15"                 \
-        "path_prefix"                    "fg=220,underline"      \
+        "path_prefix"                    "fg=220,standout"      \
         "path"                           "fg=220"                \
         "globbing"                       "fg=202"                \
         "suffix-alias"                   "fg=202,bold"           \
@@ -97,14 +99,14 @@ case "$TERM" in
         "double-hyphen-option"           "fg=white"              \
         "double-quoted-argument"         "fg=11"                 \
         "single-hyphen-option"           "fg=white"              \
-        "single-quoted-argument"         "fg=11,underline"       \
+        "single-quoted-argument"         "fg=11,standout"       \
         "bracket-error"                  "bg=white,bold"           \
         "bracket-level-1"                "fg=yellow"             \
         "bracket-level-2"                "fg=green"              \
         "bracket-level-3"                "fg=magenta"            \
         "bracket-level-4"                "fg=cyan"               \
         "redirection"                    "fg=11,bold"            \
-        "comment"                        "fg=172,underline"      \
+        "comment"                        "fg=172,standout"      \
         "arg0"                           "fg=208"                \
       # }}}
     ;;
@@ -148,21 +150,21 @@ case "$TERM" in
       # }}}
     ;;
   *)
-    echo "$TERM Didn't match anything"
+    echo "amber theme: $TERM Didn't match anything"
       # xterm # {{{
       zstyle ':prezto:module:syntax-highlighting' styles         \
-        "unknown-token"                  "fg=white,underline"    \
+        "unknown-token"                  "fg=white,standout"    \
         "default"                        "fg=3"                  \
         "precommand"                     "fg=166"                \
-        "builtin"                        "fg=214,underline"      \
+        "builtin"                        "fg=214,standout"      \
         "command"                        "fg=214,bold"           \
         "hashed-command"                 "fg=214,standout"       \
-        "function"                       "fg=214,bold,underline" \
+        "function"                       "fg=214,bold,standout" \
         "alias"                          "fg=214"                \
         "reserved-word"                  "fg=178"                \
         "commandseparator"               "fg=11"                 \
         "assign"                         "fg=15"                 \
-        "path_prefix"                    "fg=220,underline"      \
+        "path_prefix"                    "fg=220,standout"      \
         "path"                           "fg=220"                \
         "globbing"                       "fg=202"                \
         "suffix-alias"                   "fg=202,bold"           \
@@ -176,14 +178,14 @@ case "$TERM" in
         "double-hyphen-option"           "fg=white"              \
         "double-quoted-argument"         "fg=11"                 \
         "single-hyphen-option"           "fg=white"              \
-        "single-quoted-argument"         "fg=11,underline"       \
+        "single-quoted-argument"         "fg=11,standout"       \
         "bracket-error"                  "bg=white,bold"           \
         "bracket-level-1"                "fg=yellow"             \
         "bracket-level-2"                "fg=green"              \
         "bracket-level-3"                "fg=magenta"            \
         "bracket-level-4"                "fg=cyan"               \
         "redirection"                    "fg=11,bold"            \
-        "comment"                        "fg=172,underline"      \
+        "comment"                        "fg=172,standout"      \
         "arg0"                           "fg=208"                \
       # }}}
 esac

@@ -1,5 +1,6 @@
 zstyle -s :prezto:module:UserPrefs:syntax-highlighting theme selected
-source ${pmodule_location}/themes/${selected}.zsh || source ${pmodule_location}/themes/default.zsh
+source ${pmodule_location}/themes/${selected}.zsh \
+  || source ${pmodule_location}/themes/default.zsh
 
 zstyle -s :prezto:module:UserPrefs:widgets load loadwidgets
 [[ $loadwidgets == 'yes' ]]  && {
@@ -11,5 +12,16 @@ zstyle -s :prezto:module:UserPrefs:widgets load loadwidgets
 }
 unset selected loadwidgets
 
+function autorehash () {
+  LASTCMD=$(fc -ln -1)
+  [[ ${LASTCMD[1,16]} == "sudo apt install" ]] && {
+    builtin rehash
+  }
+}
+
+autorehash=1
+[[ -v autorehash ]] && {
+  add-zsh-hook precmd autorehash
+}
 
 #  vim: set ft=zsh sw=2 tw=0 fdm=manual et :
