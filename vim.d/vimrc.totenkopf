@@ -189,7 +189,6 @@
                 highlight CursorLineNr ctermbg=2 ctermfg=230
                 highlight LineNr       ctermbg=0
             endif
-             " Removes the autocomands
         endfunction
         " }
 
@@ -214,7 +213,7 @@
         command! -nargs=+ -complete=command CleanValuation silent call CleanValuation(<q-args>)
         " }
 
-        function! CleanPerfGL() "{D 
+        function! CleanPerfGL() "{D
             g/G E N E R A L  L E D G E R/d
             g/Loc:\s\d\+$/d
             g/^\s\{5,}Beginning/d
@@ -330,7 +329,7 @@
         command -nargs=1 -complete=command HloTitle silent call HloTitle(<q-args>)
         " }
 
-        "Function: CleanTrace { 
+        "Function: CleanTrace {
         "Desc: moves the comment on the current line to
         " the line specified by count
         "Arguments: N/A

@@ -73,6 +73,8 @@
     nnoremap <silent> <leader>do :DiffOrig<CR>
     " Capitalize every word.
     nnoremap <silent> <leader>C  :s/\<\a/\u&/g<CR>:nohlsearch<CR>
+    " Last word True to false, config files
+    nnoremap <silent> <leader>ff :s/\vtrue\s?/false/<CR><leader>l
     "turn off pesky search highligmht
     nnoremap <silent> <leader>l  :nohlsearch<CR>
     nnoremap <silent> <leader>ll :AppendEditLogLine<CR>
@@ -85,6 +87,8 @@
     nnoremap <silent> <leader>mc :normal 80\|<CR>
     " get rid of trailing spaces
     nnoremap <silent> <leader>s  :%s/\s\+$//g<CR>
+    " Last word false to true, config files
+    nnoremap <silent> <leader>tt :s/\vfalse\s?/true/<CR><leader>l
     nnoremap <silent> <leader>ts :call setline(line("."), strftime("%Y%m%d %H%M%S %z %Z %s"))<CR>
     nnoremap <silent> <leader>tS :call setline(line("."),printf(" h@h-lo.me %s %s ", strftime("%Y%m%d %H%M%S %z %Z %s"), "d(-_- )b..." ))<CR>
     "clipboard cut and paste, cuz im lazy.
@@ -105,7 +109,7 @@
 
 " Toggles:
 " {
-    noremap  <F2>   :DelimitMateSwitch<CR>
+    noremap  <F2>   :RangerChooser<CR>
     noremap  <F3>   :UndoTreeToggle<CR>
     noremap  <F4>   :set wrap!
     noremap  <S-F4> :set list!
@@ -459,7 +463,7 @@
     " AppendEditLogLine:
     " { append a timestamp comment
         function! AppendEditLogLine() abort
-            let l:mlcoment = printf(" h@h-lo.me %s %s ", strftime("%Y%m%d %H%M%S %z %Z %s"), "d(-_- )b..." ) 
+            let l:mlcoment = printf(" h@h-lo.me %s %s ", strftime("%Y%m%d %H%M%S %z %Z %s"), "d(-_- )b..." )
             let l:blnkline = substitute(&commentstring, "%s", l:mlcoment, "")
             call append(line("$")-1, l:blnkline)
             :normal G
@@ -506,8 +510,7 @@
         command! -nargs=0 -complete=command FkeyVisuals silent call FkeyVisuals()
     " }
 
-    " Not In Use:
-    "{
+    " Not In Use: " {
         " "Function: GenMapHelp { :Creates a nice ascii-art title for scripts
         " "Desc: Generates mapping help screen from config
         " "Arguments: N/A
@@ -536,7 +539,6 @@
         "     endfunction
         "     command! -nargs=1 -complete=command MapHelp silent call MapHelp(<q-args>)
         " " }
-    " }
 
 " Autocommands:
 " {
@@ -586,14 +588,6 @@
       autocmd BufWritePre * %s/\s\+$//e
     " }
 
-    " SearchHighligtBeGone:
-    " " {
-      " function! SearchHighlightBeGone()
-      "   :nohlsearch
-      " endfunction
-      " command! -nargs=0 SearchHighlightBeGone silent call SearchHighlightBeGone()
-      " autocmd CursorMoved * :nohlsearch
-    " " }
 
 " } end autocommands
 
@@ -619,14 +613,14 @@
         "     let g:Powerline_colorscheme='skwp'
         " } end reference impl
     " }
-    " {  Ansi || Xterm conditional settings,  + utf8 support 
+    " {  Ansi || Xterm conditional settings,  + utf8 support
         " ansi settings, no utf8 support {
         if (&term == 'ansi')
             " set fileencoding=ansi
             set encoding=ansi
             set showbreak=~        " Charactr indicating a wrapped line
             set listchars=tab:> ,trail:.,extends:<,precedes:>,nbsp:.,conceal:x
-            set fillchars=vert:\|,fold:\ 
+            set fillchars=vert:\|,fold:\
             let g:airline_powerline_fonts=0
             let g:ycm_warning_symbol = '!!'
             let g:ycm_error_symbol = '>>'
@@ -636,7 +630,7 @@
             set encoding=utf8
             set showbreak=➘        " Character indicating a wrapped line
             set listchars=tab:➔\ ,trail:·,extends:❮,precedes:❯,nbsp:¯
-            set fillchars=vert:\ ,fold:\ 
+            set fillchars=vert:\ ,fold:\
             " { Symbols:
 
             if !exists('g:airline_symbols')
@@ -739,7 +733,9 @@
 
 " } end Terminal and GUI
 
-" h@h-lo.me 20180211 162014 -0800 PST 1518394814 d(-_- )b... 
-" h@h-lo.me 20180211 162027 -0800 PST 1518394827 d(-_- )b... 
-" h@h-lo.me 20180211 162054 -0800 PST 1518394854 d(-_- )b... 
-" vim: set ft=vim sw=6 tw=0 fdm=marker et :
+" h@h-lo.me 20180211 162014 -0800 PST 1518394814 d(-_- )b...
+" h@h-lo.me 20180211 162027 -0800 PST 1518394827 d(-_- )b...
+" h@h-lo.me 20180211 162054 -0800 PST 1518394854 d(-_- )b...
+" h@h-lo.me 20190423 192743 -0700 PDT 1556072863 d(-_- )b...
+" Tried fix wring nesting
+" vim modeline on line 1 xD
