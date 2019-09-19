@@ -13,7 +13,7 @@
 # Global Session Options:
 # {1
     # Misc Defaults:  {
-        set -g default-command 'exec /usr/local/bin/zsh -o login'
+        set -g default-command 'exec /usr/bin/zsh -o login'
         # set -g default-shell '/usr/local/bin/zsh'
         set -g default-terminal 'screen-256color'
         set -g destroy-unattached off
@@ -80,7 +80,7 @@
         # TODO: write script to do this in a more straightforward manner
         # bind    K command-prompt -p 'Man page to dislplay? : ' "split-window -h 'exec man %%'; send-keys C-p" # New window manpage
         bind    l next-window
-        bind    L pipe-pane -o "cat >>~/session-logs/#W.log" \; display "Toggled logging to ~/#W.log" \; setenv TMUX_WINDOW_LOG '~/#W.log'
+        # bind    L pipe-pane -o "cat >>~/session-logs/#W.log" \; display "Toggled logging to ~/#W.log" \; setenv TMUX_WINDOW_LOG '~/#W.log'
         bind    m display "Monitoring" \; switch-client -T monitor
         bind    M display "Monitoring" \; switch-client -T monitor
         bind    p paste-buffer  # case insensitive paste
@@ -93,18 +93,18 @@
         bind    z resize-pane -Z # case insensitive zoom toggle
         bind    Z resize-pane -Z
 
-        # bind   F1 
+        # bind   F1
         bind   F2   choose-buffer
         bind   F3   choose-client
         bind   F4   choose-session
         bind   F5   choose-tree
         bind   F6   choose-window
         # bind   F7
-        # bind   F8 
-        # bind   F9 
-        # bind   F10 
-        # bind   F11 
-        # bind   F12 
+        # bind   F8
+        # bind   F9
+        # bind   F10
+        # bind   F11
+        # bind   F12
 
         # very vim bindings
         bind  `   copy-mode
@@ -123,7 +123,7 @@
         bind    C-k     resize-pane -U 5
         bind    C-l     resize-pane -R 5
         bind -r C-R     rotate-window # case insensitive rotate
-        bind -r C-r     rotate-window 
+        bind -r C-r     rotate-window
         bind -r C-Right select-pane -t {right}
         bind -r C-Left  select-pane -t {left}
         bind -r C-Up    select-pane -t {top}
@@ -212,7 +212,7 @@
 # {2
     set -g status on
     set -g set-titles on
-    set -g set-titles-string '#h'
+    # set -g set-titles-string '#h'
     # set -g status-utf8 on
     set -g status-interval 60
     set -g status-keys vi
