@@ -1,3 +1,6 @@
+INSTALL= install
+INSTALL_DATA= $(INSTALL) -m 644
+INSTALL_PROG= $(INSTALL) -m 755
 BINDIR=$(HOME)/bin
 SOURCES!= ls *.*
 INSTALL=install
