@@ -23,5 +23,6 @@
         Plugin 'bufexplorer.zip'
         Plugin 'hail2u/vim-css3-syntax'
         Plugin 'PotatoesMaster/i3-vim-syntax'
+        Plufin 'wmvanvliet/jupyter-vim'
 " }
 
