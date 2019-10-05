@@ -10,18 +10,18 @@ zstyle -s :prezto:module:UserPrefs:widgets load loadwidgets
     zle -N ${f:t:r}
   done
 }
-unset selected loadwidgets
 
-function autorehash () {
-  LASTCMD=$(fc -ln -1)
-  [[ ${LASTCMD[1,16]} == "sudo apt install" ]] && {
-    builtin rehash
-  }
-}
+# function autorehash () {
+#   LASTCMD=$(fc -ln -1)
+#   [[ ${LASTCMD[1,16]} == "sudo apt install" ]] && {
+#     builtin rehash
+#   }
+# }
 
-autorehash=1
-[[ -v autorehash ]] && {
+zstyle -b :prezto:module:UserPrefs:functions:autorehash load ldautorh
+[[ -v ldautorh ]] && {
   add-zsh-hook precmd autorehash
 }
 
+unset selected loadwidgets
 #  vim: set ft=zsh sw=2 tw=0 fdm=manual et :
