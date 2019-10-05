@@ -253,6 +253,8 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
       alias nmap-full='nmap -sS -T4 -PE -PP -PS80,443 -PY -g 53 -A -p1-65535 -v'
       alias pgp='gpg'
       alias mosh='mosh -a'
+      alias gcsfuse='gcsfuse --foreground --implicit-dirs --key-file /home/hector/MezaOps-edd7249ce29f.json'
+      [[ -f ~/bin/exa ]] && alias ls='exa -F --group-directories-first --color=auto'
     # }}}
   # }}}
 # }}}
@@ -442,12 +444,8 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
 if ((${+TMUX})); then
   PROMPT='%F{136}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
 else
-  if [[ "$(uname -o)" == "Android" ]]; then
-    PROMPT='%F{166}nokia%f:%F{136}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
-  fi
   PROMPT='%F{166}%m%f:%F{136}${_prompt_sorin_pwd}%(!. %B%F{1}#%f%b.)${editor_info[keymap]} '
 fi
-LESS_TERMCAP_se=[44m[30m
 # }}}
 #
 #  vim: set ft=zsh sw=2 tw=0 fdm=marker foldlevel=0 et :
