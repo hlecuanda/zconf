@@ -12,11 +12,11 @@ do
   bindkey -M "$map"|
   while read binding widget
   do
-    if [[ ! -z ${map:s:emacs::} ]]; then 
+    if [[ ! -z ${map:s:emacs::} ]]; then
       m=$(print -P "%F{magenta}$map%f")
       b=$(print -P "%F{yellow}$(echo ${(V)binding}| tr -d \")%f")
       if [[ ! -z ${widget:s:self-insert::} ]]; then
-        w=$(print -P "%F{green}$widget$f")
+        w=$(print -P "%F{green}$widget%f")
       else
         w=$(print -P "$widget")
       fi
