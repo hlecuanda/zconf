@@ -23,16 +23,16 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
   'main' \
   'brackets' \
   'pattern' \
-  'cursor' 
+  'cursor'
 ## }}}
 # current colors in use# {{{
 zstyle ':prezto:module:syntax-highlighting' styles       \
   "unknown-token"                  "fg=red"    \
   "default"                        "fg=white"              \
-  "precommand"                     "fg=blue,bold"       \
-  "builtin"                        "fg=blue,bold,underline"        \
+  "precommand"                     "fg=blue,standout"       \
+  "builtin"                        "fg=blue,standout,underline"        \
   "reserved-word"                  "fg=blue,underline"  \
-  "command"                        "fg=blue,bold"          \
+  "command"                        "fg=blue,standout"          \
   "hashed-command"                 "fg=blue,standout"   \
   "function"                       "fg=blue"               \
   "alias"                          "fg=blue,underline,standout"     \
@@ -41,11 +41,11 @@ zstyle ':prezto:module:syntax-highlighting' styles       \
   "path_prefix"                    "fg=13,underline"     \
   "path"                           "fg=13"               \
   "globbing"                       "fg=yellow,underline" \
-  "suffix-alias"                   "fg=57,bold"          \
+  "suffix-alias"                   "fg=57,standout"          \
   "cursor"                         "bg=240 fg=white"     \
   "cursor-matchingbracket"         "bg=red"              \
-  "history-expansion"              "fg=green,bold"       \
-  "root"                           "bg=red,bold"         \
+  "history-expansion"              "fg=green,standout"       \
+  "root"                           "bg=red,standout"         \
   "back-double-quoted-argument"    "fg=red"              \
   "back-quoted-argument"           "fg=red"              \
   "dollar-double-quoted-argument"  "fg=white"              \
@@ -53,12 +53,12 @@ zstyle ':prezto:module:syntax-highlighting' styles       \
   "double-quoted-argument"         "fg=cyan"             \
   "single-hyphen-option"           "fg=white"            \
   "single-quoted-argument"         "fg=cyan,underline"   \
-  "bracket-error"                  "bg=red,bold"         \
+  "bracket-error"                  "bg=red,standout"         \
   "bracket-level-1"                "fg=yellow"           \
   "bracket-level-2"                "fg=green"            \
   "bracket-level-3"                "fg=magenta"          \
   "bracket-level-4"                "fg=cyan"             \
-  "redirection"                    "fg=yellow,bold"      \
+  "redirection"                    "fg=yellow,standout"      \
   "comment"                        "fg=240,underline"    \
   "arg0"                           "fg=white"              \
 # }}}

@@ -11,13 +11,6 @@ zstyle -s :prezto:module:UserPrefs:widgets load loadwidgets
   done
 }
 
-# function autorehash () {
-#   LASTCMD=$(fc -ln -1)
-#   [[ ${LASTCMD[1,16]} == "sudo apt install" ]] && {
-#     builtin rehash
-#   }
-# }
-
 zstyle -b :prezto:module:UserPrefs:functions:autorehash load ldautorh
 [[ -v ldautorh ]] && {
   add-zsh-hook precmd autorehash
