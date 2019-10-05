@@ -1,0 +1,5 @@
+XKBMODEL=pc105
+XKBLAYOUT=es
+XKBVARIANT=
+XKBOPTIONS=ctrl:swapcaps,caps:hyper,keypad:future,kpdl:dotoss,compose:menu,misc:typo,nbsp:level2,keypad:pointerkeys,terminate:ctrl_alt_bksp
+BACKSPACE=guess
