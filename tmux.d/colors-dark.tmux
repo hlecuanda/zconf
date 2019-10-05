@@ -68,10 +68,10 @@ set-window-option -g window-status-bell-fg   brightred
 set-window-option -g window-status-bell-bg   white
 set-window-option -g window-status-bell-attr default
 
-# Window with content alert {2
-set-window-option -g window-status-content-fg   brightred
-set-window-option -g window-status-content-bg   white
-set-window-option -g window-status-content-attr default
+# # Window with content alert {2
+# set-window-option -g window-status-content-fg   brightred
+# set-window-option -g window-status-content-bg   white
+# set-window-option -g window-status-content-attr default
 
 # Window with activity alert {2
 set-window-option -g window-status-activity-fg   brightred
