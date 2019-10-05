@@ -1,0 +1,13 @@
+export PATH=/data/data/com.termux/files/usr/google-cloud-sdk/bin:/data/data/com.termux/files/home/bin:/data/data/com.termux/files/usr/bin:/data/data/com.termux/files/usr/bin/applets
+figlet -w 60 firewall automation
+echo "by h-lo"
+echo
+CONFIRM=$(termux-dialog confirm -i "This will create a temporary firewall using your network connection" -t "Connect to passport" | jq '.text' | tr -d \" )
+test $CONFIRM = "yes" \
+    && (TERMUX=1 make --no-print-directory -C ~/src/Makecloud movil ; mosh passport.mcpaints.com ) \
+    || echo "abort connect"
+
+echo "press any key to continue..."
+read x
+
+# vim: set ft=sh sw=4 tw=0 fdm=manual et :
