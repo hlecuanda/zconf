@@ -5,10 +5,12 @@
 *.zwc.*
 *~
 .revolver
+.p10k.zsh
 .zcomp*
 .zhistory
 .zlogin
 .zlogout
+.zaw
 .zprezto
 .zpreztorc
 .zprofile
