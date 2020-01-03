@@ -4,7 +4,7 @@
 # email: engineerarun@gmail.com
 #
 # To request key addition or removal upstream, please drop an email.
-alias googler='googler --noua -n4 --url-handler xdg-open'
+alias googler='googler -n4 --url-handler xdg-open'
     # A
 
 # Amazon.com
