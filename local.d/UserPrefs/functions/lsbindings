@@ -10,18 +10,18 @@
 for  map in $(bindkey -l )
 do
   bindkey -M "$map"|
-  while read binding widget
-  do
-    if [[ ! -z ${map:s:emacs::} ]]; then
-      m=$(print -P "%F{magenta}$map%f")
-      b=$(print -P "%F{yellow}$(echo ${(V)binding}| tr -d \")%f")
-      if [[ ! -z ${widget:s:self-insert::} ]]; then
-        w=$(print -P "%F{green}$widget%f")
-      else
-        w=$(print -P "$widget")
-      fi
-      printf "%20s: %20s:%s\n" $m $b $w
-    fi
+  while read binding key
+ do
+   echo "${(qqV)map}" "${(qqV)binding}"  "${(qV)key}" \
+     | awk '!/self-insert/ &&  !/noop/ { printf " %s %s\n", $1, $2 $3 }' \
+     | tr -d \"
+    # if [[ ! -z ${map:s:emacs::} ]]; then
+    #   m=$(print -P "%F{magenta}$map%f")
+    #   b=$(print -P "%F{yellow}$(echo ${(qqV)binding}| tr -d \")%f")
+    #   w=$(print -P "%F{green}$widget%f")
+    #   print -f "%20s: %20s:%s\n" $m $b $w
+    # fi
   done
 done
-#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :
+#  vim: set ft=zsh.awk sw=2 tw=0 fdm=manual et :
+#{ print gensub(/"(.+)"-2w"(.+)"/,"\\1-\\2","g",$3) }

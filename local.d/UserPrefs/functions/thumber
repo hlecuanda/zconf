@@ -1,0 +1,64 @@
+#!/usr/bin/env zsh
+
+
+#
+local -i pct
+local -i rem
+local filmstrips=""
+local -i incr=0
+local -i offset=0
+local -i screens=10
+local -i interval=10
+
+function validate () {
+  {
+    local -i integer
+    integer="${1}"
+  } always {
+    (( $TRY_BLOCK_ERROR == 1 )) && {
+      echo "argument to -f must be integer, not " ${(t)1}
+      echo "ignoring for now"
+      TRY_BLOCK_ERROR=-1
+      integer=10
+    }
+    echo $integer
+  }
+}
+
+zparseopts -E -D -M -A opts -- \
+    -help=terminal h=help  \
+    -filmstrip=f f=cumulative \
+    -number=n n:=cumulative \
+    -view=v v=cumulative
+
+(( ${#terminal} > 0 )) && { cat - && return } <<-EOF
+				${0:r} [options] videofile
+
+				options:
+				      -h  :print this message
+				      -t  :increment seconds per thumb
+				      -f  :add filmstrips to thumbs
+
+			EOF
+
+
+[[ -f ${1:A} ]] && {
+  [[ ! -z "${(k)opts[-f]}"   ]] && flilmstrips="-f"
+[[ ! -z "${(k)opts[-n]}" ]] && screens=$(validate "${opts[-n]}" )|| (( screens = 10 ))
+  for pct in {0..100..$(( 100/$screens ))}
+  do
+    unsetopt localoptions xtrace
+    [[ -d .thumbs ]] && :  || mkdir .thumbs ;
+    ffmpegthumbnailer -i "${1:a}"      \
+      -o ".thumbs/${1:t:r}-$pct.png" \
+      -t$pct -s800 ${(z)filmstrips} &> /dev/null ;
+  done
+  [[ ! -z "${(k)opts[-v]}" ]] && {
+    feh .thumbs/${1:t:r}-* &> /dev/null \
+    && {  for f in "$(ls .thumbs)"
+            rm -rf "${(z)f}" && echo "rm $f" &> /dev/null
+          rm -rf .thumbs &> /dev/null
+        } || :
+    }
+} || echo "must enter file" ;
+

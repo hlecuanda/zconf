@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+emulate -L zsh
+setopt rematchpcre
+local first second rest script
+read first second rest <<< $*
+[[ $first == "sudo" && -n $second ]] && first="$second"
+[[ $(file $(which $first)) =~ /^.+[Ss]cript*/ ]] && script=1
+man $first || $first --help || $first -h || (( $+script )) && < $(which $first)
+#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :

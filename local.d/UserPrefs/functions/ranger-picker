@@ -1,0 +1,22 @@
+emulate -L zsh
+
+() {
+  local pickerlist="$1"
+  local tmp f
+  exec </dev/tty
+
+  tmp=$(mktemp -t rp.XXXXX)
+  $(which ranger) --choosefiles="$tmp" "$(pwd)"
+  [[ -s "$tmp"  ]] \
+    && cat "$tmp" \
+      | while read f
+        do
+          pickerlist+="${(qqq)f:P} "
+        done
+  rm -f "$tmp" &> /dev/null
+
+  print -Rz - "$pickerlist"
+  (( CURSOR += $#pickerlist + 1 ))
+} "$BUFFER"
+zle send-break
+#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :

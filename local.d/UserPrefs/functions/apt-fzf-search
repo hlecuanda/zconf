@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+zparseopts -D -a selected n
+
+(( $#selected >0 )) && opt="--names-only" || opt=""
+
+apt search "$1" $opt 2> /dev/null\
+  | sed -Ee '/^$|^ /d;s/\/.+$//' \
+  | fzf -q '!lib !dev !dbg' \
+  --preview="apt  show {} 2> /dev/null \
+              |sed -Ee '/Package/,/Description/d'"
+
+# bind a key
+#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :

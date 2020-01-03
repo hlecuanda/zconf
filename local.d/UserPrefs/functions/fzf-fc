@@ -1,0 +1,58 @@
+emulate -L zsh
+
+() {
+
+  local buffer="$1"
+  local -h  FZF_DEFAULT_OPTS=
+  local HDR='Evt__  Date______ Time_  Cmd___   FZF History Browser \
+    widget by H-Lo d(-_- ;)b'
+  local PVCMD='echo {4} || bat ---language=zsh --color=always'
+  local BINDINGS='f4:execute_silent#echo {4} | clip -i -selection \
+    primary#,f3:execute-silent#echo {4} | xclip`-i -selection \
+    clipboard`#,f5:jump,f6:toggle-preview,f8:toggle-all;'
+  exec </dev/tty
+
+  local selected = $(
+  fc -lidr 1 \
+  | $(which fzf \
+      --nth=2,4]             --header=$HDR                     \
+      --ansi                   --inline-info                   \
+      --layout=reverse-list    --border                        \
+      --bindings="$BINDINGS"   --layout-reverse                \
+      --margin=0               --no-sort                       \
+      --no-bold                --black                         \
+      --tac                    --preview-window=right:35%:wrap \
+      --preview=$PVCMD         --jump-labels=123456789ABCDEF   \
+      --expect=f9,f10,f11,f12  --exact                         \
+      --extended
+      )
+  )
+
+  case $0 in
+    fzf-fc)
+      buffer=$selected;;
+    fzf-fc-append)
+      buffer="$buffer+$selected";;
+    fzf-fc-prepend)
+      buffer="$selected+$bufer";;
+    fzf-fc-widget)
+      buffer="$selected" ;;
+    fzf-fc-q)
+      buffer=${(q)selected};;
+    fzf-fc-qq)
+      buffer=${(qq)selected};;
+    fzf-fc-qqq)
+      buffer=${(qqq)selected};;
+    fzf-fc-qdash)
+      buffer=${(q-)selected};;
+    *)
+      : # noop
+  esac
+
+  print -Rz - "$buffer"
+  (( CURSOR += $#buffer + 1 ))
+} "$BUFFER"
+
+zle send-break
+
+#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :

@@ -1,0 +1,3 @@
+#compdef _gnu_generic 7z fdupes fzf jq ncdu notify-send pip pip3 qrencode rg
+#
+#  vim: set ft=zsh sw=2 tw=0 fdm=manual et wrap :

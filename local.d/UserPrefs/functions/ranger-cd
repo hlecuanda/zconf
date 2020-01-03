@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+# Automatically change the directory in bash after closing ranger
+#
+# This is a sourceable function for zsh to automatically change the directory to
+# the last visited one after ranger quits.
+# To undo the effect of this function, you can type "cd -" to return to the
+# original directory.
+emulate -L zsh
+
+() {
+  local tmp
+  exec </dev/tty
+
+  tmp=$(mktemp -t rcd.XXXXX)
+  $(which ranger) --choosedir="$tmp" ${@:-$(pwd)}
+  [[ -s "$tmp"  ]] && cd "$(cat $tmp)"
+  rm -f "$tmp" &> /dev/null
+
+  print -R $*
+
+} "$BUFFER"
+zle send-break
+
+#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :

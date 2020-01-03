@@ -1,0 +1,78 @@
+#compdef _asciinema asciinema
+#{{{              _ _
+#   __ _ ___  ___(_|_)_ __   ___ _ __ ___   __ _
+#  / _` / __|/ __| | | '_ \ / _ \ '_ ` _ \ / _` |
+# | (_| \__ \ (__| | | | | |  __/ | | | | | (_| |
+#  \__,_|___/\___|_|_|_| |_|\___|_| |_| |_|\__,_|
+#  _  _|_   _ _ ._ _ ._ | __|_o _ ._   _ _._o.__|_
+#  /__>| | (_(_)| | ||_)|(/_|_|(_)| | _>(_| ||_)|_
+#                    |                       |
+# h@h-lo.me 20191029 100403 -0700 PDT 1572368643 d(-_- )b...
+#
+# Copyright (c) 2016 Github zsh-users - http://github.com/zsh-users
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of the zsh-users nor the
+#       names of its contributors may be used to endorse or promote products
+#       derived from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" A
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL ZSH-USERS BE LIABLE FOR ANY
+# DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+# -----------------------------------------------------------------------------
+#  Description: Completion script for asciinema
+#  Author: Hector Lecuanda (https://github.com/hlecuanda)
+#  Based on sources by:
+#  dadrc (https://github.com/dadrc)
+#  Ben O'Hara (https://github.com/benohara)
+#}}}
+
+local -a cmds=(
+    'rec:Record terminal session'
+    'play:Replay terminal session'
+    'cat:Print full output of terminal session'
+    'upload:Upload locally saved terminal session to asciinema.org'
+    'auth:Manage recordings on asciinema.org account'
+)
+
+local curcontext="$curcontext" state line
+
+_arguments -C \
+    '-h[Print Usage]' \
+    '--help[Print Usage]'\
+    '--version[Print Version]' \
+    ':command:->command' \
+    '*::arg:->args'
+
+case $state in
+  (command)
+    _describe -t commands "" cmds
+    return ;;
+  (options)
+    case $word[2] in
+      auth)
+        _message 'No more optons, hit ENTER' ;;
+      cat)
+        _arguments '::-h:[help]' '--help:[help]' ':next arg:_files' ;;
+      play) ;;
+      rec) ;;
+      upload) ;;
+    esac
+    return ;;
+esac
+
+#  vim: set ft=zsh sw=2 tw=0 fdm=marker et :

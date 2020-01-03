@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+#
+#  _      __     __
+# | |__  / _|___/ _|
+# | '_ \| ||_  / |_
+# | | | |  _/ /|  _|
+# |_| |_|_|/___|_|
+#
+# fzf on hidden dirs. this is an autoloadeble function, place on fpath
+# will also work as an executable, if placed in your path and mode 755,
+# 775 or 777
+# h@h-lo.me 20191220 201836 -0800 PST 1576901916 d(-_- )b...
+#
+[[ $+commands[fzf]  ]] \
+    && { [[ $+commands[fd] ]] \
+        && FZF_DEFAULT_COMMAND="fd --hidden ." fzf "$@" \
+        || fzf "$@" # will be using find anyways
+    } \
+    || <<< "no fzf command!"
+
