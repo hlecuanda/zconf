@@ -5,8 +5,8 @@
 #
 # part of zconf
 
-(( $+commands[apt] )) \
-    && [[ $(fc -ln -1 ) =~ "(.*)apt(.*)"  ]] && command rehash
+
+  [[ $(fc -ln -1 ) =~ "(.*)install(.*)"  ]] && builtin rehash || true
 
 #TODO: select install command depending on $OSTYPE
 

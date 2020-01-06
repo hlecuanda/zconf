@@ -10,7 +10,7 @@
 # h@h-lo.me 20181126 122456 -0800 PST 1543263896 d(-_- )b...
 #
 # this function is meant to be autoloaded by prezto and bound
-# to a key using 
+# to a key using
 # bindkey C-XC-? xclip xclip-contents
 #
 typeset -a clipoards
@@ -19,7 +19,7 @@ format="%25s : %s\n"
 for label in $clipboards; do
     plabel="%B${label}%b%F{red}"
     content="%f$(xclip -o -selection ${label} 2&> /dev/null)"
-    print -Pf ${format} ${plabel} ${(q)content}
+    print -Pf ${format} ${plabel} ${(qq)content}
 done
 
 
