@@ -1,4 +1,3 @@
-" vim: set sw=2 tw=0 fdm=marker et foldmarker=\ {,\ } :
 "  _   _       _                  _                      _                 _
 " | | | |     | |    ___   __   _(_)_ __ ___  _ __ ___  | | ___   ___ __ _| |
 " | |_| |_____| |   / _ \  \ \ / / | '_ ` _ \| '__/ __| | |/ _ \ / __/ _` | |
@@ -42,18 +41,20 @@
     set confirm                              " Non UTF-8 Fallback
     set cursorcolumn                         " cursor crosshairs: nice.
     set diffopt=filler,vertical,foldcolumn:4,context:3 " options for diff
+  " set foldclose=all
+    set foldcolumn=0                         " fold indicator
+    set foldenable
+    set foldminlines=2
+  " set foldopen= all,block,hor,insert,jump,mark,percent,quickfix search,tag,undo,
+    set foldopen=hor,insert,jump,mark,percent,quickfix,search,tag,undo
     set noignorecase                         " see how smartcase works out
-    " set nolist                               " let ft or modeline decide on listmode
+  " set nolist                               " let ft or modeline decide on listmode
+    set numberwidth=1
     set nospell                              " speller off
-    set nowrap                               " no wrappin
+  " set nowrap                               " no wrappin
     set scrolljump=1                         " Smooth scrolling
     set scrolloff=1
-    set foldminlines=3
-    set foldcolumn=2                         " fold indicator
-    set foldenable
-    " set foldclose=all
-    " set foldopen= all,block,hor,insert,jump,mark,percent,quickfix search,tag,undo,
-    set foldopen=hor,insert,jump,mark,percent,quickfix,search,tag,undo
+    set shiftwidth=2                         " shiny&new: 2 old&busted:4
     set timeout
     set timeoutlen=1500                      " 1.5 sec timeout on mappings
     set ttimeoutlen=100                      " 1/10 sec timeout on keycides
@@ -65,7 +66,6 @@
       endfor
     endif
     unlet tokenfile
-    unlet token
 " }
 
 " Custom Key Mappings:
@@ -123,7 +123,7 @@
 
 " }
 "
-" Pligins Configuration:
+" Plugins Configuration:
 " {
 "" {
     "UnBundle unwanted plugins
@@ -211,9 +211,10 @@
         let g:NERDSpaceDelims=1
     " }
     " Airline: {
-           let g:airline_theme='dark'
+           let g:airline_theme='solarized'
             " let g:airline#extensions#syntastic#enabled = 1
             let g:airline#extensions#virtualenv#enabled = 1
+            let g:airline#extensions#tcm#enabled = 1
             "Promptline: {
             "
                 let g:airline#extensions#promptline#enabled = 0
@@ -348,6 +349,56 @@
 
         nmap <leader>s <Plug>(wildfire-quick-select)
     " }
+    " { UltiSnips:
+          let g:UltiSnipsSnippetDirectories=["UltiSnips",$HOME.'/.vim/hlo-snippets']
+          let g:UltiSnipsEditSplit = "context"
+    " }
+    " Spelunker: (Spelling)" {
+        " Enable spelunker.vim. (default: 1)
+        " 1: enable
+        " 0: disable
+        let g:enable_spelunker_vim = 1
+
+        " Enable spelunker.vim on readonly files or buffer. (default: 0)
+        " 1: enable
+        " 0: disable
+        let g:enable_spelunker_vim_on_readonly = 0
+
+        " Check spelling for words longer than set characters. (default: 4)
+        let g:spelunker_target_min_char_len = 4
+
+        " Max amount of word suggestions. (default: 15)
+        let g:spelunker_max_suggest_words = 15
+
+        " Max amount of highlighted words in buffer. (default: 100)
+        let g:spelunker_max_hi_words_each_buf = 100
+
+        " Spellcheck type: (default: 1)
+        " 1: File is checked for spelling mistakes when opening and saving. This
+        " may take a bit of time on large files.
+        " 2: Spellcheck displayed words in buffer. Fast and dynamic. The waiting time
+        " depends on the setting of CursorHold `set updatetime=1000`.
+        let g:spelunker_check_type = 2
+
+        " Highlight type: (default: 1)
+        " 1: Highlight all types (SpellBad, SpellCap, SpellRare, SpellLocal).
+        " 2: Highlight only SpellBad.
+        " FYI: https://vim-jp.org/vimdoc-en/spell.html#spell-quickstart
+        let g:spelunker_highlight_type = 1
+
+        " Disable default autogroup. (default: 0)
+        let g:spelunker_disable_auto_group = 1
+
+        " Create own custom autogroup to enable spelunker.vim for specific filetypes.
+        augroup spelunker
+          autocmd!
+          " Setting for g:spelunker_check_type = 1:
+          autocmd BufWinEnter,BufWritePost *.py,*.doc,*.1,*.txt,*.vim,*.js,*.jsx,*.json,*.md call spelunker#check()
+
+          " Setting for g:spelunker_check_type = 2:
+          autocmd CursorHold *.vim,*.js,*.jsx,*.json,*.md call spelunker#check_displayed_words()
+        augroup END
+    "" }
 " }
 
 " Custom Commands:
@@ -355,6 +406,7 @@
     " Source external scripts
     source ~/.zconf/vim.d/passport.vim
     source ~/.zconf/vim.d/ranger_chooser.vim
+    " source ~/.zconf/vim.d/hlo_file_template.vim
 
     " InsExCmd:
     " { Capture ex command output
@@ -394,7 +446,7 @@
         endfunction
         command! -nargs=0 -complete=command DateSep call DateSep()
     " }
-    "
+
     " CobolSignFlip:
     " { Flip the trailing sign to a leading sign and split columns with pipe
     " Arguments:
@@ -424,64 +476,34 @@
     " HloTitle:
     " { Desc: Creates a nice ascii-art title for scripts
     "Arguments: N/A
-        function! HloTitle(title)
-            let l:fname=expand('%:t')
-            let l:totallines=line("$")
-            call append(1,'#')
-            call cursor(3,1)
-            execute ':r! figlet -cw 80 ' . a:title
-            let l:newTotalLines=line("$")
-            let l:increase=l:totallines - l:newTotalLines
-            call setline(l:increase+1,strftime(localtime()))
-            call setline(l:increase+2,l:fname)
-            let l:titlerange=l:increase+3
+        function! HloTitle(titlestring)
+            if a:titlestring == ""
+              let l:fname=expand('%:t')
+            else
+              let l:fname=a:titlestring
+            endif
             call cursor(2,1)
-            2,l:titlerange call NERDComment('n','alignLeft')
+            execute ":normal 1i#"
+            execute ":normal dd"
+            execute ":normal 4P"
+            execute ':r! figlet -w 80 ' . l:fname
+            call cursor(9,1)
+            call setline(line("."),printf("h@h-lo.me %s %s ", strftime("%Y%m%d %H%M%S %z %Z %s"), "d(-_- )b..." ))
+            3,9s/^/# /
             %s/\s\+$//g
         endfunction
-        command! -nargs=1 -complete=command HloTitle silent call HloTitle(<q-args>)
-    " }
+        command! -complete=command -nargs=? HloTitle silent call HloTitle(<q-args>)
+" }
 
-    " ReloadHloConfig:
+    " HloReloadConfig:
     " { Reload local configs to vim
-        function! ReloadHloConfig()
-            source ~/src/Dotfiles/dotfiles/vim.d/vimrc.before.local
-            source ~/src/Dotfiles/dotfiles/vim.d/vimrc.local
-        endfunction
-        command! -nargs=0 -complete=command ReloadHloConfig silent call ReloadHloConfig()
-    " }
-
-    " CycleLineNumbers:
-    " { Increments foldcolumn with up to 3,when it cyckes back to 0
-        if !exists('g:numberstatus')
-          let g:numberstatus=0
-        endif
-        function! CycleLineNumbers()
-          let l:cycle=[
-                \'set number',
-                \'set relativenumber',
-                \['set norelativenumber','set nonumber']]
-          let g:numberstatus = g:numberstatus + 1
-          if g:numberstatus >= len(l:cycle)
-            let g:numberstatus = 0
-          endif
-          execute l:cycle[g:numberstatus]
-        endfunction
-        command! -nargs=0 -complete=command CycleLineNumbers silent call CycleLineNumbers()
-    " }
-
-    " ToggleFoldColumn:
-    " { Increments foldcolumn with up to 3,when it cyckes back to 0
-        function! ToggleFoldColumn()
-          let l:fc = &foldcolumn
-          let l:nfc = fc +1
-          if l:nfc >= 4
-            set foldcolumn=0
-          else
-            set foldcolumn=l:nfc
-          endif
-        endfunction
-        command! -nargs=0 -complete=command ToggleFoldColumn silent call ToggleFoldColumn()
+      if !exists('*HloReloadConfig')
+         function! HloReloadConfig()
+            source ~/.vimrc.before.local
+            source ~/.vimrc.local
+         endfunction
+         command! -nargs=0 -complete=command HloReloadConfig silent call HloReloadConfig()
+      endif
     " }
 
     " AppendEditLogLine:
@@ -497,12 +519,67 @@
 
     " AppendModeline:
     " { Append modeline after last line in buffer.
-        function! AppendModeline()
-            let l:modeline = printf(" vim: set ft=%s sw=%d tw=%d fdm=%s %set :", &filetype, &shiftwidth, &textwidth, &foldmethod, &expandtab ? '' : 'no')
-            let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
-            call append(line("$"), l:modeline)
+        function! SetModeline()
+
+            if match(&ft,'\.') != -1
+              let l:ft=' ft=' . &ft
+            else
+              let l:ft= ''
+            endif
+
+            if &foldmethod == 'marker'
+              let l:fdm = ' fdm=' . &foldmethod
+              let l:esc = ' "'
+              if ( &foldmarker != '{{{,}}}' )
+                let l:fmr=printf(' fmr=%s', escape(escape(&fmr,' "'),'\'))
+              else
+                let l:fmr='')
+              endif
+            else
+              let l:fdm = ''
+              let l:fmr = ''
+            endif
+
+            if &shiftwidth !=2
+              let l:sw  = ' sw=' . &shiftwidth
+            else
+              let l:sw  =  ''
+            endif
+
+            if &wrap
+              let l:wrap  = ' wrap'
+            else
+              let l:wrap  =  ''
+            endif
+
+            if ! &ai
+              let l:ai  = ' noai'
+            else
+              let l:ai  =  ''
+            endif
+
+            if &expandtab
+              let l:et    = ' et'
+            else
+              let l:et    =  ' noet'
+            endif
+
+            if &textwidth != 0
+              let l:tw = ' tw=' . &textwidth
+            else
+              let l:tw = ''
+            endif
+
+            let l:hlo = ' d(-_-;)bm  hlo.mx ' . strftime('%s')
+            let l:modes = l:ft . l:sw . l:tw . l:fdm . l:fmr . l:wrap . l:ai . l:et
+            let l:modeline = printf(' vim: %s :', l:modes )
+            let l:preml = substitute(&commentstring, '%s', l:hlo, '')
+            let l:modeline = substitute(&commentstring, '%s', l:modeline, '')
+            call append(line('$'), l:modeline)
+            call append(line('$')-1, l:preml)
             :normal G
         endfunction
+
         nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
     " }
 
@@ -518,52 +595,86 @@
             diffthis
         endfunction
         command! -nargs=0 -complete=command DiffOrig silent call DiffOrig()
-    " command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
+    " commnd! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
     " }
 
-    " FkeyVisuals:
-    " { Visual display of F-keys on statusline
-        function! FkeyVisuals()
-            call a:1.add_section('Statusline','F1:Help')
-            call a:1.add_section('Statusline','F2:Help')
-            call a:1.add_section('Statusline','F3:Help')
-            call a:1.add_section('Statusline','F4:Help')
-            call a:1.add_section('Statusline','F5:Help')
-            call a:1.add_section('Statusline','F6:Help')
+    " HloReflow:
+    " { Highlight changes vs original file
+        function! HloReflow(width)
+          cMARKXX<CR>
+          Gpkmaj:.,$s/ /\r/g<CR>
+          'aj:.,$g/^$/d<CR>
+          'aj:.,$sort<CR>
+          'aj:.,$s/\n/ /g<CR>
+          dd<CR>
+          /MARKXX<CR>
+          let l:oldtextwidth=&textwidth
+          set textwidth=a:width
+          pNDJO<Esc>jgqap
+          set textwidth=l:oldtextwidth
         endfunction
-        command! -nargs=0 -complete=command FkeyVisuals silent call FkeyVisuals()
+        command! -nargs=1 -complete=command HloReflow silent call HloReflow(<q-args>)
     " }
 
-    " Not In Use:
-    "{
-        " "Function: GenMapHelp { :Creates a nice ascii-art title for scripts
-        " "Desc: Generates mapping help screen from config
-        " "Arguments: N/A
-        "     function! GenMapHelp(mapname)
-        "         silent execute 'InsExCmd '.a:mapname
-        "         %!cut -c4-|sort
-        "         g/^<Plug/d
-        "         g/^$/d
-        "         %s/\ \*\|\ &/  /
-        "         %s/\v\s+/ ¡ /
-        "         %s/\v(.*)/  \1/
-        "         nohlsearch
-        "         %Tabularize /¡/
-        "     endfunction
-        " " }
+    " ToggleTextWidth:
+    " { Toggles the textwidh setting for text flow editing
+    let g:oldtextwidth=&textwidth
+        function! ToggleTextWidth()
+          if &textwidth != 0
+            let g:oldtextwidth = &textwidth
+            set textwidth=0
+            set nospell
+          else
+            if exists(g:oldtextwidth)
+              exec 'set texwidth='. g:oldtextwidth
+              set spell
+            else
+              set textwidth=80
+              set spell
+            endif
+          endif
+        endfunction
+        command! -nargs=0 -complete=command ToggleTextWidth silent call ToggleTextWidth()
+    " }
 
-        " "Function: MapHelp { :Creates a nice ascii-art title for scripts
-        " "Desc: Displays mappings on a temp buffer using contents from GenMapHelp
-        " "Arguments: mapname: one of 'normal','visual',etc
-        "     function! MapHelp(mapname)
-        "         10new
-        "         set filetype=vim
-        "         silent call GenMapHelp(a:mapname)
-        "         setlocal readonly
-        "         1
-        "     endfunction
-        "     command! -nargs=1 -complete=command MapHelp silent call MapHelp(<q-args>)
-        " " }
+    " HloFzfMaps:
+    " {  ist mode mappings via fzf, execute when selected
+    function! FzfMapColumnMarker(k,v)
+      let l:star = stridx(a:v,'*',2)
+      let l:ampr = stridx(a:v,'&',2)
+      let l:arrb = stridx(a:v,'@',2)
+      if (l:star + l:ampr + l:arrb ) == -3
+        let lspace = stridx(a:v,' ',2)
+      endif
+      let l:rhs_end   = (l:star + l:ampr + l:arrb +l:space ) + 3
+      let l:splitstr  = a:v[0:1].'|'.a:v[2:(l:rhs_end -1)].'|'
+      let l:splitstr += a:v[l:rhs_end].'|'
+      let l:splitstr += a:v[(l:rhs_end+1):]
+      return l:splitstr
+    endfunction
+    function! HloFzfMaps()
+      let FzfMapColumnMarkerFR=function("FzfMapColumnMarker")
+      let l:rawmaps = split(execute(':echomsg'),"\n")
+      let l:maps=map(l:rawmaps,FzfMapColumnMarkerFR)
+      let l:fzfopts= '--header="---Hdr-goeth--heree----"
+            \ --layout=reverse-list  --inline-info --margin=0
+            \ --no-bold  --tac  --exact --jump-labels=123456789ABCDEF
+            \ --border --preview-window=right --layout-reverse
+            \ --extended '
+      call fzf#run({
+            \ 'sink':'echomsg',
+            \ 'source': l:maps]})
+            " \ 'options': l:fzfopts })
+    endfunction
+    command! -nargs=0 -complete=command HloFzfMaps call HloFzfMaps()
+    nnoremap <F11> :HloFzfMaps <CR>
+    nnoremap <S-F11> :HloFzfMaps <CR>
+    " }
+
+    " Buffers:
+    " {  Vim buffers, fzf style
+    let fzfmapopts = {'source': map(range(1, bufnr('$')), 'bufname(v:val)')}
+    command! -bang Buffers call fzf#run(fzf#wrap('buffers', fzfmapopts <bang>0))
     " }
 
 " Autocommands:
@@ -717,7 +828,8 @@ set background=dark
 " :call togglebg#map("<F5>")
 " Missing Solarized Groups For Terminals: " {
 hi! Comment cterm=italic
-hi! Search ctermbg=NONE ctermfg=10
+hi! Search term=NONE cterm=NONE ctermbg=0 ctermfg=white
+" hi! Search ctermbg=0 ctermfg=10 guifg=Black guibg=yellow
 hi! LineNr ctermbg=234
 hi! CursorLine ctermbg=0
 
@@ -729,35 +841,39 @@ hi! link FoldColumn   LineNr
 
 hi! IncSearch ctermbg=NONE ctermfg=9 cterm=italic
 " }
-" }
-" Set gui font {
 if has('gui_running')
-" set background=light
-" set guifont=Envy\ Code\ R\ for\ Powerline:h14
-" set guifont=Envy\ Code\ R\ 10
-" set guifont=Monoisome\ 9
-" set guifont DejaVu\ Sans\ Mono\ 8
-set lines=50
 set columns=85
-" set noantialias
-" set fuoptions=maxvert,maxhorz
-" set transparency=0
-" set guioptions=egm
+set lines=50
+" set background=light
+set guifont=Monoisome\ 9
 set guioptions=Paegm
 " set fullscreen
+" set fuoptions=maxvert,maxhorz
+" set guioptions=egm
+" set noantialias
+" set transparency=0
 endif
 " end set gui font  }
 " } end Terminal and GUI
+"
 " }
 "
 " Changelog " {5
+" h@h-lo.me 20200111 020128 -0800 PST 1578736888 d(-_- )b...
+" A better Modeline
+" h@h-lo.me 20200110 144125 -0800 PST 1578696085 d(-_- )b...
+" Added HloResortCmd
 " h@h-lo.me 20200112 233205 -0800 PST 1578900725 d(-_- )b...
 " Removed config for old unused plugins
 " h@h-lo.me 20200112 201057 -0800 PST 1578888657 d(-_- )b...
-  " Missing Solarized Groups For Terminals
-  " fixed gh token leak
+" Missing Solarized Groups For Terminals
+" fixed gh token leak
 " h@h-lo.me 20180211 162014 -0800 PST 1518394814 d(-_- )b...
 " h@h-lo.me 20180211 162027 -0800 PST 1518394827 d(-_- )b...
-" h@h-lo.me 20190421 171844 -0700 PDT 1555892324 d(-_- )b...
-" h@h-lo.me 20190518 135724 -0700 PDT 1558213044 d(-_- )b...
-"" }
+" h@h-lo.me 20191024 220703 -0700 PDT 1571980023 d(-_- )b...
+" h@h-lo.me 20191025 003538 -0700 PDT 1571988938 d(-_- )b...
+" h@h-lo.me 20200102 182757 -0800 PST 1578018477 d(-_- )b...
+" h@h-lo.me 20200108 213528 -0800 PST 1578548128 d(-_- )b...
+
+" d(-_-;)bm  hlo.mx 1578754958
+" vim:  fdm=marker fmr=\"\ {,\"\ } et :
