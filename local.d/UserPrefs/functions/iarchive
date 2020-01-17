@@ -1,0 +1,66 @@
+#!/usr/bin/env zsh
+
+function usage () { # ###
+{base64 -d | gunzip | sed s/xxx/$1/g | /bin/cat } <<EOH
+H4sIAAg3IV4CA11SXWvcMBB8v18xb03gdNgu6V0NBy20hUCgB0kfSghFZ60jEVkykpy7+/dd+YM0
+9Yul3Z3Z3RkBwPl8rmFNTDjJy1E2L+hko40jyMD/V1JofG8owreQDkOwqxXjMET5TPV0ZhI8+j4Z
+7+ITHrnmaUrMsXq8AM0ayydEY01/9DKoOVIzJeEtGslSk+GQEcb1Q5pZFL7d3h/uvv5eM4sysbfy
+sp9DzNJ45xiI5DEnl3pcKWrlYBPq4noma/Hj9u77ehqpNZb2+f5upKQpkyZyaVRhLPhvJr3Xtl82
+07ScF5pDMI4n0iYiJ2eQ+VeOmJRx70CBpMp6500iZTvQBt9hrJz0/TnpC8HKiuyPglDsHKEb0iCt
+vYDOjR0iG7nmZYx75qIL0okpTTdYMdIk6cgPkatPxlo0Mq/NZlMIPmymVr9GMLOfTNK5WSdf+FW4
+PJuLzJ6bj3AtXynHqW3Zhxn+wCIu6o/CgbUYlR1CYGUXrz5E9MF0MlzeHsDEoL9oYf2mI1RFVRRl
++QnlrtrdbCGKXVHgcP+A8mb7uap25cct1JX4I3B93Gx4gtVfg92sCOsCAAA=
+EOH
+} # #..
+#
+# curl 'https://web.archive.org/cdx/search/cdx?fl=statuscode,timestamp,original&collapse=urlkey&matchType=prefix&url=http://www.conchord.org'
+# getting a list of all the URLs in the Wayback Machine with a given prefix:
+
+setopt localoptions
+local DSP
+local -A withvals
+local -A hlp
+local -A dbg
+local url='https://web.archive.org/cdx/search/cdx?fl=statuscode,timestamp,original&collapse=urlkey&matchType=prefix'
+
+[[ -n $DISPLAY ]] && withvals[-d]="$DISPLAY" || withvals[-d]=""
+
+zparseopts -D -E -A withvals -- \
+  c      -clipboard              \
+  D+=dbg                         \
+  d:     -display                \
+  f:     -file:                  \
+  h=hlp  -help=h                 \
+  i      -stdin
+
+(( $+dbg )) && print -f "\n\nwithvals:%s \n hlp:%s \n" $withvals $hlp
+(( $#dbg >= 2 )) && setopt xtrace
+(( $#dbg >= 3 )) && setopt sourcetrace
+(( $#dbg >= 4 )) && setopt verbose
+
+(( $+hlp )) \
+  && usage $0 ; return 1
+
+[[ -z $withvals[-d] ]] \
+  && print "\$DISPLAY not set, and no -d option used" ; return 1
+
+(( $withvals > 2 )) \
+  && print "-c, -f and -i are mutually exclusive, please \
+  use only one" ; return 1
+
+if (( $+withvals[-i] )); then {
+  query="$(<&0)"
+} elif (($+withvals[-f] )); then {
+  while read $(cat $withvals[-f]); do
+    echo "not implemented"
+  done
+} elif (( +withvals[-c] )) {
+  query="$(xclip -o -selection clipboard)"
+} else {
+  query="$(xclip -o -selection primary)"
+}
+
+curl -s ${URL}&${query}
+(( $+dbg )) && unsetop xtrace sourcetrace verbose
+
+#  vim: set ft=zsh sw=2 tw=0 fdm=marker fmr=\#\#\#,\#.. et :

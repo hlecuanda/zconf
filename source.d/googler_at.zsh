@@ -1,337 +1,197 @@
-
 # googler @t alias list
+# Author:Hector Lecuanda
+# email: h@hlo.mx
+# twitter @hlecuanda
+# Based on work by
 # Author: Arun Prakash Jana
 # email: engineerarun@gmail.com
 #
 # To request key addition or removal upstream, please drop an email.
-alias googler='googler --noua -n4 --url-handler xdg-open'
-    # A
+if [[ $commands[googler] ]] {
 
-# Amazon.com
-  alias @a='googler -w amazon.com'
-# # AlternativeTo
-#   alias @alt='googler -w alternativeto.net'
-# # Android Developers
-#   alias @android='googler -w developer.android.com'
-# # ARM Information Center
-#   alias @arm='googler -w infocenter.arm.com'
-# # asciinema
-#   alias @asciinema='googler -w asciinema.org'
-# # Ask Ubuntu
-#   alias @askubuntu='googler -w askubuntu.com'
-# # Arch User Repository
-#   alias @aur='googler -w aur.archlinux.org'
-# # Arch Wiki
-#   alias @aw='googler -w wiki.archlinux.org'
-# AZLyrics
-  alias @azl='googler -w azlyrics.com'
+  function googler () {
+    # setopt localoptions xtrace sourcetrace
+    local opts uh handleropt=""
+    local -a opts=( -w )
+    handlers=( c chrome f firefox w w3m )
+    if [[ -n $DISPLAY ]] {
+      zmodload zsh/zutil        || { <<< 'Requires zparseopts'; false; return }
+      [ -z $commands[googler] ] && { <<< 'Requires googler'   ; false; return }
+      zparseopts -D -E -M -K -a opts -- \
+        c     -chrome=c                 \
+        f     -firefox=f                \
+        w     -w3m=w
+      #
+      for opt in $opts
+        case $opt in
+          -c)
+            (( $+commands[google-chrome] )) \
+              && uh="google-chrome" \
+              || uh="chromium"
+            break ;;
+          -f)
+            uh="firefox" ;;
+          -w)
+            uh="w3m"
+            break ;;
+          *)
+            invalid option "$opt"
+            return 2
+        esac
+      #
+      handleropt="--url-handler $uh"
+      # print "opts: $handleropt"
+      =googler -n4 ${(z)handleropt} $*
+    }
+  }
 
-#     # B
+  autoload googler;
 
-# # BBC
-#   alias @bbc='googler -w bbc.co.uk'
-# # Encyclopaedia Britannica
-#   alias @britannica='googler -w britannica.com'
+# zstyle :googler:*:*:searchtype:site {stub,descr}
+  function sitesearch () {
+    setopt localoptions xtrace sourcetrace ;
+    local -AU siteurls sitedscr sitesrch ;
+    sitedb \
+      | awk -F : '{ $1 $2 $3 $4 }' \
+      | while read stub url desc styp
+        do
+          siteurls+=( $stub $url ) ;
+          sitedscr+=( $stub $desc ) ;
+          sitesrch+=( $stub $styp ) ;
+        done
+  };
 
-#     # C
+  function sitedb () {
+    setopt localoptions xtrace sourcetrace ;
+    <<< ' @a              : amazon.com                                : Amazon.com                                         :   :
+  @alt            : alternativeto.net                         : AlternativeTo                                      :   :
+  @android        : developer.android.com                     : Android Developers                                 :   :
+  @arm            : infocenter.arm.com                        : ARM Information Center                             :   :
+  @asciinema      : asciinema.org                             : asciinema                                          :   :
+  @askubuntu      : askubuntu.com                             : Ask Ubuntu                                         :   :
+  @aur            : aur.archlinux.org                         : Arch User Repository                               :   :
+  @aw             : wiki.archlinux.org                        : Arch Wiki                                          :   :
+  @azl            : azlyrics.com                              : AZLyrics                                           :   :
+  @bbc            : bbc.co.uk                                 : BBC                                                :   :
+  @britannica     : britannica.com                            : Encyclopaedia Britannica                           :   :
+  @cb             : crunchbase.com                            : crunchbase                                         :   :
+  @chrome         : chrome.google.com                         : Chrome Extensions                                  :   :
+  @cl             : craigslist.org                            : craigslist                                         :   :
+  @cmd            : commandlinefu.com                         : commandlinefu                                      :   :
+  @cnn            : cnn.com                                   : CNN                                                :   :
+  @comedy         : cc.com                                    : Comedy Central                                     :   :
+  @cpp            : en.cppreference.com                       : CPP Reference                                      :   :
+  @cracked        : cracked.com                               : Cracked.com                                        :   :
+  @cricinfo       : espncricinfo.com                          : Cricinfo                                           :   :
+  @d              : thefreedictionary.com                     : The Free Dictionary                                :   :
+  @di             : dictionary.com                            : Dictionary.com                                     :   :
+  @distrowatch    : distrowatch.com                           : DistroWatch                                        :   :
+  @dpkg           : packages.debian.org                       : Debian Package Search                              :   :
+  @e              : ebay.com                                  : eBay                                               :   :
+  @eg             : epguides.com                              : Episode Guides                                     :   :
+  @embedded       : embedded.com                              : Embedded                                           :   :
+  @espn           : espn.com                                  : ESPN                                               :   :
+  @etsy           : etsy.com                                  : Etsy                                               :   :
+  @etym           : etymonline.com                            : Online Etymology Dictionary                        :   :
+  @fb             : facebook.com                              : Facebook                                           :   :
+  @fd             : fandango.com                              : Fandango Movie Reviews                             :   :
+  @firefox        : addons.mozilla.org                        : Firefox Add-ons                                    :   :
+  @fk             : flipkart.com                              : Flipkart                                           :   :
+  @forbes         : forbes.com                                : Forbes                                             :   :
+  @forvo          : forvo.com                                 : Forvo                                              :   :
+  @ft             : markets.ft.com                            : Financial Times                                    :   :
+  @g              :                                           : Google Search                                      :   :
+  @genius         : genius.com                                : Genius Lyrics                                      :   :
+  @gh             : github.com                                : GitHub                                             :   :
+  @gnu            : gnu.org                                   : GNU                                                :   :
+  @goal           : goal.com                                  : Goal                                               :   :
+  @goear          : goear.com                                 : Goear Music                                        :   :
+  @gpg            : gnupg.org                                 : The GNU Privacy Guard                              :   :
+  @gutenberg      : gutenberg.org                             : Project Gutenberg                                  :   :
+  @had            : hackaday.com                              : Hackaday                                           :   :
+  @history        : history.com                               : History                                            :   :
+  @hn             : news.ycombinator.com                      : Hacker News                                        :   :
+  @hsw            : howstuffworks.com                         : HowStuffWorks                                      :   :
+  @htf            : howtoforge.com                            : HowtoForge                                         :   :
+  @hulu           : hulu.com                                  : Hulu                                               :   :
+  @ieee           : ieee.org                                  : IEEE                                               :   :
+  @ietf           : ietf.org                                  : IETF                                               :   :
+  @ietfd          : datatracker.ietf.org                      : IETF Datatracker                                   :   :
+  @ig             : instagram.com                             : Instagram                                          :   :
+  @imdb           : imdb.com                                  : IMDB                                               :   :
+  @iradio         : internet-radio.com                        : Internet Radio                                     :   :
+  @kernel         : kernel.org                                : The Linux Kernel Archives                          :   :
+  @khan           : khanacademy.org                           : Khan Academy                                       :   :
+  @lfm            : last.fm                                   : Last.fm                                            :   :
+  @li             : linkedin.com                              : LinkedIn                                           :   :
+  @linux          : linux.com                                 : Linux.com                                          :   :
+  @lj             : linuxjournal.com                          : Linux Journal                                      :   :
+  @lq             : linuxquestions.org                        : LinuxQuestions                                     :   :
+  @lqw            : wiki.linuxquestions.org                   : LQWiki                                             :   :
+  @lwn            : lwn.net                                   : LWN.net                                            :   :
+  @lxr            : lxr.free-electrons.com                    : Linux Cross Reference                              :   :
+  @man            : manpages.ubuntu.com                       : Ubuntu Manpage                                     :   :
+  @man7           : man7.org                                  : Linux manual page                                  :   :
+  @mangar         : mangareader.net                           : Manga Reader                                       :   :
+  @mlb            : mlb.mlb.com                               : MLB                                                :   :
+  @mr             : macrumors.com                             : Mac Rumors                                         :   :
+  @n              :                                           : Google News                                        :   :
+  @nature         : nature.com                                : Nature Research                                    :   :
+  @nba            : nba.com                                   : NBA                                                : N :
+  @ng             : nationalgeographic.com                    : National Geographic                                : N :
+  @nptel          : nptel.ac.in                               : National Programme on Technology Enhanced Learning : N :
+  @ocw            : ocw.mit.edu                               : MIT OpenCourseWare                                 : N :
+  @oembedded      : openembedded.org                          : Open Embedded                                      :   :
+  @omg            : omgubuntu.co.uk                           : OMG! Ubuntu!                                       :   :
+  @op             : opensubtitles.org                         : OpenSubtitles                                      :   :
+  @opensource     : opensource.com                            : Opensource.com                                     :   :
+  @osalt          : osalt.com                                 : Open Source Alternative                            :   :
+  @osdev          : wiki.osdev.org                            : OSDev Wiki                                         :   :
+  @owrt           : openwrt.org                               : OpenWrt                                            :   :
+  @ox             : en.oxforddictionaries.com                 : Oxford Dictionary                                  :   :
+  @patent         : patents.google.com                        : Google Patents                                     :   :
+  @tpb            : thepiratebay.org                          : The Pirate Bay                                     :   :
+  @play           : play.google.com                           : Android Apps                                       :   :
+  @playonlinux    : playonlinux.com                           : PlayOnLinux                                        :   :
+  @python         : docs.python.org                           : Python documentation                               :   :
+  @q              : quora.com                                 : Quora                                              :   :
+  @quotes         : en.wikiquote.org                          : Wikiquote                                          :   :
+  @r              : reddit.com                                : Reddit                                             :   :
+  @rd             : rd.com                                    : Readers Digest                                     :   :
+  @rfc            : rfc-editor.org                            : RFC Reader                                         :   :
+  @rpm            : rpmfind.net                               : Rpmfind                                            :   :
+  @rt             : rottentomatoes.com                        : Rotten Tomatoes                                    :   :
+  @slang          : onlineslangdictionary.com                 : OnlineSlangDictionary                              :   :
+  @so             : stackoverflow.com                         : Stack Overflow                                     :   :
+  @softpedia      : softpedia.com                             : Softpedia                                          :   :
+  @sourceforge    : sourceforge.net                           : SurceForge                                         :   :
+  @ss             : subscene.com                              : Subscene                                           :   :
+  @st             : store.steampowered.com                    : Steam                                              :   :
+  @t              : thesaurus.com                             : Thesaurus.com                                      :   :
+  @ted            : ted.com                                   : TED Talks                                          :   :
+  @tldp           : tldp.org                                  : The Linux Documentation Project                    :   :
+  @tldrlegal      : tldrlegal.com                             : tl:drLegal                                         :   :
+  @to             : torrentz2.eu                              : Torrentz2                                          :   :
+  @tpb            : thepiratebay.org                          : The Pirate Bay                                     :   :
+  @tunein         : tunein.com                                : TuneIn                                             :   :
+  @tw             : twitter.com                               : Twitter                                            :   :
+  @twitch         : twitch.tv                                 : Twitch                                             :   :
+  @ubuntuforums   : ubuntuforums.org                          : Ubuntu Forums                                      :   :
+  @ubuntupackages : packages.ubuntu.com                       : Ubuntu Packages                                    :   :
+  @uwiki          : wiki.ubuntu.com                           : Ubuntu Wiki                                        :   :
+  @vim            : vim.org                                   : Vim Wiki                                           :   :
+  @w              : en.wikipedia.org                          : Wikipedia                                          :   :
+  @walmart        : walmart.com                               : Walmart                                            :   :
+  @weather        : weather.com                               : Weather.com                                        :   :
+  @wikia          : wikia.com                                 : Wikia                                              :   :
+  @xkcd           : xkcd.com                                  : XKCD                                               :   :
+  @y              : yahoo.com                                 : Yahoo                                              :   :
+  @yf             : finance.yahoo.com                         : Yahoo Finance                                      :   :
+  @yt             : youtube.com                               : YouTube                                            :   :
+  @zdnet          : zdnet.com                                 : ZDNet                                              :   :
+  '
+  }
 
-# # crunchbase
-#   alias @cb='googler -w crunchbase.com'
-# # Chrome Extensions
-  alias @chrome='googler -w chrome.google.com'
-# # craigslist
-#   alias @cl='googler -w craigslist.org'
-# commandlinefu
-  alias @cmd='googler -w commandlinefu.com'
-# # CNN
-#   alias @cnn='googler -w cnn.com'
-# # Comedy Central
-#   alias @comedy='googler -w cc.com'
-# # CPP Reference
-#   alias @cpp='googler -w en.cppreference.com'
-# # Cracked.com
-#   alias @cracked='googler -w cracked.com'
-# # Cricinfo
-#   alias @cricinfo='googler -w espncricinfo.com'
 
-#     # D
-
-# # The Free Dictionary
-#   alias @d='googler -w thefreedictionary.com'
-# # Dictionary.com
-#   alias @di='googler -w dictionary.com'
-# # DistroWatch
-#   alias @distrowatch='googler -w distrowatch.com'
-# # Debian Package Search
-#   alias @dpkg='googler -w packages.debian.org'
-
-#     # E
-
-# # eBay
-   alias @e='googler -w ebay.com'
-# # Episode Guides
-#   alias @eg='googler -w epguides.com'
-# # Embedded
-#   alias @embedded='googler -w embedded.com'
-# # ESPN
-#   alias @espn='googler -w espn.com'
-# # Etsy
-#   alias @etsy='googler -w etsy.com'
-# # Online Etymology Dictionary
-#   alias @etym='googler -w etymonline.com'
-
-#     # F
-
-# Facebook
-  alias @fb='googler -w facebook.com'
-# # Fandango Movie Reviews
-#   alias @fd='googler -w fandango.com'
-# # Firefox Add-ons
-  alias @firefox='googler -w addons.mozilla.org'
-# # Flipkart
-#   alias @fk='googler -w flipkart.com'
-# # Forbes
-#   alias @forbes='googler -w forbes.com'
-# # Forvo
-#   alias @forvo='googler -w forvo.com'
-# # Financial Times
-#   alias @ft='googler -w markets.ft.com'
-
-#     # G
-
-# Google Search
-  alias @g='googler'
-# # Genius Lyrics
-#   alias @genius='googler -w genius.com'
-# GitHub
-  alias @gh='googler -w github.com'
-# # GNU
-#   alias @gnu='googler -w gnu.org'
-# # Goal
-#   alias @goal='googler -w goal.com'
-# # Goear Music
-#   alias @goear='googler -w goear.com'
-# # The GNU Privacy Guard
-#   alias @gpg='googler -w gnupg.org'
-# Project Gutenberg
-  alias @gutenberg='googler -w gutenberg.org'
-
-#     # H
-
-# # Hackaday
-#   alias @had='googler -w hackaday.com'
-# # History
-#   alias @history='googler -w history.com'
-# # Hacker News
-#   alias @hn='googler -w news.ycombinator.com'
-# # HowStuffWorks
-#   alias @hsw='googler -w howstuffworks.com'
-# # HowtoForge
-#   alias @htf='googler -w howtoforge.com'
-# # Hulu
-#   alias @hulu='googler -w hulu.com'
-
-#     # I
-
-# # IEEE
-#   alias @ieee='googler -w ieee.org'
-# # IETF
-#   alias @ietf='googler -w ietf.org'
-# # IETF Datatracker
-#   alias @ietfd='googler -w datatracker.ietf.org'
-# Instagram
-  alias @ig='googler -w instagram.com'
-# IMDB
-  alias @imdb='googler -w imdb.com'
-# # Internet Radio
-#   alias @iradio='googler -w internet-radio.com'
-
-#     # J
-
-#     # K
-
-# # The Linux Kernel Archives
-#   alias @kernel='googler -w kernel.org'
-# # Khan Academy
-#   alias @khan='googler -w khanacademy.org'
-
-#     # L
-
-# # Last.fm
-  alias @lfm='googler -w last.fm'
-# # LinkedIn
-#   alias @li='googler -w linkedin.com'
-# # Linux.com
-#   alias @linux='googler -w linux.com'
-# # Linux Journal
-#   alias @lj='googler -w linuxjournal.com'
-# # LinuxQuestions
-#   alias @lq='googler -w linuxquestions.org'
-# # LQWiki
-#   alias @lqw='googler -w wiki.linuxquestions.org'
-# # LWN.net
-#   alias @lwn='googler -w lwn.net'
-# # Linux Cross Reference
-#   alias @lxr='googler -w lxr.free-electrons.com'
-
-#     # M
-
-# # Ubuntu Manpage
-#   alias @man='googler -w manpages.ubuntu.com'
-# # Linux manual page
-#   alias @man7='googler -w man7.org'
-# # Manga Reader
-#   alias @mangar='googler -w mangareader.net'
-# # MLB
-#   alias @mlb='googler -w mlb.mlb.com'
-# # Mac Rumors
-#   alias @mr='googler -w macrumors.com'
-
-#     # N
-
-# # Google News
-#   alias @n='googler -N'
-# # Nature Research
-#   alias @nature='googler -N nature.com'
-# # NBA
-#   alias @nba='googler -N nba.com'
-# # National Geographic
-#   alias @ng='googler -N nationalgeographic.com'
-# # National Programme on Technology Enhanced Learning
-#   alias @nptel='googler -w nptel.ac.in'
-
-#     # O
-
-# # MIT OpenCourseWare
-#   alias @ocw='googler -w ocw.mit.edu'
-# # Open Embedded
-#   alias @oembedded='googler -w openembedded.org'
-# # OMG! Ubuntu!
-#   alias @omg='googler -w omgubuntu.co.uk'
-# # OpenSubtitles
-#   alias @op='googler -w opensubtitles.org'
-# # Opensource.com
-#   alias @opensource='googler -w opensource.com'
-# # Open Source Alternative
-#   alias @osalt='googler -w osalt.com'
-# # OSDev Wiki
-#   alias @osdev='googler -w wiki.osdev.org'
-# # OpenWrt
-#   alias @owrt='googler -w openwrt.org'
-# # Oxford Dictionary
-#   alias @ox='googler -w en.oxforddictionaries.com'
-
-#     # P
-
-# # Google Patents
-#   alias @patent='googler -w patents.google.com'
-# The Pirate Bay
-  alias @tpb='googler -w thepiratebay.org'
-# # Android Apps
-#   alias @play='googler -w play.google.com'
-# # PlayOnLinux
-#   alias @playonlinux='googler -w playonlinux.com'
-# Python documentation
-  alias @python='googler -w docs.python.org'
-
-#     # Q
-
-# # Quora
-#   alias @q='googler -w quora.com'
-# # Wikiquote
-#   alias @quotes='googler -w en.wikiquote.org'
-
-#     # R
-
-# # Reddit
-#   alias @r='googler -w reddit.com'
-# # Reader's Digest
-#   alias @rd='googler -w rd.com'
-# # RFC Reader
-#   alias @rfc='googler -w rfc-editor.org'
-# # Rpmfind
-#   alias @rpm='googler -w rpmfind.net'
-# # Rotten Tomatoes
-#   alias @rt='googler -w rottentomatoes.com'
-
-#     # S
-
-# # OnlineSlangDictionary
-#   alias @slang='googler -w onlineslangdictionary.com'
-# Stack Overflow
-  alias @so='googler -w stackoverflow.com'
-# # Softpedia
-#   alias @softpedia='googler -w softpedia.com'
-# # SurceForge
-#   alias @sourceforge='googler -w sourceforge.net'
-# # Subscene
-#   alias @ss='googler -w subscene.com'
-# # Steam
-#   alias @st='googler -w store.steampowered.com'
-
-#     # T
-
-# # Thesaurus.com
-#   alias @t='googler -w thesaurus.com'
-# # TED Talks
-#   alias @ted='googler -w ted.com'
-# # The Linux Documentation Project
-#   alias @tldp='googler -w tldp.org'
-# tl;drLegal
-  alias @tldrlegal='googler -w tldrlegal.com'
-# Torrentz2
-  alias @to='googler -w torrentz2.eu'
-# # The Pirate Bay
-#   alias @tpb='googler -w thepiratebay.org'
-# # TuneIn
-#   alias @tunein='googler -w tunein.com'
-# Twitter
-  alias @tw='googler -w twitter.com'
-# # Twitch
-#   alias @twitch='googler -w twitch.tv'
-
-#     # U
-
-# # Ubuntu Forums
-#   alias @ubuntuforums='googler -w ubuntuforums.org'
-# # Ubuntu Packages
-#   alias @ubuntupackages='googler -w packages.ubuntu.com'
-# # Ubuntu Wiki
-#   alias @uwiki='googler -w wiki.ubuntu.com'
-
-#     # V
-
-# # Vim Wiki
-#   alias @vim='googler -w vim.org'
-
-#     # W
-
-# Wikipedia
-  alias @w='googler -w en.wikipedia.org'
-# # Walmart
-#   alias @walmart='googler -w walmart.com'
-# # Weather.com
-#   alias @weather='googler -w weather.com'
-# # Wikia
-#   alias @wikia='googler -w wikia.com'
-
-#     # X
-
-# XKCD
-  alias @xkcd='googler -w xkcd.com'
-
-#     # Y
-
-# # Yahoo
-#   alias @y='googler -w yahoo.com'
-# # Yahoo Finance
-#   alias @yf='googler -w finance.yahoo.com'
-# YouTube
-  alias @yt='googler -w youtube.com'
-
-#     # Z
-
-# # ZDNet
-#   alias @zdnet='googler -w zdnet.com'
-
-# #  vim: set ft=zsh sw=4 tw=0 fdm=manual et :
+}
+  #  vim: set ft=zsh sw=2 tw=0 fdm=manual et :

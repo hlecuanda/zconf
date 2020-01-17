@@ -1,7 +1,7 @@
 # Setup fzf
 # ---------
 
-typeset fzfpath=~/.vim/bundle/fzf
+typeset fzfpath=~/src/fzf
 typeset binf=${fzfpath}/bin
 
 [[ ! "$PATH" == *${binf}* ]] \
@@ -18,16 +18,17 @@ typeset binf=${fzfpath}/bin
     [[ -v TMUX ]] && $commands[fzf-tmux] "$@" || $commands[fzf] "$@"
   }
    # Auto-completion
-  [[ -s ${comp} ]] \
-    && { [[ $- == *i* ]] && source "${comp}" 2> /dev/null }
-   # Key bindings
-  [[ -s ${bind} ]] \
-    && { source "${bind}" }
+  # [[ -s ${comp} ]] \
+  #   && { [[ $- == *i* ]] && source "${comp}" 2> /dev/null }
+  #  # Key bindings
+  # [[ -s ${bind} ]] \
+  #   && { source "${bind}" }
 
   get_execs="fselect path from / where user_exec = true 2&> /dev/null"
   # executables="$(get_execs) | fzf"
 
-  export FZF_DEFAULT_OPTS='-e --preview-window=right:45% --ansi --inline-info --border --layout reverse --height 40%'
+  export FZF_DEFAULT_OPTS="-e --preview 'scope {} || tree -C {} ' --preview-window=right:45% --ansi --inline-info --border --layout reverse --height 40%"
+
   # export FZF_COMPLETION_TRIGGER='~~' # Use ~~ as the trigger sequence instead of the default **
   export FZF_COMPLETION_OPTS='+c -x'
   export FZF_CTRL_T_COMMAND= # FZF_CTRL_T_COMMAND to override the default command

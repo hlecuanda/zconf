@@ -3,11 +3,22 @@
 #
 #   unfunction autorehash && autoload autorehash
 #
+# h@h-lo.me 20191209 160736 -0800 PST 1575936456 d(-_- )b...
 # part of zconf
 
-(( $+commands[apt] )) \
-    && [[ $(fc -ln -1 ) =~ "(.*)apt(.*)"  ]] && command rehash
+case "$(fc -ln -1 )" in
+  (*apt install*)
+    rehash ;;
+  (*dpkg -i*)
+    rehash ;;
+  (*pkg install*)
+    rehash ;;
+  (*make install*)
+    rehash ;;
+  *)
+    return
+esac
 
 #TODO: select install command depending on $OSTYPE
 
-#  vim: set ft=zsh sw=4 tw=0 fdm=manual et :
+#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :
