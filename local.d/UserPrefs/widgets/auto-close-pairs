@@ -1,34 +1,34 @@
-#!/usr/bin/env zsh
-#TODO: zstyle to toggle autoclose
-function auto-close-pairs() {
-  local did
-  # [[ $#BUFFER -eq 0 ]] && BUFFER+=$KEYS
-  case $KEYS in
-    \()
-      did=true
-      LBUFFER+="("
-      RBUFFER=")$RBUFFER";;
-    \[)
-      did=true
-      LBUFFER+="["
-      RBUFFER="]$RBUFFER";;
-    \{)
-      did=true
-      LBUFFER+="{"
-      RBUFFER="}$RBUFFER";;
-    \')
-      did=true
-      LBUFFER+="'"
-      RBUFFER="'$RBUFFER";;
-    \")
-      did=true
-      LBUFFER+='"'
-      RBUFFER="\"$RBUFFER";;
-    *)
-      did=false
-  esac
-  # ${did:-false} && CURSOR=${#LBUFFER}+1 || :
-  unset did ;
-}
+# #!/usr/bin/env zsh
+# #TODO: zstyle to toggle autoclose
+# function auto-close-pairs() {
+#   local did
+#   # [[ $#BUFFER -eq 0 ]] && BUFFER+=$KEYS
+#   case $KEYS in
+#     \()
+#       did=true
+#       LBUFFER+="("
+#       RBUFFER=")$RBUFFER";;
+#     \[)
+#       did=true
+#       LBUFFER+="["
+#       RBUFFER="]$RBUFFER";;
+#     \{)
+#       did=true
+#       LBUFFER+="{"
+#       RBUFFER="}$RBUFFER";;
+#     \')
+#       did=true
+#       LBUFFER+="'"
+#       RBUFFER="'$RBUFFER";;
+#     \")
+#       did=true
+#       LBUFFER+='"'
+#       RBUFFER="\"$RBUFFER";;
+#     *)
+#       did=false
+#   esac
+#   # ${did:-false} && CURSOR=${#LBUFFER}+1 || :
+#   unset did ;
+# }
 
 #  vim: set ft=zsh sw=2 tw=0 fdm=manual et :

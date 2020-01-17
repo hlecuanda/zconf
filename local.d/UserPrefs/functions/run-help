@@ -1,9 +1,27 @@
 #!/usr/bin/env zsh
 emulate -L zsh
-setopt rematchpcre
-local first second rest script
+# need fancy matchin' n' globbin'
+setopt rematchpcre extendedglob
+# semantic sugar
+function try () { $(eval "$@" )  }
+local first second rest
+local -a choices
+#capture a command line and select the command position
 read first second rest <<< $*
-[[ $first == "sudo" && -n $second ]] && first="$second"
-[[ $(file $(which $first)) =~ /^.+[Ss]cript*/ ]] && script=1
-man $first || $first --help || $first -h || (( $+script )) && < $(which $first)
+# handle command positioon on sudo lines
+[[ "$first" == "sudo" && -n "$second" ]] && first=""$second""
+# try the common ways to get help
+try man "$first" && choices+=( "man $first " )
+try "$first" --help && choices+=( "$first --help"  )
+try "$first" -h && choices+=("$first -h")
+[[ $(file --mime-type -pLb $(which "$first")) =~ "text/x-*" ]] && choices+=("cat $first")
+
+local PROMPT3="We found multiple docs sources, \n select the method you wish to make use of:"
+select method in $choices ;
+do
+  print $REPLY
+  eval method
+  delay 0.2
+done
+
 #  vim: set ft=zsh sw=2 tw=0 fdm=manual et :

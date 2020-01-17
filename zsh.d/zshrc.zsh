@@ -92,9 +92,6 @@ zstyle ':completion:*' use-compctl true
 zstyle ':completion:*' verbose true
 zstyle :compinstall filename "${HOME}/.zconf/.zshrc"
 
-# compinit gets called on prezto's completion module
-# autoload -Uz compinit
-# compinit
 # End of lines added by compinstall
 # }}}
 #

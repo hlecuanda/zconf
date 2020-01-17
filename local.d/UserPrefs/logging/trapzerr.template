@@ -1,0 +1,35 @@
+#!/usr/bin/env zsh
+#
+# TRAPNAL function for signal,
+# add code to be executed when catching this signal
+# this code stops propagation and logs to syslog using zlog
+#
+# This code is (C)MMXX Hector Lecuanda and contributors. you may
+# use distribute and modify it under the terms of the BSD License
+# you should have received a copy of the terms in the file copying
+# with this software, or you can also read them at
+# https://hlo.mx/software/trapnal/license
+#
+#######################################################################
+# For global traps, the file should be named TRAPNAL, and only
+# the bod should be uncommented. The file should then be placed
+# on your fpathm and the autoloading mechanism will handle lazy loading
+#
+# for local traps remember to set localoptions and localtraps. you
+# can then use either a function or list form, each has its own
+# different behaviors, list traps are in file scope while function
+# traps behave with functional scope. chec themanuak and uncomment the
+# appropriate form for your implementation
+# #####################################################################
+#
+# function TRAPZERR ()               # function wrapper
+#   trap ' {                         # trap statement wrapper
+#     emulate -L zsh
+#     setopt localoptions nowarncreateglonal
+#     local f  loc
+#     [[ $0 != "${(%)f:=%x}" ]] && \
+#     zlog -t $0 "at ${(%)f:t} executing ${(%)loc:-%I}"
+#   } &>/dev/null ' ZERR             # end of trap satement wrapper
+# }                                  # end of function wrapper
+
+#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :

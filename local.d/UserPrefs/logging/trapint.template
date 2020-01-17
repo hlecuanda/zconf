@@ -1,0 +1,8 @@
+
+# function TRAPINT () {
+# trap ' {
+    zlog "Caught SIGINT, aborting."
+    return $(( 128 + $1 ))
+# }' INT
+# }
+

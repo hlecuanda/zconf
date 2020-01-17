@@ -1,24 +1,24 @@
 # prompt, et al {{{
-zstyle ':prezto:module:history-substring-search:color' found 'red'      # Set the query found color.
-zstyle ':prezto:module:history-substring-search:color' not-found '208' # Set the query not found color.
-# zstyle ':prezto:module:git:info:action' format '%F{208}:%f%%B%F{11}%s%f%%b'
-# zstyle ':prezto:module:git:info:added' format ' %%B%F{208}✚%f%%b'
-# zstyle ':prezto:module:git:info:ahead' format ' %%B%F{208}⬆%f%%b'
-# zstyle ':prezto:module:git:info:behind' format ' %%B%F{208}⬇%f%%b'
-# zstyle ':prezto:module:git:info:branch' format ' %%B%F{208}%b%f%%b'
-# zstyle ':prezto:module:git:info:commit' format ' %%B%F{208}%.7c%f%%b'
-# zstyle ':prezto:module:git:info:deleted' format ' %%B%F{208}✖%f%%b'
-# zstyle ':prezto:module:git:info:keys' format 'status' '%b %p %c:%s%A%B%S%a%d%m%r%U%u'
-# zstyle ':prezto:module:git:info:modified' format ' %%B%F{208}✱%f%%b'
-# zstyle ':prezto:module:git:info:position' format ' %%B%F{208}%p%f%%b'
-# zstyle ':prezto:module:git:info:renamed' format ' %%B%F{208}➜%f%%b'
-# zstyle ':prezto:module:git:info:stashed' format ' %%B%F{208}✭%f%%b'
-# zstyle ':prezto:module:git:info:unmerged' format ' %%B%F{208}═%f%%b'
-# zstyle ':prezto:module:git:info:untracked' format ' %%B%F{208}◼%f%%b'
-# zstyle ':prezto:module:editor:info:completing' format '%B%F{7}...%f%b'
-# zstyle ':prezto:module:editor:info:keymap:alternate' format ' %B%F{208}❮%F{220}❮%F{3}❮%f%b'
-# zstyle ':prezto:module:editor:info:keymap:primary' format ' %B%F{3}❯%F{220}❯%F{208}❯%f%b'
-# zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format ' %B%F{208}❮%F{220}❮%F{3}❮%f%b'
+zstyle ':prezto:module:history-substring-search:color' found 'red'      Set the query found color.
+zstyle ':prezto:module:history-substring-search:color' not-found '208' Set the query not found color.
+zstyle ':prezto:module:git:info:action' format '%F{208}:%f%%B%F{11}%s%f%%b'
+zstyle ':prezto:module:git:info:added' format ' %%B%F{208}✚%f%%b'
+zstyle ':prezto:module:git:info:ahead' format ' %%B%F{208}⬆%f%%b'
+zstyle ':prezto:module:git:info:behind' format ' %%B%F{208}⬇%f%%b'
+zstyle ':prezto:module:git:info:branch' format ' %%B%F{208}%b%f%%b'
+zstyle ':prezto:module:git:info:commit' format ' %%B%F{208}%.7c%f%%b'
+zstyle ':prezto:module:git:info:deleted' format ' %%B%F{208}✖%f%%b'
+zstyle ':prezto:module:git:info:keys' format 'status' '%b %p %c:%s%A%B%S%a%d%m%r%U%u'
+zstyle ':prezto:module:git:info:modified' format ' %%B%F{208}✱%f%%b'
+zstyle ':prezto:module:git:info:position' format ' %%B%F{208}%p%f%%b'
+zstyle ':prezto:module:git:info:renamed' format ' %%B%F{208}➜%f%%b'
+zstyle ':prezto:module:git:info:stashed' format ' %%B%F{208}✭%f%%b'
+zstyle ':prezto:module:git:info:unmerged' format ' %%B%F{208}═%f%%b'
+zstyle ':prezto:module:git:info:untracked' format ' %%B%F{208}◼%f%%b'
+zstyle ':prezto:module:editor:info:completing' format '%B%F{7}...%f%b'
+zstyle ':prezto:module:editor:info:keymap:alternate' format ' %B%F{208}❮%F{220}❮%F{3}❮%f%b'
+zstyle ':prezto:module:editor:info:keymap:primary' format ' %B%F{3}❯%F{220}❯%F{208}❯%f%b'
+zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format ' %B%F{208}❮%F{220}❮%F{3}❮%f%b'
 ## }}}
 
 # Enabled Highlighters {{{

@@ -1,0 +1,17 @@
+
+# function TRAPDEBUG () {
+# trap '{
+    unsetopt localoptions warn_create_global
+    local nxtc
+    typeset -g ZSH_DEBUG_CMD
+    test -v ${nxtc:=$ZSH_DEBUG_CMD} &>/dev/null
+    case $nxtc in
+        typese*|global*)
+        zlog -t $0 "${(%)f:=file %f:t} set:${(qqV)ZSH_DEBUG_CMD}"
+        ;;
+    source*)
+        zlog -t $0 "${(%)f:=file %f:t} src:${(qqV)ZSH_DEBUG_CMD}"
+        ;;
+    esac
+# } &> /dev/null ' DEBUG
+ # }

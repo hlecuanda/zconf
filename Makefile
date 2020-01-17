@@ -5,6 +5,8 @@ else
 INSTALL=install -T
 endif
 
+ALLCODE     != find . -type f
+ADDTOCLEAN   = echo "$@" >>! .clean
 DIRS         = etal bin vim zsh
 DIRS        += tmux x11
 DIRSDOTD     = $(addsuffix .d,$(DIRS))
@@ -17,10 +19,19 @@ GCLOUD       = $(HOME)/google-cloud-sdk/.hlo
 # export INSTALL INSTALL_PROG INSTALL_DATA
 # export SHELL
 
-.PHONY: all clean install realclean localtest gcloud modules $(DIRS) $(DIRSDOTD)
 .SUFFIXES=
 
+.PHONY: all clean install image realclean localtest
+.PHONY: gcloud modules $(DIRS) $(DIRSDOTD)
+
 all: ;
+
+image: .image ;
+
+.image: Dockefile $(ALLCODE) ;
+	docker build -t hlecuanda/zconf .
+	touch $@
+	$(ADDTOCLEAN)
 
 localtest:
 	cd ~/.zconf/bootstrap.d  && \
@@ -40,16 +51,19 @@ $(GCLOUD):
 	cd ~ && tar xf google-cloud-sdk-241.0.0-linux-x86_64.tar.gz
 	cd ~ && touch google-cloud-sdk/.hlo
 
-clean:
+clean: .clean
 	-[[ -n "$$(find . -name Xterm.log* -print | head -1 )" ]] && \
 		find . -name Xterm.log* -print -delete || true
 	-[[ -f ~/google-cloud-sdk-*.tar.gz ]] && \
 		rm -v ~/google-cloud-sdk-*.tar.gz || true
-	-docker container stop zconf:testbox
-	-docker container rm zconf:testbox --force
-	-docker image prune -a -f
+	for target in "$$(<$<)" ; { rm -rfv target }
+	# -docker container stop zconf:testbox
+	# -docker container rm zconf:testbox --force
+	# -docker image prune -a -f
 	# for d in $(addsuffix .d,$(DIRS))\
 	#     $(MAKE) -C $$d clean
+
+.clean: ; # targets add their dirt to this file
 
 realclean: clean
 	-rm -rf ~/google-cloud-sdk
