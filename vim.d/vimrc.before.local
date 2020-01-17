@@ -38,15 +38,15 @@
     " Clear Search Highlighting:
       let g:spf13_clear_search_highlight = 1
 
-    " Disable neosnippet expansion
+    " Disable Neosnippet Expansion:
     " This maps over <C-k> and does some Supertab
     " emulation with snippets
-    "   let g:spf13_no_neosnippet_expand = 1
+      let g:spf13_no_neosnippet_expand = 1
 
-    " Disable whitespace stripping
+    " Disable Whitespace Stripping:
     "   let g:spf13_keep_trailing_whitespace = 1
 
-    " Enable powerline symbols
+    " Enable Powerline Symbols:
       " let g:airline_powerline_fonts = 1
 
     " Vim Files Directory:
@@ -102,8 +102,6 @@
     " let g:spf13_bundle_groups=[ 'general', 'writing', 'programming', 'neocomplete', 'python', 'javascript', 'html', 'ruby',  'misc' ]
     let g:spf13_bundle_groups=[ 'general', 'writing', 'programming', 'youcompleteme', 'python', 'javascript', 'html', 'ruby',  'misc' ]
     let g:vundle_default_git_proto = 'git'
-    UnBundle 'gorodinskiy/vim-coloresque'
-    UnBundle 'amirh/HTML-AutoCloseTag'
     " UnBundle 'wting/rust.vim'
     " UnBundle 'cespare/vim-toml'
     " }
