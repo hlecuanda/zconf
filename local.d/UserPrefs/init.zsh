@@ -12,5 +12,14 @@ source ${pmodule_location}/themes/${selected}.zsh \
 # }
 
 
+
+zstyle -s :zconf:make makefile mastermakefile
+zstyle -b :zconf:make load loadmake
+[[ loadmake == "yes" ]] \
+  && [[ -f ${mastermakefile} ]] \
+      && function make () { make -I${mastermakefile:h} $argv[*] } \
+      || : \
+  || :
+
 unset selected loadwidgets
 #  vim: set ft=zsh sw=2 tw=0 fdm=manual et :

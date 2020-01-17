@@ -1,0 +1,24 @@
+# function to be autoloasded on zsh startup, or manually, if
+# changed, with
+#
+#   unfunction autorehash && autoload autorehash
+#
+# h@h-lo.me 20191209 160736 -0800 PST 1575936456 d(-_- )b...
+# part of zconf
+
+case "$(fc -ln -1 )" in
+  (*apt install*)
+    rehash ;;
+  (*dpkg -i*)
+    rehash ;;
+  (*pkg install*)
+    rehash ;;
+  (*make install*)
+    rehash ;;
+  *)
+    return
+esac
+
+#TODO: select install command depending on $OSTYPE
+
+#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :
