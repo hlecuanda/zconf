@@ -1,4 +1,4 @@
-" vim: set ft=vim sw=2 tw=0 fdm=marker et foldmarker=\ {,\ } :
+" vim: set sw=2 tw=0 fdm=marker et foldmarker=\ {,\ } :
 "  _   _       _                  _                      _                 _
 " | | | |     | |    ___   __   _(_)_ __ ___  _ __ ___  | | ___   ___ __ _| |
 " | |_| |_____| |   / _ \  \ \ / / | '_ ` _ \| '__/ __| | |/ _ \ / __/ _` | |
@@ -20,7 +20,7 @@
         runtime ftplugin/man.vim
         nmap K :Man <cword><CR>
         let g:airline#extensions#tmuxline#enabled = 0
-        au VimEnter, Colorscheme * hi! CursorLine ctermbg=0
+        " au VimEnter, Colorscheme * hi! CursorLine ctermbg=0
         finish
     endif
 " }
@@ -36,7 +36,7 @@
 " Settings:
 " {
     set autowrite                            " edit using buffers
-    set clipboard=autoselect                 " experimenting, try to see if it fixes yank
+    " set clipboard=autoselect                 " experimenting, try to see if it fixes yank
     set colorcolumn=-1,-2,-3,-4,-5           " highlight 5 columns before col8O
     set completeopt=menu,preview             " try spf default...
     set confirm                              " Non UTF-8 Fallback
@@ -58,8 +58,14 @@
     set timeoutlen=1500                      " 1.5 sec timeout on mappings
     set ttimeoutlen=100                      " 1/10 sec timeout on keycides
     " set textwidth=80                         " 80 col width enforcemen
-    " let g:hlo_modeline='# vim: ft=tmux foldmethod=marker foldmarker={,} foldenable foldlevel=1 : '
-    let g:github_token='7d5160928517b13ea5791426da1ca80dfd03ffe8'
+    let tokenfile = $HOME . "/.vim/.tokens"
+    if filereadable(tokenfile)
+      for token in readfile(tokenfile,"",1)
+        let g:github_token=token
+      endfor
+    endif
+    unlet tokenfile
+    unlet token
 " }
 
 " Custom Key Mappings:
@@ -73,8 +79,6 @@
     nnoremap <silent> <leader>do :DiffOrig<CR>
     " Capitalize every word.
     nnoremap <silent> <leader>C  :s/\<\a/\u&/g<CR>:nohlsearch<CR>
-    " Last word True to false, config files
-    nnoremap <silent> <leader>ff :s/\vtrue\s?/false/<CR><leader>l
     "turn off pesky search highligmht
     nnoremap <silent> <leader>l  :nohlsearch<CR>
     nnoremap <silent> <leader>ll :AppendEditLogLine<CR>
@@ -87,47 +91,45 @@
     nnoremap <silent> <leader>mc :normal 80\|<CR>
     " get rid of trailing spaces
     nnoremap <silent> <leader>s  :%s/\s\+$//g<CR>
-    " Last word false to true, config files
-    nnoremap <silent> <leader>tt :s/\vfalse\s?/true/<CR><leader>l
     nnoremap <silent> <leader>ts :call setline(line("."), strftime("%Y%m%d %H%M%S %z %Z %s"))<CR>
-    nnoremap <silent> <leader>tS :call setline(line("."),printf(" h@h-lo.me %s %s ", strftime("%Y%m%d %H%M%S %z %Z %s"), "d(-_- )b..." ))<CR>
+    nnoremap <silent> <leader>tS :call setline(line("."),printf("h@h-lo.me %s %s ", strftime("%Y%m%d %H%M%S %z %Z %s"), "d(-_- )b..." ))<CR>
     "clipboard cut and paste, cuz im lazy.
-    nnoremap <silent> <leader>c  :normal "+y
-    nnoremap <silent> <leader>p  :normal "+p
-    nnoremap <silent> <leader>v  :normal "+p
-    nnoremap <silent> <leader>y  :normal "+y
-    "insert whatever is on the clipboard forcefully, behind tmux
+    nnoremap <silent> <leader>c  :normal "+y<CR>
+    nnoremap <silent> <leader>p  :normal "+p<CR>
+    nnoremap <silent> <leader>v  :normal "+p<CR>
+    nnoremap <silent> <leader>y  :normal "+y<CR>
+    "insert whatever is on the clipboard forcefully, behind tmux<CR>
     nnoremap <silent> <leader><C-V> :normal r! xclip -o<CR>
 
-
-    " my broken keyboard
+    " my broken keyboard" {
     " cnoremap <S-Down> <Up>
     " nnoremap <S-Down> <Up>
     " inoremap Ç <space>
-    " cnoremap Ç <space>
+    " cnoremap Ç <space>" }
+
 " }
 
 " Toggles:
 " {
-    noremap  <F2>   :RangerChooser<CR>
-    noremap  <F3>   :UndoTreeToggle<CR>
-    noremap  <F4>   :set wrap!
-    noremap  <S-F4> :set list!
-    noremap  <F6>   :IndentGuidesToggle<CR>
-    noremap  <F7>   :GitGutterToggle<CR>
-    noremap  <F8>   :set number!<CR>
-    noremap  <F9>   :NumbersOnOff<CR>
-    noremap  <F10>  :NumbersToggle<CR>
-    set pastetoggle=<F12>
-" } end toggles
+    noremap   <S-F1> :TBrowseOutput h<CR>
+    noremap     <F2> :RangerChooser<CR>
+    noremap     <F3> :UndoTreeToggle<CR>
+    noremap     <F4> :set wrap!<CR>
+    noremap   <S-F4> :set list!<CR>
 
-" Plugin Config:
+    noremap     <F5> :silent call ToggleBG<CR>
+    noremap     <F6> :IndentGuidesToggle<CR>
+    noremap     <F7> :CycleLineNumbers<CR>
+
+" }
+"
+" Pligins Configuration:
 " {
-
+"" {
     "UnBundle unwanted plugins
     " let g:bundles = g:vundle#bundles
     " UnBundle 'spf13/vim-autoclose'
-
+" }
     " Signify {
         " g:signify_vcs_list
         " g:signify_disable_by_default
@@ -148,17 +150,17 @@
         " g:signify_diffoptions
     " }
     " YCM {
-          " let g:ycm_seed_identifiers_with_syntax = 1
-          " let g:ycm_collect_identifiers_from_tags_files = 1
-          " let g:ycm_always_populate_location_list = 1
-          " let g:ycm_collect_identifiers_from_comments_and_strings = 1
-          " let g:ycm_add_preview_to_completeopt = 1
-          " let g:ycm_autoclose_preview_window_after_completion = 1
-          " let g:ycm_autoclose_preview_window_after_insertion = 1
-          " let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
-          " let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>']
-          " let g:ycm_key_invoke_completion = '<C-Space>'
-          " let g:ycm_key_detailed_diagnostics = '<leader>d'
+           let g:ycm_seed_identifiers_with_syntax = 1
+           let g:ycm_collect_identifiers_from_tags_files = 1
+           let g:ycm_always_populate_location_list = 1
+           let g:ycm_collect_identifiers_from_comments_and_strings = 1
+           let g:ycm_add_preview_to_completeopt = 1
+           let g:ycm_autoclose_preview_window_after_completion = 1
+           let g:ycm_autoclose_preview_window_after_insertion = 1
+           let g:ycm_key_list_select_completion = ['<TAB>', '<Down>']
+           let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>']
+           let g:ycm_key_invoke_completion = '<C-Space>'
+           let g:ycm_key_detailed_diagnostics = '<leader>d'
     " }
     " DelimitMate {
          " loaded_delimitMate=            ... " Turns off the script.
@@ -207,18 +209,6 @@
     " NERDComment Config {
         let g:NERDRemoveExtraSpaces=1
         let g:NERDSpaceDelims=1
-    " }
-    " Relative numbers {
-        let g:enable_numbers = 0
-        " See Toggles section "
-    " }
-    " Gitgutter {
-        " set shell=/bin/bash
-        let g:gitgutter_realtime = 0
-        highlight clear SignColumn
-        " See Toggles: Section
-        " noremap <F11> :GitGutterLineHighlightsToggle<CR>
-        " noremap <S-F11> :GitGutterToggle<CR>
     " }
     " Airline: {
            let g:airline_theme='dark'
@@ -362,8 +352,9 @@
 
 " Custom Commands:
 " {
-    " Source collected scripts under dotfiles
-    " source ~/Repos/dotfiles/bin/vim-scripts/passport.vim
+    " Source external scripts
+    source ~/.zconf/vim.d/passport.vim
+    source ~/.zconf/vim.d/ranger_chooser.vim
 
     " InsExCmd:
     " { Capture ex command output
@@ -460,6 +451,39 @@
         command! -nargs=0 -complete=command ReloadHloConfig silent call ReloadHloConfig()
     " }
 
+    " CycleLineNumbers:
+    " { Increments foldcolumn with up to 3,when it cyckes back to 0
+        if !exists('g:numberstatus')
+          let g:numberstatus=0
+        endif
+        function! CycleLineNumbers()
+          let l:cycle=[
+                \'set number',
+                \'set relativenumber',
+                \['set norelativenumber','set nonumber']]
+          let g:numberstatus = g:numberstatus + 1
+          if g:numberstatus >= len(l:cycle)
+            let g:numberstatus = 0
+          endif
+          execute l:cycle[g:numberstatus]
+        endfunction
+        command! -nargs=0 -complete=command CycleLineNumbers silent call CycleLineNumbers()
+    " }
+
+    " ToggleFoldColumn:
+    " { Increments foldcolumn with up to 3,when it cyckes back to 0
+        function! ToggleFoldColumn()
+          let l:fc = &foldcolumn
+          let l:nfc = fc +1
+          if l:nfc >= 4
+            set foldcolumn=0
+          else
+            set foldcolumn=l:nfc
+          endif
+        endfunction
+        command! -nargs=0 -complete=command ToggleFoldColumn silent call ToggleFoldColumn()
+    " }
+
     " AppendEditLogLine:
     " { append a timestamp comment
         function! AppendEditLogLine() abort
@@ -510,7 +534,8 @@
         command! -nargs=0 -complete=command FkeyVisuals silent call FkeyVisuals()
     " }
 
-    " Not In Use: " {
+    " Not In Use:
+    "{
         " "Function: GenMapHelp { :Creates a nice ascii-art title for scripts
         " "Desc: Generates mapping help screen from config
         " "Arguments: N/A
@@ -539,203 +564,200 @@
         "     endfunction
         "     command! -nargs=1 -complete=command MapHelp silent call MapHelp(<q-args>)
         " " }
+    " }
 
 " Autocommands:
 " {
-    " FixSolarized:
-    "  {
-        function! FixSolarized()
-          "                Background   Foreground   Effect     Gui Background  Gui Foreground
-          "                -------------------------------------------------------------------
-          hi! CursorColumn ctermbg=0
-          hi! ColorColumn  ctermbg=0
-          hi! LineNr       ctermbg=0
-          hi! CursorLine   ctermbg=0
-          hi! Folded       ctermbg=232                          guibg=Black
-          " hi! Comment                              cterm=italic
-          hi! VertSplit    ctermbg=232
-          hi! FoldColumn   ctermbg=232               cterm=NONE guibg=Black
-          hi! SignColumn   ctermbg=8                            guibg=bg
-          hi! Search       ctermbg=10   ctermfg=15   cterm=NONE guibg=fg        guifg=Black
-          hi! IncSearch    ctermbg=13   ctermfg=7    cterm=NONE guibg=Magenta   guifg=Black
-          hi! Pmenu                     ctermfg=232             guibg=fg        guifg=Black
-          hi! PmenuSel                  ctermfg=16              guibg=White     guifg=Black
-          hi! PmenuSbar                 ctermfg=10              guibg=bg        guifg=fg
-          hi! PmenuThumb                ctermfg=233             guibg=fg        guifg=bg
-        endfunction FixSolarized
-        command! -nargs=0 -complete=command FixSolarized silent call FixSolarized()
-        augroup ConfigBehave
-          au!
-          autocmd VimEnter    * :call FixSolarized()
-          autocmd Colorscheme * :call FixSolarized()
-        augroup END
-     " }
+  " FixSolarized:
+  "  {
+   "    function! FixSolarized()
+   "      "                Background   Foreground   Effect     Gui Background  Gui Foreground
+   "      "                -------------------------------------------------------------------
+   "      hi! LineNr       ctermbg=0
+   "      hi! CursorLine   ctermbg=0
+   "      hi! Folded       ctermbg=232                          guibg=Black
+   "      hi! Comment                              cterm=italic
+   "      hi! VertSplit    ctermbg=232
+   "      hi! FoldColumn   ctermbg=232               cterm=NONE guibg=Black
+   "      hi! SignColumn   ctermbg=8                            guibg=bg
+   "      hi! Search       ctermbg=10   ctermfg=15   cterm=NONE guibg=fg        guifg=Black
+   "      hi! IncSearch    ctermbg=13   ctermfg=7    cterm=NONE guibg=Magenta   guifg=Black
+   "      hi! Pmenu                     ctermfg=232             guibg=fg        guifg=Black
+   "      hi! PmenuSel                  ctermfg=16              guibg=White     guifg=Black
+   "      hi! PmenuSbar                 ctermfg=10              guibg=bg        guifg=fg
+   "      hi! PmenuThumb                ctermfg=233             guibg=fg        guifg=bg
+   "    endfunction FixSolarized
+   "    command! -nargs=0 -complete=command FixSolarized silent call FixSolarized()
+   "    augroup ConfigBehave
+   "      au!
+   "      autocmd VimEnter    * :call FixSolarized()
+   "      autocmd Colorscheme * :call FixSolarized()
+   "    augroup END
+   " " }
 
-    " CursorCrossHairs:
-    " {
-        augroup CursorCrossHairs
-          au!
-          autocmd WinEnter * setlocal cursorcolumn
-          autocmd WinEnter * setlocal cursorline
-          " au InsertEnter * hi CursorLine ctermbg=232
-          autocmd WinLeave * setlocal nocursorcolumn
-          autocmd WinLeave * setlocal nocursorline
-          " au InsertLeave * hi CursorLine ctermbg=0
-        augroup END
-    " }
+  " CursorCrossHairs:
+  " {
+      augroup CursorCrossHairs
+        au!
+        autocmd WinEnter * setlocal cursorcolumn
+        autocmd WinEnter * setlocal cursorline
+        " au InsertEnter * hi CursorLine ctermbg=232
+        autocmd WinLeave * setlocal nocursorcolumn
+        autocmd WinLeave * setlocal nocursorline
+        " au InsertLeave * hi CursorLine ctermbg=0
+      augroup END
+  " }
 
-    " TextFmt:
-      autocmd BufWritePre * %s/\s\+$//e
-    " }
+  " TextFmt:
+    autocmd BufWritePre * %s/\s\+$//e
 
-
-" } end autocommands
+  " } end autocommands
 
 " Terminal And GUI:
 " {
-    " { Deprecated
-        " set t_Co=256
-        " set term=builtin_pcansi
+" {  Ansi || Xterm conditional settings,  + utf8 support
+" ansi settings, no utf8 support {
+if (&term == 'ansi')
+  " set fileencoding=ansi
+  set encoding=ansi
+  set showbreak=~        " Charactr indicating a wrapped line
+  set listchars=tab:> ,trail:.,extends:<,precedes:>,nbsp:.,conceal:x
+  set fillchars=vert:\|,fold:\
+  let g:airline_powerline_fonts=0
+  let g:ycm_warning_symbol = '!!'
+  let g:ycm_error_symbol = '>>'
+  " }
+" xterm settings, utf8 support {
+else
+  set encoding=utf8
+  set showbreak=➘        " Character indicating a wrapped line
+  set listchars=tab:➔\ ,trail:·,extends:❮,precedes:❯,nbsp:¯
+  set fillchars=vert:\ ,fold:\
+  " { Symbols:
 
-        " CSApprox Config {
-        "     let g:CSApprox_loaded = 1
-        "     let g:CSApprox_attr_map = { 'bold' : '', 'italic' : '', 'sp' : 'fg' }
-        "     let g:CSApprox_eterm = 1
-        "     let g:CSApprox_kterm = 1
-        " }
-
-        " Reference implementation (conditional term): {
-        "     if (&term == 'xterm' || &term =~? '^screen')
-        "         On my machine, I use an old Konsole with 256 color support
-        "         set t_Co=88
-        "         let g:CSApprox_konsole = 1
-        "     endif
-        "     let g:Powerline_colorscheme='skwp'
-        " } end reference impl
-    " }
-    " {  Ansi || Xterm conditional settings,  + utf8 support
-        " ansi settings, no utf8 support {
-        if (&term == 'ansi')
-            " set fileencoding=ansi
-            set encoding=ansi
-            set showbreak=~        " Charactr indicating a wrapped line
-            set listchars=tab:> ,trail:.,extends:<,precedes:>,nbsp:.,conceal:x
-            set fillchars=vert:\|,fold:\
-            let g:airline_powerline_fonts=0
-            let g:ycm_warning_symbol = '!!'
-            let g:ycm_error_symbol = '>>'
-            " }
-        " xterm settings, utf8 support {
-        else
-            set encoding=utf8
-            set showbreak=➘        " Character indicating a wrapped line
-            set listchars=tab:➔\ ,trail:·,extends:❮,precedes:❯,nbsp:¯
-            set fillchars=vert:\ ,fold:\
-            " { Symbols:
-
-            if !exists('g:airline_symbols')
-                  let g:airline_symbols =  { }
-            endif
-            " let g:airline_left_alt_sep = '⮁' " old
-            let g:airline_left_alt_sep = '' " powerline
-            " let g:airline_left_sep = '⮀' " old
-            let g:airline_left_sep = '' " powerline
-            " let g:airline_left_sep = '»' " unicode
-            " let g:airline_left_sep = '▶' " unicode
-            " let g:airline_right_alt_sep = '⮃' " old
-            let g:airline_right_alt_sep = '' " powerline
-            " let g:airline_right_sep = '⮂' " old
-            let g:airline_right_sep = '' " powerline
-            " let g:airline_right_sep = '«' " unicode
-            " let g:airline_right_sep = '◀' " unicode
-            " let g:airline_symbols.branch = '⭠' " old
-            let g:airline_symbols.branch = '' " powerline
-            " let g:airline_symbols.branch = '⎇' " unicode
-            " let g:airline_symbols.crypt = '🔒' " unicode
-            " let g:airline_symbols.linenr = '⭡' " old
-            let g:airline_symbols.linenr = '' " powerline
-            " let g:airline_symbols.linenr = '¶' " unicode
-            " let g:airline_symbols.linenr = '␊' " unicode
-            " let g:airline_symbols.linenr = '␤' " unicode
-            " let g:airline_symbols.maxlinenr = '' " unicode
-            let g:airline_symbols.maxlinenr = '☰' " unicode
-            let g:airline_symbols.notexists = '∄' " unicode
-            " let g:airline_symbols.paste = '∥' " unicode
-            " let g:airline_symbols.paste = 'Þ' " unicode
-            let g:airline_symbols.paste = 'ρ' " unicode
-            " let g:airline_symbols.readonly = '⭤' " old
-            let g:airline_symbols.readonly = '' " powerline
-            let g:airline_symbols.spell = 'Ꞩ' " unicode
-            let g:airline_symbols.whitespace = 'Ξ' " unicode
+  if !exists('g:airline_symbols')
+        let g:airline_symbols =  { }
+  endif
+  " let g:airline_left_alt_sep = '⮁' " old
+  let g:airline_left_alt_sep = '' " powerline
+  " let g:airline_left_sep = '⮀' " old
+  let g:airline_left_sep = '' " powerline
+  " let g:airline_left_sep = '»' " unicode
+  " let g:airline_left_sep = '▶' " unicode
+  " let g:airline_right_alt_sep = '⮃' " old
+  let g:airline_right_alt_sep = '' " powerline
+  " let g:airline_right_sep = '⮂' " old
+  let g:airline_right_sep = '' " powerline
+  " let g:airline_right_sep = '«' " unicode
+  " let g:airline_right_sep = '◀' " unicode
+  " let g:airline_symbols.branch = '⭠' " old
+  let g:airline_symbols.branch = '' " powerline
+  " let g:airline_symbols.branch = '⎇' " unicode
+  " let g:airline_symbols.crypt = '🔒' " unicode
+  " let g:airline_symbols.linenr = '⭡' " old
+  let g:airline_symbols.linenr = '' " powerline
+  " let g:airline_symbols.linenr = '¶' " unicode
+  " let g:airline_symbols.linenr = '␊' " unicode
+  " let g:airline_symbols.linenr = '␤' " unicode
+  " let g:airline_symbols.maxlinenr = '' " unicode
+  let g:airline_symbols.maxlinenr = '☰' " unicode
+  let g:airline_symbols.notexists = '∄' " unicode
+  " let g:airline_symbols.paste = '∥' " unicode
+  " let g:airline_symbols.paste = 'Þ' " unicode
+  let g:airline_symbols.paste = 'ρ' " unicode
+  " let g:airline_symbols.readonly = '⭤' " old
+  let g:airline_symbols.readonly = '' " powerline
+  let g:airline_symbols.spell = 'Ꞩ' " unicode
+  let g:airline_symbols.whitespace = 'Ξ' " unicode
 " }
 " {5 Old and busted
-            " let g:airline_powerline_fonts=0
-            " if !exists('g:airline_symbols')
-            "     let g:airline_symbols = {  }
-            " endif
-           "  let g:airline_left_alt_sep = ''
-           "  let g:airline_left_sep = ''
-           "  let g:airline_right_alt_sep = ''
-           "  let g:airline_right_sep = ''
-           " " let g:airline_symbols.branch = '🔀'
-           "  " let g:airline_symbols.branch = '⎇'
-           "  let g:airline_symbols.branch = ''
-           "  " let g:airline_symbols.linenr = '📑'
-           "  " let g:airline_symbols.linenr = '¶'
-           "  let g:airline_symbols.linenr = '␊'
-           "  " let g:airline_symbols.linenr = '␤'
-           "  " let g:airline_symbols.linenr = ''
-           "  " let g:airline_symbols.paste = '🅿'
-           "  " let g:airline_symbols.paste = 'Þ'
-           "  let g:airline_symbols.paste = 'ρ'
-           "  " let g:airline_symbols.paste = '∥'
-           "  " let g:airline_symbols.readonly = '🔒'
-           "  let g:airline_symbols.readonly = ''
-           "  let g:airline_symbols.spell = 'S'
-           "  let g:airline_symbols.crypt = 'C'
-           "  " let g:airline_symbols.whitespace = '🈁'
-           "  let g:ycm_warning_symbol = '⚠'
-           "  let g:ycm_error_symbol = '✕'" }
-        endif
-        " }
-    " }
-    " Solarized Colorscheme Config  {
-        set background=dark
-        " let g:solarized_termtrans=0
-        " let g:solarized_termcolors=256
-        " let g:solarized_contrast="high"
-        " let g:solarized_visibility="normal"
-        " let g:solarized_degrade=0
-        " let g:solarized_bold=1
-        " let g:solarized_underline=1
-        " let g:solarized_italic=1
-        " let g:solarized_diffmode="normal"
-        " let g:solarized_hitrail=1
-        " let g:solarized_menu=0
-        " :call togglebg#map("<F5>")
-    " }
-    " Set gui font {
-    if has('gui_running')
-        " set background=light
-        " set guifont=Envy\ Code\ R\ for\ Powerline:h14
-        set guifont=Envy\ Code\ R\ 10
-        " set guifont=Monoid\ 9
-        set lines=50
-        set columns=85
-        " set noantialias
-        " set fuoptions=maxvert,maxhorz
-        " set transparency=0
-        " set guioptions=egm
-        set guioptions=Paegm
-        " set fullscreen
-    endif
-    " end set gui font  }
+  " let g:airline_powerline_fonts=0
+  " if !exists('g:airline_symbols')
+  "     let g:airline_symbols = {  }
+  " endif
+ "  let g:airline_left_alt_sep = ''
+ "  let g:airline_left_sep = ''
+ "  let g:airline_right_alt_sep = ''
+ "  let g:airline_right_sep = ''
+ " " let g:airline_symbols.branch = '🔀'
+ "  " let g:airline_symbols.branch = '⎇'
+ "  let g:airline_symbols.branch = ''
+ "  " let g:airline_symbols.linenr = '📑'
+ "  " let g:airline_symbols.linenr = '¶'
+ "  let g:airline_symbols.linenr = '␊'
+ "  " let g:airline_symbols.linenr = '␤'
+ "  " let g:airline_symbols.linenr = ''
+ "  " let g:airline_symbols.paste = '🅿'
+ "  " let g:airline_symbols.paste = 'Þ'
+ "  let g:airline_symbols.paste = 'ρ'
+ "  " let g:airline_symbols.paste = '∥'
+ "  " let g:airline_symbols.readonly = '🔒'
+ "  let g:airline_symbols.readonly = ''
+ "  let g:airline_symbols.spell = 'S'
+ "  let g:airline_symbols.crypt = 'C'
+ "  " let g:airline_symbols.whitespace = '🈁'
+ "  let g:ycm_warning_symbol = '⚠'
+ "  let g:ycm_error_symbol = '✕'" }
+endif
+" }
+" }
+" Solarized Colorscheme Config  {
+set background=dark
+" let g:solarized_termtrans=0
+" let g:solarized_termcolors=256
+" let g:solarized_contrast="high"
+" let g:solarized_visibility="normal"
+" let g:solarized_degrade=0
+" let g:solarized_bold=1
+" let g:solarized_underline=1
+" let g:solarized_italic=1
+" let g:solarized_diffmode="normal"
+" let g:solarized_hitrail=1
+" let g:solarized_menu=0
+" :call togglebg#map("<F5>")
+" Missing Solarized Groups For Terminals: " {
+hi! Comment cterm=italic
+hi! Search ctermbg=NONE ctermfg=10
+hi! LineNr ctermbg=234
+hi! CursorLine ctermbg=0
 
+hi! link CursorColumn CursorLine
+hi! link FoldColumn   CursorLine
+hi! link ColorColumn  CursorLine
+hi! link SignColumn   LineNr
+hi! link FoldColumn   LineNr
+
+hi! IncSearch ctermbg=NONE ctermfg=9 cterm=italic
+" }
+" }
+" Set gui font {
+if has('gui_running')
+" set background=light
+" set guifont=Envy\ Code\ R\ for\ Powerline:h14
+" set guifont=Envy\ Code\ R\ 10
+" set guifont=Monoisome\ 9
+" set guifont DejaVu\ Sans\ Mono\ 8
+set lines=50
+set columns=85
+" set noantialias
+" set fuoptions=maxvert,maxhorz
+" set transparency=0
+" set guioptions=egm
+set guioptions=Paegm
+" set fullscreen
+endif
+" end set gui font  }
 " } end Terminal and GUI
-
+" }
+"
+" Changelog " {5
+" h@h-lo.me 20200112 233205 -0800 PST 1578900725 d(-_- )b...
+" Removed config for old unused plugins
+" h@h-lo.me 20200112 201057 -0800 PST 1578888657 d(-_- )b...
+  " Missing Solarized Groups For Terminals
+  " fixed gh token leak
 " h@h-lo.me 20180211 162014 -0800 PST 1518394814 d(-_- )b...
 " h@h-lo.me 20180211 162027 -0800 PST 1518394827 d(-_- )b...
-" h@h-lo.me 20180211 162054 -0800 PST 1518394854 d(-_- )b...
-" h@h-lo.me 20190423 192743 -0700 PDT 1556072863 d(-_- )b...
-" Tried fix wring nesting
-" vim modeline on line 1 xD
+" h@h-lo.me 20190421 171844 -0700 PDT 1555892324 d(-_- )b...
+" h@h-lo.me 20190518 135724 -0700 PDT 1558213044 d(-_- )b...
+"" }
