@@ -1,4 +1,5 @@
-SHELL         = zsh
+include ../mk.d/common.mk
+include ../mk.d/help.mk
 
 ifdef FREEBSD
 INSTALL=install -c

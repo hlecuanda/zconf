@@ -1,0 +1,41 @@
+# see https://docs.gitlab.com/ce/ci/yaml/README.html for all available options
+
+# you can delete this line if you're not using Docker
+image: ubuntu:xenial
+
+before_script:
+  - echo "Before script section"
+  - apt-get install -y git bmake
+  - git clone httls://github.com/michipili/bsdowl.git bsdowl
+  - cd bsdowl && git checkout release 
+
+   
+after_script:
+  - echo "After script section"
+  - cd ~ 
+   
+build1:
+  stage: build
+  script:
+    - cd bsdowl
+    - configure --prefix=/usr/local
+    - makr -r all
+    - make -r install           
+   
+test1:
+  stage: test
+  script: 
+    - echo "Do a test here"
+    - echo "For example run a test suite"
+   
+test2:
+  stage: test
+  script: 
+    - echo "Do another parallel test here"
+    - echo "For example run a lint test"
+   
+deploy1:
+  stage: deploy
+  script:
+    - echo "Do your deploy here"
+
