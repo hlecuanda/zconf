@@ -1,50 +1,29 @@
 
 ifdef FREEBSD
-INSTALL=install -c
-else
-INSTALL=install -T
-endif
 
-ALLCODE     != find . -type f
-ADDTOCLEAN   = echo "$@" >>! .clean
-DIRS         = etal bin vim zsh
-DIRS        += tmux x11
-DIRSDOTD     = $(addsuffix .d,$(DIRS))
-SHELL        = zsh
-ZDOTDIR      = ~/.zconf
-INSTALL_DATA = $(INSTALL) -m 644
-INSTALL_PROG = $(INSTALL) -m 754
-GCLOUD       = $(HOME)/google-cloud-sdk/.hlo
+include mk.d/common.mk
 
-# export INSTALL INSTALL_PROG INSTALL_DATA
-# export SHELL
 
-.SUFFIXES=
 
 .PHONY: all clean install image realclean localtest
 .PHONY: gcloud modules $(DIRS) $(DIRSDOTD)
 
+# Build everithing
 all: ;
 
-image: .image ;
+# Fetch and merge
+upgrade: update
+	git pull
 
-.image: Dockefile $(ALLCODE) ;
-	docker build -t hlecuanda/zconf .
-	touch $@
-	$(ADDTOCLEAN)
+# Fetch from source repo, but don't merge
+update:
+	git fetch
 
-localtest:
-	cd ~/.zconf/bootstrap.d  && \
-	[[ -n "$(ps ax | greo python3 | grep http )" ]] && true || python3 -m http.server 8080 &
-	docker build --tag 'zconf:testbox' .
-	docker run zconf:testbox
-	docker attach
-	killall python3
-
-install: $(DIRS) $(GCLOUD)
-
-$(DIRS): %: %.d
-	make -C $< install
+# Remove junj accumulated troughout developmeht
+clean::
+	find . -name Xterm.log\* -print -delete
+	for d in $(addsuffix .d,$(DIRS))\
+		$(MAKE) -C $$d clean
 
 $(GCLOUD):
 	cd ~ && curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-241.0.0-linux-x86_64.tar.gz
