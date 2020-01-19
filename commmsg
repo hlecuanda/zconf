@@ -1,0 +1,17 @@
+|Descr                                      | Closes     |   commit  |
+|:----------------                          |:----------:|:---------:|
+|stray                                      |            | 460d02b6  |
+|zsh install corrected                      |   #2       | 77c8e7fe  |
+|updated bootstrap for debian               |            | 27ca20bb  |
+|cascading makes now work,                  |   #4       | c30601d7  |
+|git, flawless                              | #5         | a35b0982  |
+|Ranger, flawless                           |            | 12acad18  |
+|final resting place for gcloud sdk         |            | d6b0b6f6  |
+|VNC install flawless                       |  #4        | bee1350d  |
+|removed changelog and packages             |  #4        | 350e7b27  |
+|re arranged x11.d to include i3.d          |  #4        |           |
+|and vnc.d plus Xres                        |            | 84a344a1  |
+|Added docker completion                    |            | 1d71df8b  |
+|git.d installs                             |   #6       | 6708c424  |
+|curl pipe shell install test               |            | 31496c5e  |
+|experiment with docker                     |    #3      | 33136d4e  |
