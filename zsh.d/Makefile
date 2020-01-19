@@ -1,11 +1,8 @@
-ifdef FREEBSD
-INSTALL         = install -c
-else
-INSTALL         = install -T
-endif
-INSTALL_DATA    = $(INSTALL) -m 664
-RUNCOMS        != ls *.zsh
-RC             := $(basename $(RUNCOMS))
+include ../mk.d/common.mk
+include ../mk.d/help.mk:
+
+RUNCOMS != ls *.zsh
+RC:=$(basename $(RUNCOMS))
 ifndef ZDOTDIR
 ZDOTDIR         = $(HOME)/.zconf
 endif

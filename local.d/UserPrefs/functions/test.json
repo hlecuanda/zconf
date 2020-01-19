@@ -1,0 +1,16 @@
+[
+  {
+    "name": "UNKNOWN_CALLER",
+    "phone_number": "+526692120197",
+    "type": "OUTGOING",
+    "date": "2019-01-24 14:30:38",
+    "duration": "00:30"
+  },
+  {
+    "name": "UNKNOWN_CALLER",
+    "phone_number": "+526692120035",
+    "type": "OUTGOING",
+    "date": "2019-01-24 14:31:10",
+    "duration": "00:15"
+  }
+]
