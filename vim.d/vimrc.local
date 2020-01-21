@@ -517,8 +517,8 @@
         command! -nargs=0 -complete=command AppendEditLogLine silent call AppendEditLogLine()
     " }
 
-    " AppendModeline:
-    " { Append modeline after last line in buffer.
+    " SetModeline:
+    " { Set  modeline after last line in buffer.
         function! SetModeline()
 
             if match(&ft,'\.') != -1
@@ -580,7 +580,7 @@
             :normal G
         endfunction
 
-        nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+        nnoremap <silent> <Leader>ml :call SetModeline()<CR>
     " }
 
     " DiffOrig:

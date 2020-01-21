@@ -1,31 +1,44 @@
 include ../mk.d/common.mk
-include ../mk.d/help.mk:
 
-RUNCOMS != ls *.zsh
-RC:=$(basename $(RUNCOMS))
+SHELL       = zsh
+
 ifndef ZDOTDIR
-ZDOTDIR         = $(HOME)/.zconf
+ZDOTDIR     = $(HOME)/.zconf
 endif
-DOTRUNCOMS           := $(addprefix $(ZDOTDIR)/.,$(RC))
-DOCKERSRC       = https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
+
+DOCKERDST   = $(ZDOTDIR)/.zprezto/modules/completion/external/src/_docker
+DOCKERSRC   = https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
+RUNCOMS    != ls *.zsh
+RC         := $(basename $(RUNCOMS))
+DOTRUNCOMS := $(addprefix $(ZDOTDIR)/.,$(RC))
 
 .SUFFIXES:
 
-.PHONY: install zshenv zdotdir
+.PHONY: install
 
-install: zshenv zdotdir $(DOTRUNCOMS)
+default: install ;
 
-~/.zshenv: zshenv
+install:: | $(ZDOTDIR)
+install:: $(DOTRUNCOMS)
+install:: $(DOCKERDST)
+install:: ~/.zshenv
+
+~/.zshenv: .zshenv
+	ln -s $< $@
+
+$(ZDOTDIR)/.%: %.zsh
 	$(INSTALL_DATA) $< $@
-
-zdotdir: $(ZDOTDIR)/.zprezto
-
-$(DOTRUNCOMS):  $(ZDOTDIR)/.%: %.zsh
-	$(INSTALL_DATA) $*.zsh $@
+	chmod u-w $@
 
 $(ZDOTDIR)/.zprezto: | $(ZDOTDIR)
-	@git clone -q --recursive $(PREZTO) $(ZDOTDIR)/.zprezto
-	curl -fLo $(ZDOTDIR)/.zprezto/modules/completion/external/src/_docker $(DOCKERSRC)
+	git clone -q --recursive $(PREZTO) $@
+
+# Additional completions for docker
+$(DOCKERDST): $(ZDOTDIR/.zprezto)
+	curl -sfLo $@  $(DOCKERSRC)
 
 $(ZDOTDIR):
 	mkdir -p $(ZDOTDIR)
+
+%:
+	@echo " <: $< @: $@ "

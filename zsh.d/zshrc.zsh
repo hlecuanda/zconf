@@ -252,6 +252,7 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
       alias mosh='mosh -a'
       alias gcsfuse='gcsfuse --foreground --implicit-dirs --key-file /home/hector/MezaOps-edd7249ce29f.json'
       [[ -f ~/bin/exa ]] && alias ls='exa -F --group-directories-first --color=auto'
+      [[ $+commands[grc] ]] && unalias grc
     # }}}
   # }}}
 # }}}
