@@ -9,7 +9,7 @@ if (( $+commands[grc] )) ; then
 
     configdirs=( /etc/grc /usr/share/grc /usr/local/share/grc )
 
-    [[ -f ~/.newgrc ] )) ]] && {
+    [[ -f ~/.newgrc ]] && {
 
 
     for dir in $configdirs ;\

@@ -1,70 +1,102 @@
+#!/usr/bin/env zsh
 
-    # use the following line for logging to avoid infinite recursion
-    # logger -t zlog --id=$$ -p user.warning --
+  # use the following line for logging to avoid infinite recursion
+  # logger -t zlog --id=$$ -p user.warning --
 
-    function printhelp {
-        cat <<- EOH
-		$0: automate logging
+  function printhelp {
 
-		   this shell function will log to syslog automating some
-		   of the most tedious stuff.   By default it uses facility
-		   'user.info' with a tag of zlog. If logging array it will
-		   serialize them into strings as in \${(qqV)array[*]} and
-		   when logging assocs it will unroll into alternating key
-		   values as in \${(kvqq)assoc[*]}, thus ensuring that all
-		   values, including unprintable terminal sequences are
-		   rendered, thus avoiding the messing up of your terminal.
-		   (v.gr you can unroll \$terminfo )
+    # this function just prints the usage- note the leading
+    # tabs on the text body, they will be removed when dumping
+    # the content on stdout because the here-doc is using the
+    # <<- operataor (as opposedto <<). this will not remove
+    # leading spaces, only leading tabs, so re-tabbing this
+    # file for leading spaces will cause formatting to be lost
+
+    cat <<- EOH
+		${1}: automate logging
+
+		   This shell function will log to syslog automating
+		   some of the most tedious stuff.   By default it uses
+		   facility 'user.info' with a tag of zlog. If logging
+		   an array variable  it will serializeit  into strings
+		   as if printed using \${(V)array[*]:q} notation.
+		   Associative arrays are printed wth
+		   \${(kvV)assoc[*]:q}, which will render key value
+		   pairs in consecutive words in the resulting sring,
+		   v.gr: (key1 value1 key2 value2 ..) The rest of the
+		   applied expansion flags in all cases will nicely
+		   quote the resulting string, plus the (V) flag will
+		   render invisible any control charactears in a
+		   textual form, to prevent corrupting your terminl for
+		   example when for some reason the value of $terminfo
+		   or similar variables gets logged
 
 		USAGE
-		      zlog [options] -- ["message payload"] [params]
+		    ${1} [options] -- ["message payload"] [params]
 
 		OPTIONS
-		   -f, --facility   # override faciliti (defaults to user)
-		   -s, --severity   # override severity (defaults to info)
-		   -t, --tag=t      # set tag id for the generated log
-		   -h, --help       # print this message and exit
+		   -f [FAC], --facility [FAC]  : log to facility
+		                                 (default: user)
+		   -s [SEV], --severity [SEV]  : log with severity
+		                                 severity (default: info)
+		   -t [TAG], --tag=t [TAG]     : set tag id for the
+		                                 generated log,
+		                                 (default: "log")
+		   -h, --help                  : print this message and
+		                                 exit
 
 		h@h-lo.me 20191016 122515 -0700 PDT 1571253915 d(-_- )b...
 		EOH
-        return
-    }
 
-    function unrollargs () {
-        local a
-        for a in $argv
-        do
-            case "${(t)a:1:5}" in
-                array)
-                    print -f "%s: (%s) ( %s )" $a ${(t)a} "${(vqqV)a}"
-                    ;;
-                assoc)
-                    print -f "%s: (%s) [ %s ]" $a ${(t)a} "${(kvqqV)a}"
-                    ;;
-                *)
-                    print -f "%s: %s" $argv
-                    ;;
-            esac
-        done
-    }
+           # -p [NAM], --parameter [NAM] : log the name and value
+           #                               of parameter named NAM
+    return
+  }
 
-    #main
-    local -A opts=( -t zlog -f user -s info )
-    local help stor
 
-    zparseopts -D -E -M -K -A opts -a stor -- \
-        f: -facility=f \
-        s: -severity=s \
-        t: -tag=t \
-        h=help  -help=h
+  function unrollargs () {
 
-    if (( $#help > 0 )) ; then
-        printhelp
-    else
-        local level="$opts[-f].$opts[-s]"
-        logger -t $opts[-t] --id=$$ -p $level --  $(unrollargs $*)
-    fi
+    # if argument is an rray or dictionary, this function wuill
+    # it will "unpack" it so the wholevalue gets serialized as
+    # it should the bit ${(t)a:1:5} prints chars 1.5 of the
+    # type string for the "a" parameter, revealed by using the
+    # (t)ype expansion flag."
 
-    unset help opts stor level
+    local a
+    for a in $argv
+    do
+      case "${(t)a:1:5}" in
+        array)
+          print -f "var: ( %s )" "array" "${(vV)a:q}"
+          ;;
+        assoc)
+          print -f "var: (%s) [ %s ]" "assoc" "${(kvV)a:q}"
+          ;;
+        *)
+          print ${(V)a:q}
+          ;;
+      esac
+    done
+  }
 
-#  vim: set ft=zsh sw=4 tw=0 fdm=manual noet :
+  #main
+  local -A opts
+  opts[-t]="zlog"  # default values
+  opts[-f]="user"  # for common options
+  opts[-s]="info"
+  local help
+
+  zparseopts -D -E -M -K -A opts -- \
+    f: -facility=f \
+    s: -severity=s \
+    t: -tag=t \
+    h=hlp  -help=h
+
+  if (( $+hlp )) ; then
+    printhelp $0
+  else
+    local level="$opts[-f].$opts[-s]"
+    logger -t $opts[-t] --id=$PPID -p $level -- $(unrollargs $*)
+  fi
+
+#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :
