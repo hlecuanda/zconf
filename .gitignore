@@ -9,6 +9,7 @@
 .revolver
 .zaw
 .zaw
+.zcalc_history
 .zcomp*
 .zhistory
 .zlogin
@@ -16,7 +17,6 @@
 .zprezto
 .zpreztorc
 .zprofile
-.zshenv
 .zshrc
 Xresources-e
 allpix

@@ -1,6 +1,7 @@
 #1/usr/bin/env zsh
 
 # [[ -f .grcdebug  ]] && setopt xtrace sourcetrace || true
+if (( $+commands[grc] )) ; then
 
     typeset -Ua cmds
     typeset -Ua configdirs
@@ -8,7 +9,7 @@
 
     configdirs=( /etc/grc /usr/share/grc /usr/local/share/grc )
 
-  [[ -f ~/.newgrc  ]] && {
+    [[ -f ~/.newgrc ] )) ]] && {
 
 
     for dir in $configdirs ;\
@@ -28,7 +29,7 @@
   } || {
 
     # Prevent grc aliases from overriding zsh completions.
-    setopt COMPLETE_ALIASES
+    setopt completealiases
 
 
     for dir in $configdirs ;
@@ -52,6 +53,10 @@
     unset cmds cmd
 
   }
+fi
 
-
-#  vim: set ft=zsh sw=2 tw=0 fdm=manual et :
+#
+# h@h-lo.me 20200122 004524 -0800 PST 1579682724 d(-_- )b...
+# Added guard testing for existance ofcimmand
+#  d(-_-;)bm  hlo.mx 1579682676
+#  vim:  et :
