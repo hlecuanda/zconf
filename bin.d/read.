@@ -1,0 +1,27 @@
+keybase-git-pgp
+
+   this is an adapter program that enables using keybase instead of
+   pgp when signing commits. it just homologates the expected inputs
+   and outputs from git. it should be enabled thusly:
+
+      # git config --global gpg.program "/home/hector/bin/keybase-git-pgp"
+
+   you can do this by running
+
+      # keybase-git-pgp -c
+
+usage:
+
+      # keybase-git-pgp [options]
+
+options:
+      -c : configure git to use this adapter
+
+   When installed the adapter will behave identically to
+   gpg --verify  - <  # when verifying
+   gpg -bsau  < cat -            # when signing
+
+see also:
+
+   # man git config gpg.program
+

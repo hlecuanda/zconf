@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+
+import sys
+import random
+
+pixfile='/home/hector/Pictures/.allpix'
+
+def pickone():
+
+    with open(pixfile,'r') as l:
+        filelist=l.readlines()
+
+    no = random.randint(0,len(filelist)-1)
+    return filelist[no]
+
+if __name__ == "__main__":
+    print(pickone())
+    sys.exit(0)
