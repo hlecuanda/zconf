@@ -24,7 +24,7 @@ install:: $(DOCKERDST)
 install:: ~/.zshenv
 
 ~/.zshenv: .zshenv
-	ln -s $< $@
+	ln -s $@ $<
 
 $(ZDOTDIR)/.%: %.zsh
 	$(INSTALL_DATA) $< $@

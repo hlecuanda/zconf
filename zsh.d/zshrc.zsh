@@ -108,8 +108,15 @@ zstyle :compinstall filename "${HOME}/.zconf/.zshrc"
       source "${sourcefile}"
 
   # source gcloud from prefix
-    for sourcefile in ~/google-cloud-sdk/**.zsh.inc
-      source "${sourcefile}"
+  sdkdirs=( ~ /usr/local ~/../usr )
+  for d in $sdkdirs
+    [[ -d $d/google-cloud-sdk ]] \
+      && sdkdir=$d/google-cloud-sdk \
+      || continue
+  [[ -d $sdkdir ]] \
+    && for sourcefile in $sdkdir/*.zsh.inc
+         source "${sourcefile}"
+  unset sdkdir sourcefile
 
 typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
 
@@ -409,8 +416,6 @@ typeset -x GREP_COLOR='38;5;1' # Personal override since 2010!
     bindkey -M vicmd -s ',gh' "igit@github.com:hlecuanda/"
     bindkey -M vicmd -s 'gcc' 'igcloud compute'
     bindkey -M vicmd -s 'gcf' 'igcloud compute firewall-rules'
-    for key in \( \[ \{ \" \'
-      bindkey -M viins $key auto-close-pairs
   # }}}
 # }}}
 

@@ -23,7 +23,6 @@
 } &!
 # }}}
 
-#
 # Execute code only if STDERR is bound to a TTY. {{{
 [[ -o INTERACTIVE && -t 2 ]] && {
   # fix ordering
@@ -31,7 +30,6 @@
   export LC_COLLATE=C
   # Print a random, hopefully interesting, adage. {{{
   # (( $+commands[fortune] )) && unfunction fortune ; fortune -a
-  (( $+commands[grc]     )) && unalias grc
   (( $+commands[thefuck] )) && eval $(thefuck --alias)
   (( $+commands[tig]     )) && typeset -x TIGRC_USER=~/.zconf/git.d/tigrc
 
