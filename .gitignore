@@ -4,6 +4,7 @@
 *.zwc
 *.zwc.*
 *~
+.debug
 .p10k
 .p10k.zsh
 .revolver
