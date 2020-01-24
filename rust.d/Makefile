@@ -12,11 +12,8 @@
 # rust that i now find indespensible, and so, henceforth this makefile shall
 # make'em and installe'em
 
-### Variables & directives                                           # ###1
-# ###
 # Variables & directives                                           # ###:
 # . ..............................................................
-DOCKER_REPO  = hlecuanda  # These two hardcoded values define
 SOURCES      = exa fd fselect rg alacritty
 # . ..............................................................
 SHELL        = zsh
@@ -40,7 +37,7 @@ all:: clean
 install: $(EXECUTABLES)
 
 clean::
-	rm -rfv $(CARGO_BIN) $(TODEVNULL)
+	rm -rfv $(CARGO_BIN)
 
 # #..
 
@@ -63,8 +60,6 @@ $(EXECUTABLES): .rustup
 	  esac \
 	cargo install $$instf
 
-# %:
-#     @echo in %, <: $< @: $@
 
 # #..
 #..
