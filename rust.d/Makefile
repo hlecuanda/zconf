@@ -17,10 +17,9 @@
 # Variables & directives                                           # ###:
 # . ..............................................................
 DOCKER_REPO  = hlecuanda  # These two hardcoded values define
-SOURCES      = exa fd fselect
+SOURCES      = exa fd fselect rg alacritty
 # . ..............................................................
 SHELL        = zsh
-TODEVNULL    = >&| /dev/null
 CARGO_BIN   = $(HOME)/.cargo/bin
 EXECUTABLES := $(addprefix $(CARGO_BIN)/,$(SOURCES))
 # #..
@@ -55,7 +54,14 @@ clean::
 	touch $@
 
 $(EXECUTABLES): .rustup
-	cargo install $(@F)
+	@echo $@: $(@F)
+	typeset binf="$(@F)" \
+	  case $$binf in \
+	    rg) typeset instf="ripgrep" ;; \
+	    fd) typeset instf="fd-find" ;; \
+	     *) typeset instf="$$binf"  ;; \
+	  esac \
+	cargo install $$instf
 
 # %:
 #     @echo in %, <: $< @: $@
