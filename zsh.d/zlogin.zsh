@@ -32,6 +32,7 @@
   # (( $+commands[fortune] )) && unfunction fortune ; fortune -a
   (( $+commands[thefuck] )) && eval $(thefuck --alias)
   (( $+commands[tig]     )) && typeset -x TIGRC_USER=~/.zconf/git.d/tigrc
+  (( $+functions[fzf-cd-widget] )) && bindkey -M viins "\C-X\C-D" fzf-cd-widget
 
   # }}}
   # {{{ debugging control
@@ -42,4 +43,5 @@
   # }}}
 } >&2
 # }}}
+#  d(-_-;)bm  hlo.mx 1579832200
 #  vim: set ft=zsh sw=2 tw=0 fdm=marker et :
