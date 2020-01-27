@@ -4,28 +4,28 @@ emulate -L zsh
 
   local buffer="$1"
   local -h  FZF_DEFAULT_OPTS=
-  local HDR='Evt__  Date______ Time_  Cmd___   FZF History Browser \
-    widget by H-Lo d(-_- ;)b'
-  local PVCMD='echo {4} || bat ---language=zsh --color=always'
-  local BINDINGS='f4:execute_silent#echo {4} | clip -i -selection \
-    primary#,f3:execute-silent#echo {4} | xclip`-i -selection \
-    clipboard`#,f5:jump,f6:toggle-preview,f8:toggle-all;'
+  local HDR='Evt__  Date______ Time_  Dlt_  Cmd___   FZF History '
+        HDR+='widget by H-Lo d(-_- ;)b'
+  local PVCMD='echo {5..} | bat --language=zsh --color=always'
+  local BINDINGS=f4:execute-silent(echo {5} | clip -i -selection \
+    primary),f3:execute-silent(echo {5} | xclip -i -selection \
+    clipboard),f5:jump,f6:toggle-preview,f8:toggle-all;
+  local THEME="dark,bg:$srgb[base03],fg:$srgb[base00],preview-bg:$srgb[base03],bg+:$srgb[base03],info:$srgb[blue],prompt:$srgb[violet],spinner:$srgb[yellow],header:$srgb[green],hl:$srgb[orange]"
   exec </dev/tty
 
-  local selected = $(
-  fc -lidr 1 \
-  | $(which fzf \
-      --nth=2,4]             --header=$HDR                     \
-      --ansi                   --inline-info                   \
-      --layout=reverse-list    --border                        \
-      --bindings="$BINDINGS"   --layout-reverse                \
-      --margin=0               --no-sort                       \
-      --no-bold                --black                         \
-      --tac                    --preview-window=right:35%:wrap \
-      --preview=$PVCMD         --jump-labels=123456789ABCDEF   \
-      --expect=f9,f10,f11,f12  --exact                         \
-      --extended
-      )
+  local selected=$(
+  fc -liD 1                                                      \
+    | $(which fzf)                                               \
+      --nth=2,5                  --header=$HDR                   \
+      --ansi                     --inline-info                   \
+      --layout=reverse-list      --border                        \
+      --bind=${BINDINGS}         --layout=reverse                \
+      --margin=0                 --no-sort                       \
+      --no-bold                  --black                         \
+      --tac                      --preview-window=up:35%:wrap    \
+      --preview=$PVCMD           --jump-labels=123456789ABCDEF   \
+      --expect=f9,f10,f11,f12    --exact                         \
+      --extended                 --color=$THEME
   )
 
   case $0 in
