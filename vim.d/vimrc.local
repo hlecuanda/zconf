@@ -117,7 +117,7 @@
     noremap     <F4> :set wrap!<CR>
     noremap   <S-F4> :set list!<CR>
 
-    noremap     <F5> :silent call ToggleBG<CR>
+    noremap     <F5> :silent call ToggleBG()<CR>
     noremap     <F6> :IndentGuidesToggle<CR>
     noremap     <F7> :CycleLineNumbers<CR>
 
@@ -506,6 +506,17 @@
       endif
     " }
 
+    " HloCreateFold:
+    " " { Reload local configs to vim
+    "    function! HloCreateFold()
+    "      let startline = getline("'<")
+    "      let maxwidth = &textwidth
+    "      let tailtext =
+    "      let endline = getline("'>")
+    "    endfunction
+    "    command! -nargs=0 -complete=command HloCreateFold silent call HloCreateFold()
+    " " }
+
     " AppendEditLogLine:
     " { append a timestamp comment
         function! AppendEditLogLine() abort
@@ -517,8 +528,8 @@
         command! -nargs=0 -complete=command AppendEditLogLine silent call AppendEditLogLine()
     " }
 
-    " SetModeline:
-    " { Set  modeline after last line in buffer.
+    " AppendModeline:
+    " { Append modeline after last line in buffer.
         function! SetModeline()
 
             if match(&ft,'\.') != -1
