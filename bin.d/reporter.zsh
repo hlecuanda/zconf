@@ -1,4 +1,4 @@
-#!/usr/local/bin/zsh
+#!/usr/bin/env zsh
 #
 # NAME:
 #	reporter
@@ -75,7 +75,7 @@ case ${reporter_OSVersion} in
 esac
 
 #
-# Default Values 
+# Default Values
 #
 
 CPP=${CPP:-/lib/cpp}
@@ -262,13 +262,13 @@ fi
 
 if [[ "$reporter_do_all" = "yes" || "$reporter_do_fun" = "yes" ]]
 then
-	echo 
+	echo
 	echo "# Undefined functions."
 	echo
 
 	autoload + | ${AWK} '{print "autoload " $1}'
 
-	echo 
+	echo
 	echo "# Defined functions."
 	echo
 

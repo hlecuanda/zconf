@@ -29,7 +29,7 @@ check-shebangs \
           echo "#!/usr/bin/env $xt" > $f
           len=$(wc -l $f | cut -f1 -d' ')
           tail -$(( len -1 )) >> $f
-          diff $f $f-
+          diff -c --color  $f- $f
           echo "ok to proceed? "
           read -q proceed
           { case proceed in

@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 
 
 typeset i3config=${HOME}/.config/i3/config
@@ -13,7 +14,7 @@ genhelp() {
     awk '{ printf("%s |",$0)  }'
 }
 
-    
+
 cat ~/.config/i3/config |
 tr \" % |
 awk '/\%.*\{/ {FS="%"; print $2 }' |
